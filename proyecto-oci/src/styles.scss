@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+#footer {
+  background-color: #6976bd;
+  color: crimson;
+}
+body {
+  background-color: #e8ffff !important;
+}
+.main-panel {
+  position: relative;
+  float: right;
+  //width: $sidebar-width;
+  color: black;
+  // width: 100%;
+  //background-color: $light-gray;
+  background-color: #e8ffff !important;
+
+  //@include transition (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+
+  .main-content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - 123px);
+    margin-top: -30px;
+  }
+}
+#logopolicia {
+  height: 95% !important;
+  width: 80% !important;
+}
+#h1sidebar {
+  font-size: 5rem;
+  color: #0a043c;
+  text-align: center !important;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0.1em 0.1em 0.2em #333;
+}

@@ -1,0 +1,81 @@
+<nav
+  class="navbar navbar-expand-sm navbar-dark"
+  style="background-color: #151515"
+>
+  <!--  -->
+  <a
+    class="btn btn-outline-dark navbar-brand"
+    [routerLink]="['/principal']"
+    id="log"
+    >Taller Web</a
+  >
+  <button
+    class="navbar-toggler d-lg-none"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavId"
+    aria-controls="collapsibleNavId"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  ></button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item dropdown">
+        <button
+          [routerLink]="['/lst-equipos']"
+          id="botonlistar"
+          class="btn btn-primary"
+        >
+          <i class="fas fa-sitemap"></i>
+          Listar Equipos
+        </button>
+      </li>
+      &nbsp;
+      <li class="nav-item dropdown">
+        <button [routerLink]="['/areas']" id="botonlistar" class="btn btn-info">
+          <i class="fa fa-folder-open" aria-hidden="true"></i>
+          Ver Areas
+        </button>
+      </li>
+      &nbsp;
+    </ul>
+    <div class="btn-group">
+      <button type="button" class="btn btn-warning">
+        <i class="fa fa-print" aria-hidden="true"></i>
+        Ordenes de Servicios
+      </button>
+      <button
+        type="button"
+        class="btn btn-info dropdown-toggle dropdown-toggle-split"
+        data-toggle="dropdown"
+        aria-expanded="false"
+        data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId"
+        aria-label="Toggle navigation"
+      ></button>
+      <div id="collapsibleNavId" class="dropdown-menu">
+        <a class="dropdown-item" href="#" [routerLink]="['/reporte/abm']"
+          ><b>Móviles</b>
+        </a>
+        <a
+          class="dropdown-item"
+          href="#"
+          [routerLink]="['/servicio-externo/abm']"
+          ><b>Externo</b>
+        </a>
+      </div>
+    </div>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <form class="form-inline my-2 my-lg-0">
+      <label id="label" for="Name">{{ usuario }}</label> &nbsp; &nbsp;
+      <button
+        (click)="cerrar()"
+        class="btn btn-outline-success my-2 my-sm-0"
+        type="submit"
+      >
+        Cerrar Sesión
+      </button>
+    </form>
+  </div>
+</nav>
+<br />

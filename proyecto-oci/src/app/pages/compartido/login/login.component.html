@@ -1,0 +1,117 @@
+<ng-container *ngIf="getRR(); then thenBlock; else elseBlock"></ng-container>
+<ng-template #thenBlock>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <div class="row">
+          <div class="col-11">
+            <strong>Aguarde un momento !!!</strong> Estamos realizando un
+            proceso contra nuestros servidores
+          </div>
+          <div class="col-1">
+            <i class="fas fa-spinner fa-5x fa-spin"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div class="container login-container">
+    <div class="row">
+      <div class="col-md-6 ads">
+        <h1><span id="fl">Policía </span><span id="sl">Chaco</span></h1>
+        <p>DIVISION DESARROLLO DE SISTEMAS</p>
+        <img
+          src="assets/img/logopol.png"
+          alt="profile_img"
+          height="140px"
+          width="140px;"
+        />
+        <br />
+      </div>
+      <div class="col-md-6 login-form">
+        <div class="profile-img">
+          <img
+            src="assets/img/logocom.png"
+            alt="profile_img"
+            height="140px"
+            width="140px;"
+          />
+        </div>
+        <h3 id="sesion">Inicie Sesión</h3>
+        <form #f="ngForm" class="was-validated">
+          <div class="form-group">
+            <input
+              required
+              (keydown.enter)="login()"
+              [disabled]="isUser"
+              #usercuit
+              type="number"
+              min="6000000"
+              max="99999999"
+              maxlength="8"
+              class="form-control disabled"
+              [(ngModel)]="cuit"
+              id="username"
+              name="username"
+              placeholder="Ingrese Nro. DNI"
+            />
+            <div class="invalid-feedback">
+              Ingrese un número de DNI válido de 8 carácteres como mínimo
+            </div>
+          </div>
+          <div class="form-group" *ngIf="isUser">
+            <input
+              (keydown.enter)="login2()"
+              #password
+              [@simpleFadeAnimation]="anim"
+              required
+              minlength="4"
+              maxlength="4"
+              type="password"
+              class="form-control"
+              [(ngModel)]="pass"
+              id="password"
+              name="password"
+              placeholder="Ingrese clave de Policía Digital"
+            />
+            <div class="invalid-feedback">
+              Ingrese su clave de acceso al Sistéma
+            </div>
+          </div>
+          <div class="form-group">
+            <button
+              [disabled]="f.invalid"
+              type="submit"
+              *ngIf="!isUser"
+              type="button"
+              (click)="login()"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              Continuar
+            </button>
+            <button
+              *ngIf="isUser"
+              type="button"
+              (click)="login2()"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              Ingresar
+            </button>
+          </div>
+          <!-- <a #closed target="_blank" href="{{download}}">&nbsp;</a> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

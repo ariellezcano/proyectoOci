@@ -1,0 +1,71 @@
+.login-container {
+    margin-top: 10%;
+    border: 1px solid #CCD1D1;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 60%;
+  }
+  
+  .ads {
+    background-color:#2A9FD6;
+    //background-color: rgb(105, 118, 189);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+
+
+  }
+  
+  .ads h1 {
+    margin-top: 0%;
+  }
+  
+  #fl {
+    font-weight: 600;
+    color: black !important;
+  }
+  
+  .profile-img {
+    text-align: center;
+  }
+  
+  .profile-img img {
+    border-radius: 50%;
+    fill: red;
+    animation: mymove 2s; 
+  }
+  
+  @keyframes mymove {
+    from {border: 1px solid #F2F3F4;
+    transform: rotate(0deg);}
+    to {border: 8px solid #F2F3F4;transform: rotate(360deg);}
+  }
+  
+  .login-form {
+    padding: 15px;
+  }
+  
+  .login-form h3 {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .form-control {
+    font-size: 14px;
+  }
+  
+  .forget-password a {
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  #sesion{
+    color: black;
+  }
+  h1{
+    font-size: 4rem !important;
+  }
+  
