@@ -1,0 +1,1 @@
+export { Usuar } from './componentes/';
