@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrincipalComponent } from './componentes/principal/principal.component';
+import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
 import { PagesComponent } from './pages.component';
 
 const routes: Routes = [
@@ -7,21 +9,21 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      //   { path: 'principal', component: PrincipalComponent },
+      { path: 'principal', component: PrincipalComponent },
       //   { path: 'areas', component: TableroAreaComponent },
-      //   {
-      //     path: 'lst-equipos',
-      //     children: [
-      //       {
-      //         path: 'abm/:id',
-      //         component: AbmIngresoEquipoComponent,
-      //       },
-      //       {
-      //         path: '',
-      //         component: LstEquiposComponent,
-      //       },
-      //     ],
-      //   },
+      {
+        path: 'lst-archivos',
+        children: [
+          // {
+          //   path: 'abm/:id',
+          //   component: AbmIngresoEquipoComponent,
+          // },
+          {
+            path: '',
+            component: LstArchivoComponent,
+          },
+        ],
+      },
     ],
   },
 ];

@@ -4,6 +4,7 @@
   color: crimson;
 }
 body {
+  position: relative;
   background-color: #e8ffff !important;
 }
 .main-panel {
@@ -24,8 +25,8 @@ body {
   }
 }
 #logopolicia {
-  height: 95% !important;
-  width: 80% !important;
+  height: 70% !important;
+  width: 42% !important;
 }
 #h1sidebar {
   font-size: 5rem;
@@ -33,4 +34,7 @@ body {
   text-align: center !important;
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 0.1em 0.1em 0.2em #333;
+}
+
+#page-top {
 }

@@ -1,0 +1,11 @@
+export { Persona } from './componentes/persona';
+export { Jerarquia } from './componentes/jerarquia';
+export { Unidad } from './componentes/unidad';
+export { DatoPolicial } from './componentes/datoPolicial';
+export { Escalafon } from './componentes/escalafon';
+export { Roles } from './componentes/roles';
+export { Usuario } from './componentes/usuario';
+export { Archivo } from './componentes/archivo';
+export { TipoArchivo } from './componentes/tipoArchivo';
+export { Tematica } from './componentes/tematica';
+export { Regional } from './componentes/regional';

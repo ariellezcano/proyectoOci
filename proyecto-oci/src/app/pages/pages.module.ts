@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { WgCargandoComponent } from './widgets/wg-cargando/wg-cargando.component';
 import { WgPaginateComponent } from './widgets/wg-paginate/wg-paginate.component';
 import { SidebarComponent } from './compartido/sidebar/sidebar.component';
+import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SidebarComponent } from './compartido/sidebar/sidebar.component';
     NavComponent,
     FooterComponent,
     SidebarComponent,
+    LstArchivoComponent,
   ],
 
   exports: [],

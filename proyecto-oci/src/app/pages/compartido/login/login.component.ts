@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-import { UserxsService, UsuarioService } from 'src/app/servicio/index.service';
+import { UserxsService, UsuarioService } from 'src/app/servicios/index.service';
 
 @Component({
   selector: 'app-login',
