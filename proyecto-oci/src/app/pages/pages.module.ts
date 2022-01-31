@@ -10,7 +10,9 @@ import { WgCargandoComponent } from './widgets/wg-cargando/wg-cargando.component
 import { WgPaginateComponent } from './widgets/wg-paginate/wg-paginate.component';
 import { SidebarComponent } from './compartido/sidebar/sidebar.component';
 import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
-
+import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
+import { FilUnidadAutocompletadoComponent } from './component/filtro/fil-unidad-autocompletado/fil-unidad-autocompletado.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -20,12 +22,15 @@ import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
     FooterComponent,
     SidebarComponent,
     LstArchivoComponent,
+    AbmArchivoComponent,
+    FilUnidadAutocompletadoComponent
+
   ],
 
   exports: [],
-  imports: [BrowserModule, FormsModule, HttpClientModule, PagesRoutingModule],
+  imports: [BrowserModule, AutocompleteLibModule, FormsModule, HttpClientModule, PagesRoutingModule],
   providers: [],
   bootstrap: [PagesComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PagesModule {}
+export class PagesModule { }

@@ -1,0 +1,130 @@
+<div class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form #f="ngForm" (ngSubmit)="doAction(f)" ngNativeValidate class="was-validated">
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Nro° Nota</label>
+                            <input type="text" class="form-control" id="nota" name="nota" placeholder="ingrese N° nota"
+                                [(ngModel)]="item.nroNota" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Fecha </label>
+                            <input type="date" class="form-control" id="fecha" name="fecha" placeholder="ingrese fecha "
+                                [(ngModel)]="item.fecha" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Tematica </label>
+                            <select class="custom-select" id="inputGroupSelect01" required>
+                                <!-- <option selected>Seleccione</option> -->
+                                <option value="1">Informacion Sumaria</option>
+                                <option value="2">Sumario Administrativo</option>
+                                <option value="3">Sumarisima</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Entrada</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" name="entrada" id="entrada"
+                                    [(ngModel)]="item.entrada">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    indique si es interno o externo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Palabra Clave </label>
+                            <input type="text" class="form-control" id="clave" name="clave" placeholder="ingrese fecha "
+                                [(ngModel)]="item.palabraClave" required>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Observación</label>
+                            <textarea class="form-control" id="estado" name="estado" rows="3"
+                                [(ngModel)]="item.observaciones" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="card border-info mb-3">
+                            <div class="card-header">unidad</div>
+                            <div class="card-body text-danger">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <app-fil-unidad-autocompletado (unidadSeleccionada)="unidad($event)">
+                                        </app-fil-unidad-autocompletado>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div *ngIf="item.unidadOrigen.id>0" class="alert alert-warning" role="alert">
+                                            {{item.unidadOrigen.nombre}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Suba el Tipo de Archivo</h4>
+
+
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-3">
+                                        <span>pdf</span>
+                                        <input type="file" name="pdf" id="archivoInput" (change)="onChange($event)"
+                                            accept="*" class="btn btn-link">
+                                    </div>
+
+                                </div>
+                                <div [innerHTML]="ver(this.item)"></div>
+
+
+                            </div>
+
+                            <hr>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <input type="submit" name="btn" value="Aceptar"
+                        class="btn btn-primary btn-lg btn-block float-left ">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

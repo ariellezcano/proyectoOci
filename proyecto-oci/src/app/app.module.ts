@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/compartido/login/login.component';
 import { PagesComponent } from './pages/pages.component';
 import { PagesModule } from './pages/pages.module';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
@@ -19,8 +19,9 @@ import { PagesModule } from './pages/pages.module';
     PagesModule,
     HttpClientModule,
     CommonModule,
+    AutocompleteLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

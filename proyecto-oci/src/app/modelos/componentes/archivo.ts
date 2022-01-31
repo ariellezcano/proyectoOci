@@ -7,9 +7,9 @@ export class Archivo {
   fecha!: any;
   tipoArchivo: TipoArchivo;
   tematica: Tematica;
-  unidadOrigen: Unidad;
-  archivo!: string;
-  entrada!: boolean;
+  unidadOrigen: Unidad; /** */
+  // archivo: any;
+  entrada!: boolean;/** si el verdadero es externa  y si es falso pasar unidad oci a unidad*/
   palabraClave!: string;
   nroNota!: string;
   observaciones!: string;

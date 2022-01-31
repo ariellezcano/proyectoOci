@@ -1,5 +1,7 @@
 export class TipoArchivo {
   id!: Number;
   nombre!: String;
-  constructor() {}
+  archivo: any;
+  extension!: String;
+  constructor() { }
 }

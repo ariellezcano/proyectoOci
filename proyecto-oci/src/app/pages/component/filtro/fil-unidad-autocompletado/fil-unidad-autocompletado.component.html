@@ -1,0 +1,32 @@
+<div class="row">
+
+    <!-- <app-wg-cargando *ngIf="cargando"></app-wg-cargando> -->
+
+
+    <div class="ng-autocomplete">
+
+        <ng-autocomplete [data]="items" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+            (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate" placeholder="ingrese nombre de la unidad">
+
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-unidad>
+            <a [innerHTML]="unidad.nombre"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </div>
+
+    <div *ngIf="cargando">
+        <div class="spinner-grow text-info" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+        <label style="color: orange;" for="">Cargando Unidades Aguarde...</label>
+        <i class="fas fa-cloud"></i>
+    </div>
+
+
+</div>
