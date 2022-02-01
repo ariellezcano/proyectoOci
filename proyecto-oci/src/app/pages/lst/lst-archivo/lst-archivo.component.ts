@@ -5,14 +5,15 @@ import { ArchivoService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FilArchivoComponent } from '../../filtros/fil-archivo/fil-archivo.component';
 @Component({
   selector: 'app-lst-archivo',
   templateUrl: './lst-archivo.component.html',
   styleUrls: ['./lst-archivo.component.scss'],
 })
 export class LstArchivoComponent implements OnInit {
-  // @ViewChild(FilEquipoComponent, { static: true })
-  //fil!: FilEquipoComponent;
+  @ViewChild(FilArchivoComponent, { static: true })
+  fil!: FilArchivoComponent;
   @ViewChild('close')
   cerrar!: ElementRef;
 
@@ -24,20 +25,22 @@ export class LstArchivoComponent implements OnInit {
   public load!: boolean;
 
   entidad = 'lst-archivos';
-  constructor(private wsdl: ArchivoService, private router: Router, private sanitizer: DomSanitizer) {
+  constructor(
+    private wsdl: ArchivoService,
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {
     this.load = false;
     this.item = new Archivo();
     this.items = [];
   }
 
   ngOnInit(): void {
-
     // this.items.push(JSON.parse(localStorage.getItem('b64')!));
     // console.log(this.items)
     // if (this.items == undefined) {
     //   this.items = [];
     // }
-
   }
 
   preDelete(item: Archivo) {
@@ -99,7 +102,6 @@ export class LstArchivoComponent implements OnInit {
   }
 
   linkear(id?: Number) {
-
     this.router.navigateByUrl(this.entidad + '/abm/' + id);
   }
 
@@ -146,21 +148,25 @@ export class LstArchivoComponent implements OnInit {
   //     return console.log('no hay mas de 10');
   //   }
   // }
+
   doFound(event: Archivo[]) {
     this.items = event;
   }
-
 
   verArchivo(item: Archivo) {
     this.item = item;
   }
 
   ver() {
-    let html = '<embed width="100%" height="400px" src="' + this.item.tipoArchivo.archivo + '" type="' + this.item.tipoArchivo.extension + '" />';
+    let html =
+      '<embed width="100%" height="400px" src="' +
+      this.item.tipoArchivo.archivo +
+      '" type="' +
+      this.item.tipoArchivo.extension +
+      '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
     //  console.log(s)
 
     return s;
   }
-
 }

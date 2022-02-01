@@ -3,18 +3,24 @@ import { NgForm } from '@angular/forms';
 import { Observable, Subscriber } from 'rxjs';
 import { Archivo, Unidad } from 'src/app/modelos/index.models';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-abm-archivo',
   templateUrl: './abm-archivo.component.html',
-  styleUrls: ['./abm-archivo.component.scss']
+  styleUrls: ['./abm-archivo.component.scss'],
 })
 export class AbmArchivoComponent implements OnInit {
-
   archivo!: Observable<any>;
 
   item: Archivo;
 
-  constructor(private sanitizer: DomSanitizer) {
+  entity = 'lst-archivos';
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.item = new Archivo();
   }
 
@@ -25,12 +31,8 @@ export class AbmArchivoComponent implements OnInit {
     //     this.ver(this.item);
     //   }
     // } catch (error) {
-
     // }
-
   }
-
-
 
   doAction(f: NgForm) {
     /* validar */
@@ -38,25 +40,17 @@ export class AbmArchivoComponent implements OnInit {
     if (f.valid) {
       if (this.item.id > 0) {
         //editar
-
         //  this.doEdit();
-
       } else {
-
         //this.doCreate();
 
-        localStorage.setItem('b64', JSON.stringify(this.item))
-
-
+        localStorage.setItem('b64', JSON.stringify(this.item));
       }
     } else {
       alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
   }
-
-
-
 
   onChange($event: Event) {
     /*Obtengo el archivo file*/
@@ -72,9 +66,7 @@ export class AbmArchivoComponent implements OnInit {
 
     this.item.tipoArchivo.extension = file.type;
 
-
     this.convertToBase64(file);
-
   }
 
   convertToBase64(file: File) {
@@ -85,11 +77,7 @@ export class AbmArchivoComponent implements OnInit {
 
     this.archivo.subscribe((d) => {
       this.item.tipoArchivo.archivo = d;
-
-
-    })
-
-
+    });
   }
 
   readFile(file: File, subscriber: Subscriber<any>) {
@@ -98,7 +86,6 @@ export class AbmArchivoComponent implements OnInit {
     filereader.onload = () => {
       subscriber.next(filereader.result);
       subscriber.complete();
-
     };
     filereader.onerror = (error) => {
       subscriber.error(error);
@@ -106,21 +93,23 @@ export class AbmArchivoComponent implements OnInit {
     };
   }
 
-
   unidad(event: Unidad) {
     this.item.unidadOrigen = event;
   }
 
-
-
   ver(item: Archivo) {
-    let html = '<embed width="100%" height="300px" src="' + item.tipoArchivo.archivo + '" type="' + item.tipoArchivo.extension + '" />';
+    let html =
+      '<embed width="100%" height="300px" src="' +
+      item.tipoArchivo.archivo +
+      '" type="' +
+      item.tipoArchivo.extension +
+      '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
     // console.log(s)
     return s;
-
   }
 
-
-
+  back() {
+    this.router.navigateByUrl(this.entity.toLowerCase());
+  }
 }

@@ -13,6 +13,7 @@ import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
 import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
 import { FilUnidadAutocompletadoComponent } from './component/filtro/fil-unidad-autocompletado/fil-unidad-autocompletado.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { FilArchivoComponent } from './filtros/fil-archivo/fil-archivo.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -23,14 +24,20 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     SidebarComponent,
     LstArchivoComponent,
     AbmArchivoComponent,
-    FilUnidadAutocompletadoComponent
-
+    FilUnidadAutocompletadoComponent,
+    FilArchivoComponent,
   ],
 
   exports: [],
-  imports: [BrowserModule, AutocompleteLibModule, FormsModule, HttpClientModule, PagesRoutingModule],
+  imports: [
+    BrowserModule,
+    AutocompleteLibModule,
+    FormsModule,
+    HttpClientModule,
+    PagesRoutingModule,
+  ],
   providers: [],
   bootstrap: [PagesComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PagesModule { }
+export class PagesModule {}

@@ -1,114 +1,154 @@
 <div class="overlay" *ngIf="load">
   <app-wg-cargando></app-wg-cargando>
 </div>
-<div>
-  <div *ngIf="!load">
-    <div class="container-xxl">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <b id="titulo2"><em><u> Sistema gestór de archivos digitales</u></em></b>
-        </div>
+
+<div *ngIf="!load">
+  <div class="container-xxl">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <b id="titulo2"
+          ><em><u> Sistema Gestor de Archivos Digitales</u></em></b
+        >
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <b id="titulo"><em><u>Listado de archivos</u></em>
-          </b>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <b id="titulo"
+          ><em><u>Listado de archivos</u></em>
+        </b>
       </div>
-      <br />
-      <div class="row">
-        <!-- <div class="col-md-12">
-            <app-fil-equipo-reparacion
-              (filter)="doFound($event)"
-            ></app-fil-equipo-reparacion>
-          </div> -->
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <app-fil-archivo (filter)="doFound($event)"></app-fil-archivo> -->
       </div>
-      <div>
-        <table class="table">
-          <thead class="bg-info">
-            <tr>
-              <th>Nro. nota</th>
-              <th>Fecha</th>
-              <!-- <th>Tipo de archivo</th> -->
-              <th>Tematica</th>
-              <th>Unidad de Origen</th>
-              <th>Interno|Externo</th>
-              <th>Palabra clave</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items">
-              <td>{{ item.nroNota }}</td>
-              <td>{{ item.fecha }}</td>
-              <!-- <td>
+    </div>
+    <div>
+      <table class="table">
+        <thead class="bg-info">
+          <tr>
+            <th>Nro. nota</th>
+            <th>Fecha</th>
+            <!-- <th>Tipo de archivo</th> -->
+            <th>Tematica</th>
+            <th>Unidad de Origen</th>
+            <th>Interno|Externo</th>
+            <th>Palabra clave</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.nroNota }}</td>
+            <td>{{ item.fecha }}</td>
+            <!-- <td>
                 {{ item.tipoArchivo.nombre }}
               </td> -->
-              <td>{{ item.tematica.nombre }}</td>
+            <td>{{ item.tematica.nombre }}</td>
 
-              <td>{{ item?.unidadOrigen?.nombre }}</td>
+            <td>{{ item?.unidadOrigen?.nombre }}</td>
 
-              <td> {{item.entrada? 'INTERNO':'EXTERNO'}} </td>
-              <td>{{ item?.palabraClave }}</td>
-              <td>
-                <button type="button" title="Ver archivo" placement="top" show-delay="10"
-                  class="btn btn-warning btn-sm">
-                  <i class="fas fa-edit"></i>
-                </button>
-                &nbsp;
-                <button type="button" title="Eliminar archivo" placement="top" show-delay="10"
-                  class="btn btn-warning btn-sm">
-                  <i class="fas fa-trash"></i>
-                </button>
-                &nbsp;
-                <button type="button" title="ver archivo" placement="top" show-delay="10" class="btn btn-info btn-sm"
-                  data-toggle="modal" data-target="#exampleModal" (click)="verArchivo(item)">
-                  <i class="fas fa-eye"></i>
-                </button>
-
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="items.length === 0" class="alert alert-primary alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Salir</span>
-        </button>
-        <strong>No hay datos</strong>
-      </div>
+            <td>{{ item.entrada ? "INTERNO" : "EXTERNO" }}</td>
+            <td>{{ item?.palabraClave }}</td>
+            <td>
+              <button
+                type="button"
+                title="Ver archivo"
+                placement="top"
+                show-delay="10"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                title="Eliminar archivo"
+                placement="top"
+                show-delay="10"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                title="ver archivo"
+                placement="top"
+                show-delay="10"
+                class="btn btn-info btn-sm"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                (click)="verArchivo(item)"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <hr />
-    <div class="row">
-      <div class="col-md-6" id="derecha">
-        <button (click)="linkear(0)" class="btn btn-primary">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          Ingresar archivo
-        </button>
-      </div>
-
-      <!-- data-toggle="modal" data-target="#modelId" -->
+    <div
+      *ngIf="items.length === 0"
+      class="alert alert-primary alert-dismissible fade show"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Salir</span>
+      </button>
+      <strong>No hay datos</strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-6" id="derecha">
+      <button (click)="linkear(0)" class="btn btn-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Ingresar archivo
+      </button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div [innerHTML]="ver()"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- data-toggle="modal" data-target="#modelId" -->
+  </div>
 
-          </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div [innerHTML]="ver()"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
