@@ -5,7 +5,7 @@ export { DatoPolicial } from './componentes/datoPolicial';
 export { Escalafon } from './componentes/escalafon';
 export { Roles } from './componentes/roles';
 export { Usuario } from './componentes/usuario';
+export { Expediente } from './componentes/expediente';
 export { Archivo } from './componentes/archivo';
-export { TipoArchivo } from './componentes/tipoArchivo';
 export { Tematica } from './componentes/tematica';
 export { Regional } from './componentes/regional';

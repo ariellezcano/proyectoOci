@@ -10,7 +10,7 @@ export class ArchivoService {
   api;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URL + 'unidad/';
+    this.api = environment.URL + 'archivo/';
     //this.api = "http://10.125.31.241:3000/unidad/";
   }
   /* particularidad de la entidad */

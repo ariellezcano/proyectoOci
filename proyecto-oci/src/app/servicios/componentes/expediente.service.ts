@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TematicaService {
+export class ExpedienteService {
   other_header: any;
   api;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URL + 'tematica/';
-    //this.api = "http://10.125.31.241:3000/unidad/";
+    this.api = environment.URL + 'expediente/';
   }
   /* particularidad de la entidad */
 
@@ -23,14 +23,14 @@ export class TematicaService {
       .catch((err) => {});
   }
 
-  doUpdate(evento: any, id: string | number) {
+  doUpdate(evento: any, id: any) {
     return this.http
       .put(this.api + id, evento, { headers: this.other_header })
       .toPromise()
       .catch((err) => {});
   }
 
-  doDelete(id: string | number) {
+  doDelete(id: any) {
     this.other_header = null;
     return this.http
       .delete(this.api + id, { headers: this.other_header })
@@ -48,11 +48,11 @@ export class TematicaService {
 
   doCriteria(
     criteria: any,
-    one: boolean,
-    populate: null,
-    sort: string,
-    page: string | number,
-    limit: string | number
+    one: any,
+    populate: any,
+    sort: any,
+    page: any,
+    limit: any
   ) {
     this.other_header = null;
 
@@ -69,5 +69,16 @@ export class TematicaService {
       })
       .toPromise()
       .catch((err) => {});
+  }
+
+  doFind(id: any) {
+    this.other_header = UturuncoUtils.getHeader();
+
+    return this.http
+      .get(this.api + '/' + id, { headers: this.other_header })
+      .toPromise()
+      .catch((err) => {
+        return { code: 500, msg: err.message };
+      });
   }
 }
