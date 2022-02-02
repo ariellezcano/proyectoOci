@@ -1,0 +1,91 @@
+<div class="overlay" *ngIf="load">
+  <app-wg-cargando></app-wg-cargando>
+</div>
+
+<div *ngIf="!load">
+  <div class="container-xxl">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <b id="titulo2"
+          ><em><u> Sistema Gestor de Archivos Digitales</u></em></b
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <b id="titulo"
+          ><em><u>Listado de temática</u></em>
+        </b>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <app-fil-tematica (filter)="doFound($event)"></app-fil-tematica>
+      </div>
+    </div>
+    <div>
+      <table class="table">
+        <thead class="bg-info text-center">
+          <tr>
+            <th>Temática</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.nombre }}</td>
+            <td>
+              <button
+                type="button"
+                title="Actualizar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fas fa-edit"></i>
+                Modificar
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                title="Eliminar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fas fa-trash"></i>
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      *ngIf="items.length === 0"
+      class="alert alert-primary alert-dismissible fade show"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Salir</span>
+      </button>
+      <strong>No hay datos</strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-6" id="derecha">
+      <button (click)="linkear(0)" class="btn btn-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Ingresar nuevo
+      </button>
+    </div>
+  </div>
+</div>

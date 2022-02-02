@@ -1,7 +1,7 @@
 import { Expediente } from './expediente';
 
 export class Archivo {
-  id!: Number;
+  id!: number;
   expediente!: Expediente;
   archivo: any;
   extension!: String;

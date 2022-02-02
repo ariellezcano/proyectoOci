@@ -1,5 +1,5 @@
 export class Tematica {
-  id!: Number;
+  id!: number;
   nombre!: String;
   constructor() {}
 }

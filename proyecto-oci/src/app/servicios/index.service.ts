@@ -5,4 +5,3 @@ export { PersonaService } from './componentes/persona.service';
 export { DatoPolicialService } from './componentes/dato-policial.service';
 export { ArchivoService } from './componentes/archivo.service';
 export { TematicaService } from './componentes/tematica.service';
-export { TipoArchivoService } from './componentes/tipo-archivo.service';

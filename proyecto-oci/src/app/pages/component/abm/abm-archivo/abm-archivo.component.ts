@@ -1,25 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable, Subscriber } from 'rxjs';
-import { Archivo, Unidad } from 'src/app/modelos/index.models';
+import {
+  Archivo,
+  Expediente,
+  Persona,
+  Tematica,
+  Unidad,
+} from 'src/app/modelos/index.models';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ArchivoService } from 'src/app/servicios/index.service';
+import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 @Component({
   selector: 'app-abm-archivo',
   templateUrl: './abm-archivo.component.html',
   styleUrls: ['./abm-archivo.component.scss'],
 })
 export class AbmArchivoComponent implements OnInit {
+  @Output()
+  finalizado: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
+  @Output()
+  cancelado: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
   archivo!: Observable<any>;
 
   item: Archivo;
+  expediente!: Expediente;
 
   entity = 'lst-archivos';
+
+  procesando!: Boolean;
 
   constructor(
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private wsdl: ArchivoService
   ) {
     this.item = new Archivo();
   }
@@ -42,14 +60,51 @@ export class AbmArchivoComponent implements OnInit {
         //editar
         //  this.doEdit();
       } else {
-        //this.doCreate();
+        this.doCreate();
 
-        localStorage.setItem('b64', JSON.stringify(this.item));
+        //localStorage.setItem('b64', JSON.stringify(this.item));
       }
     } else {
       alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
+  }
+
+  async doCreate() {
+    try {
+      this.procesando = true;
+
+      this.expediente.persona = new Persona();
+      this.expediente.persona.id = JSON.parse(
+        '' + localStorage.getItem('personal')
+      ).id;
+
+      console.log('expediente', this.item, this.expediente);
+
+      // const res = await this.wsdl.doInsert(this.item, this.expediente).then();
+      // this.procesando = false;
+      // const result = JSON.parse(JSON.stringify(res));
+
+      // if (result.status == 200) {
+      //   //this.item = result.status;
+      //   UturuncoUtils.showToas('Se creó correctamente', 'success');
+      //   this.back();
+      //   this.finalizado.emit(true);
+      // } else if (result.status == 666) {
+      //   // logout app o refresh token
+      // } else {
+      //   UturuncoUtils.showToas(result.msg, 'error');
+      // }
+    } catch (error: any) {
+      UturuncoUtils.showToas('Excepción: ' + error.message, 'error');
+    } finally {
+      this.procesando = false;
+    }
+  }
+
+  //combo tematica
+  seleccionTematica(event: Tematica) {
+    this.expediente.tematica = event;
   }
 
   onChange($event: Event) {
@@ -64,7 +119,7 @@ export class AbmArchivoComponent implements OnInit {
     // }
     filereader.readAsDataURL(file);
 
-    this.item.tipoArchivo.extension = file.type;
+    this.item.extension = file.type;
 
     this.convertToBase64(file);
   }
@@ -76,7 +131,7 @@ export class AbmArchivoComponent implements OnInit {
     });
 
     this.archivo.subscribe((d) => {
-      this.item.tipoArchivo.archivo = d;
+      this.item.archivo = d;
     });
   }
 
@@ -94,15 +149,15 @@ export class AbmArchivoComponent implements OnInit {
   }
 
   unidad(event: Unidad) {
-    this.item.unidadOrigen = event;
+    this.expediente.unidadOrigen = event;
   }
 
   ver(item: Archivo) {
     let html =
       '<embed width="100%" height="300px" src="' +
-      item.tipoArchivo.archivo +
+      item.archivo +
       '" type="' +
-      item.tipoArchivo.extension +
+      item.extension +
       '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
     // console.log(s)

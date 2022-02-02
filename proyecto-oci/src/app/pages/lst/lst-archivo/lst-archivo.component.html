@@ -40,17 +40,17 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of items">
-            <td>{{ item.nroNota }}</td>
-            <td>{{ item.fecha }}</td>
+            <td>{{ item.expediente.nroNota }}</td>
+            <td>{{ item.expediente.fecha }}</td>
             <!-- <td>
                 {{ item.tipoArchivo.nombre }}
               </td> -->
-            <td>{{ item.tematica.nombre }}</td>
+            <td>{{ item.expediente.tematica.nombre }}</td>
 
-            <td>{{ item?.unidadOrigen?.nombre }}</td>
+            <td>{{ item?.expediente?.unidadOrigen?.nombre }}</td>
 
-            <td>{{ item.entrada ? "INTERNO" : "EXTERNO" }}</td>
-            <td>{{ item?.palabraClave }}</td>
+            <td>{{ item.expediente.entrada ? "INTERNO" : "EXTERNO" }}</td>
+            <td>{{ item?.expediente?.palabraClave }}</td>
             <td>
               <button
                 type="button"

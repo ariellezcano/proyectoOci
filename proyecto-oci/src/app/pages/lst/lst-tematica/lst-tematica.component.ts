@@ -1,37 +1,33 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Archivo } from 'src/app/modelos/index.models';
-import { ArchivoService } from 'src/app/servicios/index.service';
+import { Tematica } from 'src/app/modelos/index.models';
+import { TematicaService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FilArchivoComponent } from '../../filtros/fil-archivo/fil-archivo.component';
+
 @Component({
-  selector: 'app-lst-archivo',
-  templateUrl: './lst-archivo.component.html',
-  styleUrls: ['./lst-archivo.component.scss'],
+  selector: 'app-lst-tematica',
+  templateUrl: './lst-tematica.component.html',
+  styleUrls: ['./lst-tematica.component.scss'],
 })
-export class LstArchivoComponent implements OnInit {
-  @ViewChild(FilArchivoComponent, { static: true })
-  fil!: FilArchivoComponent;
+export class LstTematicaComponent implements OnInit {
+  // @ViewChild(FilTematicaComponent, { static: true })
+  // fil!: FilTematicaComponent;
   @ViewChild('close')
   cerrar!: ElementRef;
 
   exportar: boolean = false;
-  items: Archivo[];
-  item: Archivo;
+  items: Tematica[];
+  item: Tematica;
 
   procesando!: Boolean;
   public load!: boolean;
 
-  entidad = 'lst-archivos';
-  constructor(
-    private wsdl: ArchivoService,
-    private router: Router,
-    private sanitizer: DomSanitizer
-  ) {
+  entidad = 'lst-tematica';
+
+  constructor(private wsdl: TematicaService, private router: Router) {
     this.load = false;
-    this.item = new Archivo();
+    this.item = new Tematica();
     this.items = [];
   }
 
@@ -43,14 +39,13 @@ export class LstArchivoComponent implements OnInit {
     // }
   }
 
-  preDelete(item: Archivo) {
-    this.item = new Archivo();
+  preDelete(item: Tematica) {
+    this.item = new Tematica();
     this.item = item;
 
     Swal.fire({
       title: 'Esta Seguro?',
-      text:
-        '¡No podrás recuperar este archivo ' + item.expediente.nroNota + '!',
+      text: '¡No podrás recuperar este archivo ' + item.nombre + '!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: '¡Eliminar!',
@@ -84,7 +79,7 @@ export class LstArchivoComponent implements OnInit {
   }
 
   cancel() {
-    this.item = new Archivo();
+    this.item = new Tematica();
     //this.fil.list();
   }
 
@@ -131,14 +126,6 @@ export class LstArchivoComponent implements OnInit {
     return color;
   }
 
-  async exportTableToExcel(tableID: any, filename = '') {
-    this.exportar = true;
-    await UturuncoUtils.delay(300);
-    await UturuncoUtils.exportTableToExcel(tableID, filename).then();
-
-    this.exportar = false;
-  }
-
   // scroll(value: any[]) {
   //   console.log('valor', value);
   //   const valor = '';
@@ -150,24 +137,7 @@ export class LstArchivoComponent implements OnInit {
   //   }
   // }
 
-  doFound(event: Archivo[]) {
+  doFound(event: Tematica[]) {
     this.items = event;
-  }
-
-  verArchivo(item: Archivo) {
-    this.item = item;
-  }
-
-  ver() {
-    let html =
-      '<embed width="100%" height="400px" src="' +
-      this.item.archivo +
-      '" type="' +
-      this.item.extension +
-      '" />';
-    let s = this.sanitizer.bypassSecurityTrustHtml(html);
-    //  console.log(s)
-
-    return s;
   }
 }

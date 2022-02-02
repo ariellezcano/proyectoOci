@@ -2,19 +2,18 @@
   <div class="sidenav text-center">
     <h1>Menú</h1>
     <hr />
-    <a href="#">
+    <a [routerLink]="['/lst-tematica/']" routerLinkActive="active">
       <i class="fas fa-user-friends"></i>
-      Temática
+      &nbsp;Temática
     </a>
     <hr />
-    <!-- <a href="#">
+    <a
+      class="pixel"
+      [routerLink]="['/lst-archivos/']"
+      routerLinkActive="active"
+    >
       <i class="fas fa-book"></i>
-      Tipo de Archivos
-    </a>
-    <hr /> -->
-    <a [routerLink]="['/lst-archivos/']">
-      <i class="fas fa-book"></i>
-      Archivos digitales
+      &nbsp; Archivos
     </a>
     <hr />
   </div>

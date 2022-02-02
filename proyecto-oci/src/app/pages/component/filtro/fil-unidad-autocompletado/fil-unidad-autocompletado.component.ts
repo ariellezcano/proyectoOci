@@ -2,20 +2,14 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Unidad } from 'src/app/modelos/index.models';
 import { UnidadService } from 'src/app/servicios/index.service';
 
-import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-
-import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-fil-unidad-autocompletado',
   templateUrl: './fil-unidad-autocompletado.component.html',
-  styleUrls: ['./fil-unidad-autocompletado.component.scss']
+  styleUrls: ['./fil-unidad-autocompletado.component.scss'],
 })
 export class FilUnidadAutocompletadoComponent implements OnInit {
-
   @Output()
   unidadSeleccionada: EventEmitter<Unidad> = new EventEmitter<Unidad>();
-
 
   keyword = 'nombre';
   cargando: Boolean = false;
@@ -29,13 +23,10 @@ export class FilUnidadAutocompletadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
-
   }
-
 
   async list() {
     try {
-
       this.cargando = true;
       const re = await this.wsdl.getList(1, 1000).then();
       const result = JSON.parse(JSON.stringify(re));
@@ -46,22 +37,16 @@ export class FilUnidadAutocompletadoComponent implements OnInit {
       } else {
         //this.cargando = false;
       }
-
     } catch (error) {
-
       //this.cargando = false;
     } finally {
       this.cargando = false;
-
     }
   }
 
   selectEvent(item: any) {
     this.item = item;
     this.unidadSeleccionada.emit(this.item);
-
-
-
   }
 
   onChangeSearch(val: any) {

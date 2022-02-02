@@ -1,16 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Archivo } from 'src/app/modelos/index.models';
-import { ArchivoService } from 'src/app/servicios/index.service';
+import { Tematica } from 'src/app/modelos/index.models';
+import { TematicaService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
 @Component({
-  selector: 'app-fil-archivo',
-  templateUrl: './fil-archivo.component.html',
-  styleUrls: ['./fil-archivo.component.scss'],
+  selector: 'app-fil-tematica',
+  templateUrl: './fil-tematica.component.html',
+  styleUrls: ['./fil-tematica.component.scss'],
 })
-export class FilArchivoComponent implements OnInit {
+export class FilTematicaComponent implements OnInit {
   @Output()
-  filter: EventEmitter<Archivo[]> = new EventEmitter<Archivo[]>();
+  filter: EventEmitter<Tematica[]> = new EventEmitter<Tematica[]>();
 
   cargando: Boolean = false;
   procesando: Boolean;
@@ -32,7 +32,7 @@ export class FilArchivoComponent implements OnInit {
     this.list();
   }
 
-  constructor(private wsdl: ArchivoService) {
+  constructor(private wsdl: TematicaService) {
     this.procesando = false;
     this.limit = 5;
     this.page = 1;
@@ -58,23 +58,14 @@ export class FilArchivoComponent implements OnInit {
 
       let c = this.search;
       // criteria, one, populate, sort, page, limit
-      const crit =
-        "(c.expediente.tematica.nombre like '%" +
-        this.search +
-        "%' or c.expediente.unidadOrigen.nombre like '%" +
-        this.search +
-        "%' or c.expediente.palabraClave like '%" +
-        this.search +
-        "%' or c.expediente.nroNota like '%" +
-        this.search +
-        "%' ) AND c.activo=true";
+      const crit = "(c.nombre like '%" + this.search + "%') AND c.activo=true";
 
       let data = await this.wsdl
         .doCriteria(
           crit,
           false,
           null,
-          'ORDER BY c.expediente.unidadOrigen.nombre ASC',
+          'ORDER BY c.nombre ASC',
           this.page,
           this.limit
         )

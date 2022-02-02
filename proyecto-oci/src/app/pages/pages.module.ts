@@ -14,6 +14,10 @@ import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.com
 import { FilUnidadAutocompletadoComponent } from './component/filtro/fil-unidad-autocompletado/fil-unidad-autocompletado.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FilArchivoComponent } from './filtros/fil-archivo/fil-archivo.component';
+import { LstTematicaComponent } from './lst/lst-tematica/lst-tematica.component';
+import { ComboTematicaComponent } from './componentes/combo-tematica/combo-tematica.component';
+import { FilTematicaComponent } from './filtros/fil-tematica/fil-tematica.component';
+import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -26,6 +30,10 @@ import { FilArchivoComponent } from './filtros/fil-archivo/fil-archivo.component
     AbmArchivoComponent,
     FilUnidadAutocompletadoComponent,
     FilArchivoComponent,
+    LstTematicaComponent,
+    ComboTematicaComponent,
+    FilTematicaComponent,
+    AbmTematicaComponent,
   ],
 
   exports: [],
