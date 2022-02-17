@@ -70,6 +70,7 @@ export class PersonaService {
       .toPromise()
       .catch((err) => {});
   }
+
   doFind(id: any) {
     this.other_header = UturuncoUtils.getHeader();
 

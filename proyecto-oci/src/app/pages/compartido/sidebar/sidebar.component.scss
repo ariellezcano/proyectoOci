@@ -1,12 +1,16 @@
 #sidebar {
-  color: rgb(139, 0, 23);
-  border-right: dotted;
-  border-color: crimson;
+  // color: rgb(139, 0, 23);
+  // border-right: dotted;
+  // border-color: crimson;
+  background-color: rgba($color: #ffffff, $alpha: 0.87);
 }
 a.active {
-  color: red;
-  text-shadow: 2px 2px 8px #ff0000;
+  color: blue;
+  text-shadow: 3px 3px 9px lightgray;
   font-family: Times New Roman;
   font-style: oblique;
   font-size: 25px;
+}
+a {
+  color: grey;
 }

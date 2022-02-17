@@ -1,10 +1,16 @@
 <div id="sidebar" class="container">
-  <div class="sidenav text-center">
-    <h1>Menú</h1>
+  <div class="sidenav">
+    <h1 class="text-center">Menú</h1>
     <hr />
     <a [routerLink]="['/lst-tematica/']" routerLinkActive="active">
       <i class="fas fa-user-friends"></i>
       &nbsp;Temática
+    </a>
+    <hr />
+
+    <a [routerLink]="['/lst-expediente/']" routerLinkActive="active">
+      <i class="fas fa-book"></i>
+      &nbsp;Expediente
     </a>
     <hr />
     <a
@@ -12,9 +18,10 @@
       [routerLink]="['/lst-archivos/']"
       routerLinkActive="active"
     >
-      <i class="fas fa-book"></i>
+      <i class="fas fa-file-pdf"></i>
       &nbsp; Archivos
     </a>
+
     <hr />
   </div>
 </div>

@@ -1,16 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Archivo } from 'src/app/modelos/index.models';
-import { ArchivoService } from 'src/app/servicios/index.service';
+import { Expediente } from 'src/app/modelos/index.models';
+import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
 @Component({
-  selector: 'app-fil-archivo',
-  templateUrl: './fil-archivo.component.html',
-  styleUrls: ['./fil-archivo.component.scss'],
+  selector: 'app-fil-expediente',
+  templateUrl: './fil-expediente.component.html',
+  styleUrls: ['./fil-expediente.component.scss'],
 })
-export class FilArchivoComponent implements OnInit {
+export class FilExpedienteComponent implements OnInit {
   @Output()
-  filter: EventEmitter<Archivo[]> = new EventEmitter<Archivo[]>();
+  filter: EventEmitter<Expediente[]> = new EventEmitter<Expediente[]>();
 
   cargando: Boolean = false;
   procesando: Boolean;
@@ -32,7 +32,7 @@ export class FilArchivoComponent implements OnInit {
     this.list();
   }
 
-  constructor(private wsdl: ArchivoService) {
+  constructor(private wsdl: ExpedienteService) {
     this.procesando = false;
     this.limit = 5;
     this.page = 1;
@@ -67,7 +67,7 @@ export class FilArchivoComponent implements OnInit {
       const result = JSON.parse(JSON.stringify(data));
       console.log('resultado de la busqueda', result);
       if (result.code == 200) {
-        this.filter.emit(result.data.cors);
+        this.filter.emit(result.data.docs);
 
         this.page = parseInt(result.data.paginate.page);
         this.lastPage = parseInt(result.data.paginate.lastPage);

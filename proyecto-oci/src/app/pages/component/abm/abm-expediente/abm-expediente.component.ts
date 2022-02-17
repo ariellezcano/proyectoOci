@@ -1,46 +1,41 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, Subscriber } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
-  Archivo,
   Expediente,
   Persona,
   Tematica,
   Unidad,
 } from 'src/app/modelos/index.models';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ArchivoService } from 'src/app/servicios/index.service';
+import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
+
 @Component({
-  selector: 'app-abm-archivo',
-  templateUrl: './abm-archivo.component.html',
-  styleUrls: ['./abm-archivo.component.scss'],
+  selector: 'app-abm-expediente',
+  templateUrl: './abm-expediente.component.html',
+  styleUrls: ['./abm-expediente.component.scss'],
 })
-export class AbmArchivoComponent implements OnInit {
+export class AbmExpedienteComponent implements OnInit {
   @Output()
   finalizado: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   @Output()
   cancelado: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
-  archivo!: Observable<any>;
-
   id!: number;
-  item: Archivo;
+  item: Expediente;
   expediente!: Expediente;
 
-  entity = 'lst-archivos';
+  entity = 'lst-expediente';
 
   procesando!: Boolean;
 
   constructor(
-    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private wsdl: ArchivoService
+    private wsdl: ExpedienteService
   ) {
-    this.item = new Archivo();
+    this.item = new Expediente();
   }
 
   ngOnInit(): void {
@@ -121,14 +116,14 @@ export class AbmArchivoComponent implements OnInit {
     try {
       this.procesando = true;
 
-      this.expediente.persona = new Persona();
-      this.expediente.persona.id = JSON.parse(
+      this.item.persona = new Persona();
+      this.item.persona.id = JSON.parse(
         '' + localStorage.getItem('personal')
       ).id;
 
-      console.log('expediente', this.item, this.expediente);
+      console.log('expediente', this.item);
 
-      // const res = await this.wsdl.doInsert(this.item, this.expediente).then();
+      // const res = await this.wsdl.doInsert(this.item).then();
       // this.procesando = false;
       // const result = JSON.parse(JSON.stringify(res));
 
@@ -151,64 +146,11 @@ export class AbmArchivoComponent implements OnInit {
 
   //combo tematica
   seleccionTematica(event: Tematica) {
-    this.expediente.tematica = event;
-  }
-
-  onChange($event: Event) {
-    /*Obtengo el archivo file*/
-    const file = ($event.target as HTMLInputElement).files![0];
-
-    /**previsualizar archivo */
-    const filereader = new FileReader();
-    // filereader.onload = function (e) {
-    //   document.getElementById('visorArchivo')!.innerHTML =
-    //     '<embed src="' + e.target!.result + '" width="400px" height="300px" alt="" ">';
-    // }
-    filereader.readAsDataURL(file);
-
-    this.item.extension = file.type;
-
-    this.convertToBase64(file);
-  }
-
-  convertToBase64(file: File) {
-    /*convertimos el archivo a base64*/
-    this.archivo = new Observable((subscriber: Subscriber<any>) => {
-      this.readFile(file, subscriber);
-    });
-
-    this.archivo.subscribe((d) => {
-      this.item.archivo = d;
-    });
-  }
-
-  readFile(file: File, subscriber: Subscriber<any>) {
-    const filereader = new FileReader();
-    filereader.readAsDataURL(file);
-    filereader.onload = () => {
-      subscriber.next(filereader.result);
-      subscriber.complete();
-    };
-    filereader.onerror = (error) => {
-      subscriber.error(error);
-      subscriber.complete();
-    };
+    this.item.tematica = event;
   }
 
   unidad(event: Unidad) {
-    this.expediente.unidadOrigen = event;
-  }
-
-  ver(item: Archivo) {
-    let html =
-      '<embed width="100%" height="300px" src="' +
-      item.archivo +
-      '" type="' +
-      item.extension +
-      '" />';
-    let s = this.sanitizer.bypassSecurityTrustHtml(html);
-    // console.log(s)
-    return s;
+    this.item.unidadOrigen = event;
   }
 
   back() {

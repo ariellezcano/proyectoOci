@@ -18,6 +18,9 @@ import { LstTematicaComponent } from './lst/lst-tematica/lst-tematica.component'
 import { ComboTematicaComponent } from './componentes/combo-tematica/combo-tematica.component';
 import { FilTematicaComponent } from './filtros/fil-tematica/fil-tematica.component';
 import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.component';
+import { LstExpedienteComponent } from './lst/lst-expediente/lst-expediente.component';
+import { FilExpedienteComponent } from './filtros/fil-expediente/fil-expediente.component';
+import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -34,6 +37,9 @@ import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.
     ComboTematicaComponent,
     FilTematicaComponent,
     AbmTematicaComponent,
+    LstExpedienteComponent,
+    FilExpedienteComponent,
+    AbmExpedienteComponent,
   ],
 
   exports: [],

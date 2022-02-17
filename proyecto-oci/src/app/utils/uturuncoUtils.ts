@@ -2,6 +2,9 @@ import { HttpHeaders } from '@angular/common/http';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 export class UturuncoUtils {
+  public static US = '';
+  public static TK = '';
+
   public static setSession(key: string, data: string) {
     localStorage.setItem(key, data);
   }
@@ -30,17 +33,37 @@ export class UturuncoUtils {
   }
 
   public static getHeader() {
-    let uid = '';
+    let uid;
     try {
-      uid = JSON.parse('' + localStorage.getItem('user')).uid;
-    } catch (error) {}
+      uid = JSON.parse('' + localStorage.getItem(this.US)).token;
+    } catch (error) {
+      uid = '';
+    }
+
+    if (uid == undefined) {
+      uid = '';
+    }
+
     const header = new HttpHeaders({
-      'X-Auth-Token': '' + localStorage.getItem('loginAuth'),
       uid: uid,
+      Authorization: '' + localStorage.getItem(this.TK),
     });
 
     return header;
   }
+
+  // public static getHeader() {
+  //   let uid = '';
+  //   try {
+  //     uid = JSON.parse('' + localStorage.getItem('user')).uid;
+  //   } catch (error) {}
+  //   const header = new HttpHeaders({
+  //     'X-Auth-Token': '' + localStorage.getItem('loginAuth'),
+  //     uid: uid,
+  //   });
+
+  //   return header;
+  // }
 
   public static showToas(msg: String, type: SweetAlertIcon) {
     const Toast = Swal.mixin({

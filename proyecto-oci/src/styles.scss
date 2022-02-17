@@ -4,8 +4,9 @@
   color: crimson;
 }
 body {
-  position: relative;
-  background-color: #e8ffff !important;
+  background-image: url("./assets/img/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .main-panel {
   position: relative;
@@ -14,7 +15,6 @@ body {
   color: black;
   // width: 100%;
   //background-color: $light-gray;
-  background-color: #e8ffff !important;
 
   //@include transition (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 

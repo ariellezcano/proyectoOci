@@ -15,112 +15,10 @@
             <hr />
           </div>
         </div>
-
         <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="title">Nro° Nota</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nota"
-                name="nota"
-                placeholder="ingrese N° nota"
-                [(ngModel)]="expediente.nroNota"
-                required
-              />
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="title">Fecha </label>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                name="fecha"
-                placeholder="ingrese fecha "
-                [(ngModel)]="expediente.fecha"
-                required
-              />
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <app-combo-tematica
-                [dibujar]="expediente.tematica"
-                (emity)="seleccionTematica($event)"
-              >
-              </app-combo-tematica>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="title">Entrada</label>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  name="entrada"
-                  id="entrada"
-                  [(ngModel)]="expediente.entrada"
-                />
-                <label class="form-check-label" for="defaultCheck1">
-                  Indique si es interno o externo
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="title">Palabra Clave </label>
-              <input
-                type="text"
-                class="form-control"
-                id="clave"
-                name="clave"
-                placeholder="ingrese fecha "
-                [(ngModel)]="expediente.palabraClave"
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card border-info mb-3">
-              <div class="card-header">Unidad origen</div>
-              <div class="card-body text-danger">
-                <div class="row">
-                  <div class="col-md-12">
-                    <app-fil-unidad-autocompletado
-                      (unidadSeleccionada)="unidad($event)"
-                    >
-                    </app-fil-unidad-autocompletado>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <br />
-                    <div
-                      *ngIf="expediente.unidadOrigen.id > 0"
-                      class="alert alert-warning"
-                      role="alert"
-                    >
-                      {{ expediente.unidadOrigen.nombre }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="col-md-6">
             <div class="alert alert-success" role="alert">
-              <h4 class="alert-heading">Suba el Tipo de Archivo</h4>
+              <h4 class="alert-heading">Suba el Archivo</h4>
 
               <div class="container">
                 <div class="row">
@@ -140,21 +38,6 @@
               </div>
 
               <hr />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Observaciónes</label>
-              <textarea
-                class="form-control"
-                id="observaciones"
-                name="onservaciones"
-                rows="3"
-                [(ngModel)]="expediente.observaciones"
-                required
-              ></textarea>
             </div>
           </div>
         </div>

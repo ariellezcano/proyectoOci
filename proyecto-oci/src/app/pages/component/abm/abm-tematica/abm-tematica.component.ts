@@ -62,23 +62,20 @@ export class AbmTematicaComponent implements OnInit {
   async doCreate() {
     try {
       this.procesando = true;
+      const res = await this.wsdl.doInsert(this.item).then();
+      console.log('dato insertado', this.item);
+      const result = JSON.parse(JSON.stringify(res));
 
-      console.log('tematica', this.item);
-
-      // const res = await this.wsdl.doInsert(this.item, this.expediente).then();
-      // this.procesando = false;
-      // const result = JSON.parse(JSON.stringify(res));
-
-      // if (result.status == 200) {
-      //   //this.item = result.status;
-      //   UturuncoUtils.showToas('Se creó correctamente', 'success');
-      //   this.back();
-      //   this.finalizado.emit(true);
-      // } else if (result.status == 666) {
-      //   // logout app o refresh token
-      // } else {
-      //   UturuncoUtils.showToas(result.msg, 'error');
-      // }
+      if (result.status == 200) {
+        // this.item = result.status;
+        UturuncoUtils.showToas('Se creo correctamente', 'success');
+        this.back();
+        this.finalizado.emit(true);
+      } else if (result.status == 666) {
+        // logout app o refresh token
+      } else {
+        UturuncoUtils.showToas(result.msg, 'error');
+      }
     } catch (error: any) {
       UturuncoUtils.showToas('Excepción: ' + error.message, 'error');
     } finally {

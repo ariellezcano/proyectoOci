@@ -58,30 +58,24 @@ export class FilTematicaComponent implements OnInit {
 
       let c = this.search;
       // criteria, one, populate, sort, page, limit
-      const crit = "(c.nombre like '%" + this.search + "%') AND c.activo=true";
+      const crit = this.search + '';
 
       let data = await this.wsdl
-        .doCriteria(
-          crit,
-          false,
-          null,
-          'ORDER BY c.nombre ASC',
-          this.page,
-          this.limit
-        )
+        .getCriteria(crit, this.page, this.limit)
         .then();
 
       const result = JSON.parse(JSON.stringify(data));
       console.log('resultado de la busqueda', result);
-      if (result.status == 200) {
-        this.filter.emit(result.data);
+      if (result.code == 200) {
+        this.filter.emit(result.data.docs);
 
-        this.page = parseInt(result.paginate.page);
-        this.lastPage = parseInt(result.paginate.lastPage);
-        this.nextPage = parseInt(result.paginate.nextPage);
-        this.prevPage = parseInt(result.paginate.prevPage);
-        this.count = parseInt(result.paginate.count);
+        this.page = parseInt(result.data.paginate.page);
+        this.lastPage = parseInt(result.data.paginate.lastPage);
+        this.nextPage = parseInt(result.data.paginate.nextPage);
+        this.prevPage = parseInt(result.data.paginate.prevPage);
+        this.count = parseInt(result.data.paginate.count);
         this.cargando = false;
+        this.procesando = false;
       } else if (result.status == 666) {
         // logout app o refresh token
       } else {

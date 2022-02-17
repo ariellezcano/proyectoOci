@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
+import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
 import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
+import { LstExpedienteComponent } from './lst/lst-expediente/lst-expediente.component';
 import { LstTematicaComponent } from './lst/lst-tematica/lst-tematica.component';
 import { PagesComponent } from './pages.component';
 
@@ -37,6 +39,19 @@ const routes: Routes = [
           {
             path: '',
             component: LstTematicaComponent,
+          },
+        ],
+      },
+      {
+        path: 'lst-expediente',
+        children: [
+          {
+            path: 'abm/:id',
+            component: AbmExpedienteComponent,
+          },
+          {
+            path: '',
+            component: LstExpedienteComponent,
           },
         ],
       },
