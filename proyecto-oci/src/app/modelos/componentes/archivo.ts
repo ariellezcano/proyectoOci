@@ -4,7 +4,7 @@ export class Archivo {
   id!: number;
   expediente!: Expediente;
   archivo: any;
-  extension!: String;
+  extencion!: String;
   constructor() {
     this.expediente = new Expediente();
   }

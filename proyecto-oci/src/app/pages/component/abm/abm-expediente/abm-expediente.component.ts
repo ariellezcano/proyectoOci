@@ -9,6 +9,7 @@ import {
 } from 'src/app/modelos/index.models';
 import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-abm-expediente',
@@ -48,7 +49,7 @@ export class AbmExpedienteComponent implements OnInit {
     // }
     this.procesando = false;
     this.id = this.route.snapshot.params.id;
-    //this.findID();
+    this.findID();
   }
 
   doAction(f: NgForm) {
@@ -67,6 +68,26 @@ export class AbmExpedienteComponent implements OnInit {
       alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
+  }
+
+  async findID() {
+    try {
+      if (this.id > 0) {
+        console.log(this.id);
+        let data = await this.wsdl.doFind(this.id).then();
+        let res = JSON.parse(JSON.stringify(data));
+        if (res.code == 200) {
+          this.item = res.data;
+
+          console.log(this.item);
+          this.item.fecha = moment(this.item.fecha).format('YYYY-MM-DD');
+        }
+      } else {
+        this.item = new Expediente();
+      }
+    } catch (error) {
+      UturuncoUtils.showToas('Error inesperado', 'error');
+    }
   }
 
   // async findID() {
@@ -96,14 +117,13 @@ export class AbmExpedienteComponent implements OnInit {
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
       const result = JSON.parse(JSON.stringify(res));
       console.log('resul', result);
-      if (result.status == 200) {
+      if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();
         this.finalizado.emit(true);
-      } else if (result.status == 666) {
+      } else if (result.code == 666) {
         // logout app o refresh token
       } else {
-        alert('estoy aca');
         UturuncoUtils.showToas(result.msg, 'error');
       }
     } catch (error: any) {
@@ -115,28 +135,26 @@ export class AbmExpedienteComponent implements OnInit {
   async doCreate() {
     try {
       this.procesando = true;
-
-      this.item.persona = new Persona();
       this.item.persona.id = JSON.parse(
         '' + localStorage.getItem('personal')
       ).id;
 
       console.log('expediente', this.item);
+      const res = await this.wsdl.doInsert(this.item).then();
+      console.log('insercion', res);
+      const result = JSON.parse(JSON.stringify(res));
 
-      // const res = await this.wsdl.doInsert(this.item).then();
-      // this.procesando = false;
-      // const result = JSON.parse(JSON.stringify(res));
-
-      // if (result.status == 200) {
-      //   //this.item = result.status;
-      //   UturuncoUtils.showToas('Se creó correctamente', 'success');
-      //   this.back();
-      //   this.finalizado.emit(true);
-      // } else if (result.status == 666) {
-      //   // logout app o refresh token
-      // } else {
-      //   UturuncoUtils.showToas(result.msg, 'error');
-      // }
+      if (result.code == 200) {
+        //this.item = result.status;
+        UturuncoUtils.showToas('Se creó correctamente', 'success');
+        this.procesando = false;
+        this.back();
+        this.finalizado.emit(true);
+      } else if (result.status == 666) {
+        // logout app o refresh token
+      } else {
+        UturuncoUtils.showToas(result.msg, 'error');
+      }
     } catch (error: any) {
       UturuncoUtils.showToas('Excepción: ' + error.message, 'error');
     } finally {
@@ -150,7 +168,7 @@ export class AbmExpedienteComponent implements OnInit {
   }
 
   unidad(event: Unidad) {
-    this.item.unidadOrigen = event;
+    this.item.unidad_origen = event;
   }
 
   back() {

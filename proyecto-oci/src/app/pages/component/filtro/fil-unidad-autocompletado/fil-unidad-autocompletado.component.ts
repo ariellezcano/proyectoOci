@@ -30,9 +30,8 @@ export class FilUnidadAutocompletadoComponent implements OnInit {
       this.cargando = true;
       const re = await this.wsdl.getList(1, 1000).then();
       const result = JSON.parse(JSON.stringify(re));
-
-      if (result.status == 200) {
-        this.items = result.data;
+      if (result.code == 200) {
+        this.items = result.data.docs;
         this.cargando = false;
       } else {
         //this.cargando = false;

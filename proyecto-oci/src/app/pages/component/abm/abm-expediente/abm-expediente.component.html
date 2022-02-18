@@ -23,10 +23,10 @@
               <input
                 type="text"
                 class="form-control"
-                id="nota"
-                name="nota"
+                id="nroNota"
+                name="nroNota"
                 placeholder="ingrese N° nota"
-                [(ngModel)]="item.nroNota"
+                [(ngModel)]="item.nro_nota"
                 required
               />
             </div>
@@ -80,10 +80,10 @@
               <input
                 type="text"
                 class="form-control"
-                id="clave"
-                name="clave"
+                id="palabraClave"
+                name="palabraClave"
                 placeholder="ingrese fecha "
-                [(ngModel)]="item.palabraClave"
+                [(ngModel)]="item.palabra_clave"
                 required
               />
             </div>
@@ -107,11 +107,11 @@
                   <div class="col-md-12">
                     <br />
                     <div
-                      *ngIf="item.unidadOrigen.id > 0"
+                      *ngIf="item.unidad_origen.id > 0"
                       class="alert alert-warning"
                       role="alert"
                     >
-                      {{ item.unidadOrigen.nombre }}
+                      {{ item.unidad_origen.nombre }}
                     </div>
                   </div>
                 </div>
@@ -126,10 +126,9 @@
               <textarea
                 class="form-control"
                 id="observaciones"
-                name="onservaciones"
+                name="observaciones"
                 rows="3"
                 [(ngModel)]="item.observaciones"
-                required
               ></textarea>
             </div>
           </div>

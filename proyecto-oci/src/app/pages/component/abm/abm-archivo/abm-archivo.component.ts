@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArchivoService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
+import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
 @Component({
   selector: 'app-abm-archivo',
   templateUrl: './abm-archivo.component.html',
@@ -30,7 +31,7 @@ export class AbmArchivoComponent implements OnInit {
   item: Archivo;
   expediente!: Expediente;
 
-  entity = 'lst-archivos';
+  entity = 'lst-expediente';
 
   procesando!: Boolean;
 
@@ -38,9 +39,11 @@ export class AbmArchivoComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
-    private wsdl: ArchivoService
+    private wsdl: ArchivoService,
+    private wsdlE: ExpedienteService
   ) {
     this.item = new Archivo();
+    this.expediente = new Expediente();
   }
 
   ngOnInit(): void {
@@ -53,7 +56,7 @@ export class AbmArchivoComponent implements OnInit {
     // }
     this.procesando = false;
     this.id = this.route.snapshot.params.id;
-    //this.findID();
+    this.findID();
   }
 
   doAction(f: NgForm) {
@@ -74,25 +77,36 @@ export class AbmArchivoComponent implements OnInit {
     // console.log("base64 "+this.item.fileb64)
   }
 
-  // async findID() {
-  //   try {
-  //     if (this.id > 0) {
-  //       let data = await this.wsdl.doFind(this.id).then();
-  //       let res = JSON.parse(JSON.stringify(data));
-  //       if (res.status == 200) {
-  //         this.item = res.data;
+  async findID() {
+    try {
+      if (this.id > 0) {
+        console.log(this.id);
+        let data = await this.wsdlE.doFind(this.id).then();
+        let res = JSON.parse(JSON.stringify(data));
+        if (res.code == 200) {
+          console.log(res.code);
+          this.expediente = res.data;
+        }
+      } else {
+        // this.item = new Expediente();
+      }
+    } catch (error) {
+      UturuncoUtils.showToas('Error inesperado', 'error');
+    }
+  }
 
-  //         console.log(this.item);
-  //         this.item.expediente = moment(this.item.expediente).format(
-  //           'YYYY-MM-DD'
-  //         );
-  //       }
+  // async obtenerDetalle() {
+  //   try {
+  //     let criteria =
+  //       '(c.expediente.id =' + this.expediente.id + ') AND c.activo=true';
+  //     let data = await this.wsdl.doCriteria(criteria, 1, 1000).then();
+  //     const result = JSON.parse(JSON.stringify(data));
+  //     if (result.status == 200) {
+  //       this.items = result.data;
   //     } else {
-  //       this.item = new Equipo();
+  //       this.items = [];
   //     }
-  //   } catch (error) {
-  //     UturuncoUtils.showToas('Error inesperado', 'error');
-  //   }
+  //   } catch (error) {}
   // }
 
   async doEdit() {
@@ -120,38 +134,25 @@ export class AbmArchivoComponent implements OnInit {
   async doCreate() {
     try {
       this.procesando = true;
-
-      this.expediente.persona = new Persona();
-      this.expediente.persona.id = JSON.parse(
-        '' + localStorage.getItem('personal')
-      ).id;
-
-      console.log('expediente', this.item, this.expediente);
-
-      // const res = await this.wsdl.doInsert(this.item, this.expediente).then();
-      // this.procesando = false;
-      // const result = JSON.parse(JSON.stringify(res));
-
-      // if (result.status == 200) {
-      //   //this.item = result.status;
-      //   UturuncoUtils.showToas('Se creó correctamente', 'success');
-      //   this.back();
-      //   this.finalizado.emit(true);
-      // } else if (result.status == 666) {
-      //   // logout app o refresh token
-      // } else {
-      //   UturuncoUtils.showToas(result.msg, 'error');
-      // }
+      this.item.expediente.id = this.id;
+      const res = await this.wsdl.doInsert(this.item).then();
+      const result = JSON.parse(JSON.stringify(res));
+      if (result.code == 200) {
+        //this.item = result.status;
+        UturuncoUtils.showToas('Se creó correctamente', 'success');
+        this.back();
+        this.finalizado.emit(true);
+        this.procesando = false;
+      } else if (result.code == 666) {
+        // logout app o refresh token
+      } else {
+        UturuncoUtils.showToas(result.msg, 'error');
+      }
     } catch (error: any) {
       UturuncoUtils.showToas('Excepción: ' + error.message, 'error');
     } finally {
       this.procesando = false;
     }
-  }
-
-  //combo tematica
-  seleccionTematica(event: Tematica) {
-    this.expediente.tematica = event;
   }
 
   onChange($event: Event) {
@@ -166,7 +167,7 @@ export class AbmArchivoComponent implements OnInit {
     // }
     filereader.readAsDataURL(file);
 
-    this.item.extension = file.type;
+    this.item.extencion = file.type;
 
     this.convertToBase64(file);
   }
@@ -195,16 +196,12 @@ export class AbmArchivoComponent implements OnInit {
     };
   }
 
-  unidad(event: Unidad) {
-    this.expediente.unidadOrigen = event;
-  }
-
   ver(item: Archivo) {
     let html =
       '<embed width="100%" height="300px" src="' +
       item.archivo +
       '" type="' +
-      item.extension +
+      item.extencion +
       '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
     // console.log(s)

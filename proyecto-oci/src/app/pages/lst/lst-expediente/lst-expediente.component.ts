@@ -4,6 +4,7 @@ import { Expediente } from 'src/app/modelos/index.models';
 import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
+import { FilExpedienteComponent } from '../../filtros/fil-expediente/fil-expediente.component';
 
 @Component({
   selector: 'app-lst-expediente',
@@ -11,10 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./lst-expediente.component.scss'],
 })
 export class LstExpedienteComponent implements OnInit {
-  // @ViewChild(FilTematicaComponent, { static: true })
-  // fil!: FilTematicaComponent;
-  @ViewChild('close')
-  cerrar!: ElementRef;
+  @ViewChild(FilExpedienteComponent, { static: false }) fil!: FilExpedienteComponent;
+
+  @ViewChild('close') cerrar!: ElementRef;
 
   exportar: boolean = false;
   items: Expediente[];
@@ -80,7 +80,7 @@ export class LstExpedienteComponent implements OnInit {
 
   cancel() {
     this.item = new Expediente();
-    //this.fil.list();
+    this.fil.list();
   }
 
   async setResultCancel(event: Boolean) {
@@ -99,6 +99,9 @@ export class LstExpedienteComponent implements OnInit {
 
   linkear(id?: Number) {
     this.router.navigateByUrl(this.entidad + '/abm/' + id);
+  }
+  linkeaArchivo(id?: Number) {
+    this.router.navigateByUrl(this.entidad + '/abmArchivo/' + id);
   }
 
   colores(valor: any) {

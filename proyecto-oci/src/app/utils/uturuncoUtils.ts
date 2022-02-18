@@ -52,19 +52,6 @@ export class UturuncoUtils {
     return header;
   }
 
-  // public static getHeader() {
-  //   let uid = '';
-  //   try {
-  //     uid = JSON.parse('' + localStorage.getItem('user')).uid;
-  //   } catch (error) {}
-  //   const header = new HttpHeaders({
-  //     'X-Auth-Token': '' + localStorage.getItem('loginAuth'),
-  //     uid: uid,
-  //   });
-
-  //   return header;
-  // }
-
   public static showToas(msg: String, type: SweetAlertIcon) {
     const Toast = Swal.mixin({
       toast: true,

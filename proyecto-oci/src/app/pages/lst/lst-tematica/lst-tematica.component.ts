@@ -4,6 +4,7 @@ import { Tematica } from 'src/app/modelos/index.models';
 import { TematicaService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
+import { FilTematicaComponent } from '../../filtros/fil-tematica/fil-tematica.component';
 
 @Component({
   selector: 'app-lst-tematica',
@@ -11,8 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./lst-tematica.component.scss'],
 })
 export class LstTematicaComponent implements OnInit {
-  // @ViewChild(FilTematicaComponent, { static: true })
-  // fil!: FilTematicaComponent;
+  @ViewChild(FilTematicaComponent, { static: false }) fil!: FilTematicaComponent;
+
   @ViewChild('close')
   cerrar!: ElementRef;
 
@@ -80,7 +81,7 @@ export class LstTematicaComponent implements OnInit {
 
   cancel() {
     this.item = new Tematica();
-    //this.fil.list();
+    this.fil.list();
   }
 
   async setResultCancel(event: Boolean) {

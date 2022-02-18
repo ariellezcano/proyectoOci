@@ -7,15 +7,16 @@ export class Expediente {
   fecha!: any;
   tematica: Tematica;
   persona!: Persona; //usuario que crea
-  unidadOrigen: Unidad; /** */
+  unidad_origen: Unidad; /** */
   // archivo: any;
   entrada!: boolean; /** si el verdadero es externa  y si es falso pasar unidad oci a unidad*/
-  palabraClave!: string;
-  nroNota!: string;
+  palabra_clave!: string;
+  nro_nota!: string;
   observaciones!: string;
 
   constructor() {
     this.tematica = new Tematica();
-    this.unidadOrigen = new Unidad();
+    this.unidad_origen = new Unidad();
+    this.persona = new Persona();
   }
 }

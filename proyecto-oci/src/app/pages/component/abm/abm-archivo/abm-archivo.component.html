@@ -1,60 +1,68 @@
 <div class="content">
   <div class="row">
     <div class="col-md-12">
-      <form
-        #f="ngForm"
-        (ngSubmit)="doAction(f)"
-        ngNativeValidate
-        class="was-validated"
-      >
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              <em><u>Administrador de archivos</u></em>
-            </h2>
-            <hr />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="alert alert-success" role="alert">
-              <h4 class="alert-heading">Suba el Archivo</h4>
-
-              <div class="container">
-                <div class="row">
-                  <div class="col-3">
-                    <span>pdf</span>
-                    <input
-                      type="file"
-                      name="pdf"
-                      id="archivoInput"
-                      (change)="onChange($event)"
-                      accept="*"
-                      class="btn btn-link"
-                    />
-                  </div>
-                </div>
-                <div [innerHTML]="ver(this.item)"></div>
-              </div>
-
-              <hr />
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="form-group">
-          <input
-            type="submit"
-            name="btn"
-            value="Aceptar"
-            class="btn btn-primary btn-lg btn-block float-left"
-          />
-          &nbsp;
-          <a (click)="back()" #cerrar class="btn btn-info btn-lg btn-block">
-            <i class="fas fa-arrow-left"></i> Volver
-          </a>
-        </div>
-      </form>
+      <h2>
+        <em><u>Administrador de archivos</u></em>
+      </h2>
+      <hr />
     </div>
   </div>
+  <div class="row alert alert-info">
+    <div class="col-md-4 text-center">
+      <span> <b>Tema:</b>&nbsp;{{ expediente.tematica.nombre }} </span>
+    </div>
+    <div class="col-md-4">
+      <span> <b>Unidad:</b>&nbsp;{{ expediente.unidad_origen.nombre }} </span>
+    </div>
+    <div class="col-md-4">
+      <span> <b>Nota:</b>&nbsp;{{ expediente.nro_nota }} </span>
+    </div>
+  </div>
+
+  <form
+    #f="ngForm"
+    (ngSubmit)="doAction(f)"
+    ngNativeValidate
+    class="was-validated"
+  >
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Suba el Archivo</h4>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-3">
+                <span>pdf</span>
+                <input
+                  type="file"
+                  name="pdf"
+                  id="archivoInput"
+                  (change)="onChange($event)"
+                  accept="*"
+                  class="btn btn-link"
+                />
+              </div>
+            </div>
+            <div [innerHTML]="ver(this.item)"></div>
+          </div>
+
+          <hr />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group">
+      <input
+        type="submit"
+        name="btn"
+        value="Aceptar"
+        class="btn btn-primary btn-lg btn-block float-left"
+      />
+      &nbsp;
+      <a (click)="back()" #cerrar class="btn btn-info btn-lg btn-block">
+        <i class="fas fa-arrow-left"></i> Volver
+      </a>
+    </div>
+  </form>
 </div>

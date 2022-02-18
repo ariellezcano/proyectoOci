@@ -68,7 +68,7 @@ export class FilExpedienteComponent implements OnInit {
       console.log('resultado de la busqueda', result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
-
+        console.log('filter', result.data.docs);
         this.page = parseInt(result.data.paginate.page);
         this.lastPage = parseInt(result.data.paginate.lastPage);
         this.nextPage = parseInt(result.data.paginate.nextPage);
@@ -76,7 +76,7 @@ export class FilExpedienteComponent implements OnInit {
         this.count = parseInt(result.data.paginate.count);
         this.cargando = false;
         this.procesando = false;
-      } else if (result.status == 666) {
+      } else if (result.code == 666) {
         // logout app o refresh token
       } else {
         this.filter.emit([]);

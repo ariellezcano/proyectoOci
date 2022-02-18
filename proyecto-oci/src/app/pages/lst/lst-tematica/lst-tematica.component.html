@@ -37,6 +37,7 @@
             <td>{{ item.nombre }}</td>
             <td>
               <button
+                (click)="linkear(item.id)"
                 type="button"
                 title="Actualizar"
                 placement="top"
@@ -48,6 +49,7 @@
               </button>
               &nbsp;
               <button
+              (click)="preDelete(item)"
                 type="button"
                 title="Eliminar"
                 placement="top"

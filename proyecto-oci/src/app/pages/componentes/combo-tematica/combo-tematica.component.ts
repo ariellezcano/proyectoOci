@@ -45,7 +45,7 @@ export class ComboTematicaComponent implements OnInit {
 
   listar() {
     this.wsdl.getList(1, 100).then((data: any) => {
-      this.items = data.data;
+      this.items = data.data.docs;
       this.items.sort((x: any, y: any) => {
         if (x.nombre > y.nombre) {
           return 1;

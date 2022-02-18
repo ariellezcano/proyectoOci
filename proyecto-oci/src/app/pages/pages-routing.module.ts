@@ -53,6 +53,10 @@ const routes: Routes = [
             path: '',
             component: LstExpedienteComponent,
           },
+          {
+            path: 'abmArchivo/:id',
+            component: AbmArchivoComponent,
+          },
         ],
       },
     ],

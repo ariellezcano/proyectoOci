@@ -50,7 +50,7 @@ export class LstArchivoComponent implements OnInit {
     Swal.fire({
       title: 'Esta Seguro?',
       text:
-        '¡No podrás recuperar este archivo ' + item.expediente.nroNota + '!',
+        '¡No podrás recuperar este archivo ' + item.expediente.nro_nota + '!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: '¡Eliminar!',
@@ -163,7 +163,7 @@ export class LstArchivoComponent implements OnInit {
       '<embed width="100%" height="400px" src="' +
       this.item.archivo +
       '" type="' +
-      this.item.extension +
+      this.item.extencion +
       '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
     //  console.log(s)
