@@ -65,7 +65,6 @@ export class FilTematicaComponent implements OnInit {
         .then();
 
       const result = JSON.parse(JSON.stringify(data));
-      console.log('resultado de la busqueda', result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
 
@@ -86,9 +85,11 @@ export class FilTematicaComponent implements OnInit {
       this.procesando = false;
     } catch (error) {
       this.procesando = false;
+      this.cargando = false;
       UturuncoUtils.showToas('Error', 'error');
     } finally {
       this.procesando = false;
+      this.cargando = false;
     }
   }
 }

@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Expediente } from 'src/app/modelos/index.models';
+import { Archivo, Expediente } from 'src/app/modelos/index.models';
 import { ExpedienteService } from 'src/app/servicios/componentes/expediente.service';
+import { ArchivoService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
 import { FilExpedienteComponent } from '../../filtros/fil-expediente/fil-expediente.component';
@@ -12,23 +14,31 @@ import { FilExpedienteComponent } from '../../filtros/fil-expediente/fil-expedie
   styleUrls: ['./lst-expediente.component.scss'],
 })
 export class LstExpedienteComponent implements OnInit {
-  @ViewChild(FilExpedienteComponent, { static: false }) fil!: FilExpedienteComponent;
+  @ViewChild(FilExpedienteComponent, { static: false })
+  fil!: FilExpedienteComponent;
 
   @ViewChild('close') cerrar!: ElementRef;
 
   exportar: boolean = false;
   items: Expediente[];
   item: Expediente;
+  archivo: Archivo[];
 
   procesando!: Boolean;
   public load!: boolean;
 
   entidad = 'lst-expediente';
 
-  constructor(private wsdl: ExpedienteService, private router: Router) {
+  constructor(
+    private wsdlA: ArchivoService,
+    private wsdl: ExpedienteService,
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {
     this.load = false;
     this.item = new Expediente();
     this.items = [];
+    this.archivo = [];
   }
 
   ngOnInit(): void {
@@ -142,5 +152,33 @@ export class LstExpedienteComponent implements OnInit {
 
   doFound(event: Expediente[]) {
     this.items = event;
+  }
+
+  async verArchivo(id: Expediente) {
+    let data = await this.wsdlA.getCriteria(id.id, 1, 100).then();
+    console.log(data);
+    const result = JSON.parse(JSON.stringify(data));
+    if (result.code == 200) {
+      this.archivo = result.data.docs;
+    } else if (result.status == 666) {
+      // logout app o refresh token
+    } else {
+      console.log(result.msg);
+      UturuncoUtils.showToas(result.msg, 'error');
+    }
+    this.procesando = false;
+  }
+
+  ver(a: Archivo) {
+    let html =
+      '<embed width="98%" height="400px" src="' +
+      a.archivo +
+      '" type="' +
+      a.extencion +
+      '" />';
+    let s = this.sanitizer.bypassSecurityTrustHtml(html);
+    //  console.log(s)
+
+    return s;
   }
 }
