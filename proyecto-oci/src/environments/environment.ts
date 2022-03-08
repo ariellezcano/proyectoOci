@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   //prueba
-  URL: 'http://10.125.31.241:8888/',
+  URL: 'http://10.125.31.241:8881/',
   //local
   // URL: 'http://10.125.31.150:3001/',
   URLPOLD: 'http://10.125.31.150:3000/',

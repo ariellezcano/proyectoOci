@@ -90,7 +90,7 @@ export class AbmTematicaComponent implements OnInit {
       const res = await this.wsdl.doInsert(this.item).then();
       const result = JSON.parse(JSON.stringify(res));
 
-      if (result.status == 200) {
+      if (result.code == 200) {
         // this.item = result.status;
         UturuncoUtils.showToas('Se creo correctamente', 'success');
         this.back();
