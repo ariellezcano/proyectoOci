@@ -21,6 +21,8 @@ import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.
 import { LstExpedienteComponent } from './lst/lst-expediente/lst-expediente.component';
 import { FilExpedienteComponent } from './filtros/fil-expediente/fil-expediente.component';
 import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
+import { AbmRegistroCivilComponent } from './component/abm/abm-registro-civil/abm-registro-civil.component';
+import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -40,6 +42,9 @@ import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-exped
     LstExpedienteComponent,
     FilExpedienteComponent,
     AbmExpedienteComponent,
+    LstUsuariosComponent,
+    AbmRegistroCivilComponent,
+    
   ],
 
   exports: [],

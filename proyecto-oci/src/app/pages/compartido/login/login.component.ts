@@ -147,6 +147,10 @@ export class LoginComponent implements OnInit {
     }
   }
   async login() {
+
+    //para prueba
+   //this.route.navigate(['/principal']);
+
     try {
       if (this.permitido.indexOf(this.cuit + '') != -1) {
         if (this.cuit) {

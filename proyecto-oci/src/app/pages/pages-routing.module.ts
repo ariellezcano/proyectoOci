@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
 import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
+import { AbmRegistroCivilComponent } from './component/abm/abm-registro-civil/abm-registro-civil.component';
 import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { LstArchivoComponent } from './lst/lst-archivo/lst-archivo.component';
 import { LstExpedienteComponent } from './lst/lst-expediente/lst-expediente.component';
 import { LstTematicaComponent } from './lst/lst-tematica/lst-tematica.component';
+import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component';
 import { PagesComponent } from './pages.component';
 
 const routes: Routes = [
@@ -56,6 +58,19 @@ const routes: Routes = [
           {
             path: 'abmArchivo/:id',
             component: AbmArchivoComponent,
+          },
+        ],
+      },
+      {
+        path: 'lst-usuarios',
+        children: [
+          {
+            path: 'abm/:id',
+            component: AbmRegistroCivilComponent,
+          },
+          {
+            path: '',
+            component: LstUsuariosComponent,
           },
         ],
       },

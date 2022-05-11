@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  //ale
+  //URL: 'http://10.125.31.23/api_oci/',
   //prueba
   URL: 'http://10.125.31.241:8881/',
   //local

@@ -9,3 +9,4 @@ export { Expediente } from './componentes/expediente';
 export { Archivo } from './componentes/archivo';
 export { Tematica } from './componentes/tematica';
 export { Regional } from './componentes/regional';
+export {Sexo } from './componentes/sexo';

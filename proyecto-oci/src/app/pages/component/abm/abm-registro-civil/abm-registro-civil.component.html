@@ -1,0 +1,103 @@
+<div class="container">
+    <h3>ABM Registración de Usuario</h3>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="doAction()">
+      <div class="form-group row">
+        <label for="Nombre" class="col-sm-2 col-form-label"> Nombre: </label>
+        <div class="col-sm-10">
+          <input
+            [(ngModel)]="item.nombre"
+            id="Nombre"
+            type="text"
+            class="form-control"
+            placeholder="Nombre"
+            formControlName="nombre"
+            [ngClass]="{ 'is-invalid': enviado && f['nombre'].errors }"
+          />
+          <div *ngIf="enviado && f['nombre'].errors" class="invalid-feedback">
+            <div *ngIf="f['nombre'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="Nombre" class="col-sm-2 col-form-label"> Apellido: </label>
+        <div class="col-sm-10">
+          <input
+            [(ngModel)]="item.apellido"
+            id="Nombre"
+            type="text"
+            class="form-control"
+            placeholder="Apellido"
+            formControlName="apellido"
+            [ngClass]="{ 'is-invalid': enviado && f['apellido'].errors }"
+          />
+          <div *ngIf="enviado && f['apellido'].errors" class="invalid-feedback">
+            <div *ngIf="f['apellido'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="Nombre" class="col-sm-2 col-form-label"> D.N.I.: </label>
+        <div class="col-sm-10">
+          <input
+            [(ngModel)]="item.dni"
+            id="Nombre"
+            type="text"
+            class="form-control"
+            placeholder="DNI"
+            formControlName="dni"
+            [ngClass]="{ 'is-invalid': enviado && f['dni'].errors }"
+          />
+          <div *ngIf="enviado && f['dni'].errors" class="invalid-feedback">
+            <div *ngIf="f['dni'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+          <label for="Nombre" class="col-sm-2 col-form-label"> Correo Electrónico: </label>
+          <div class="col-sm-10">
+            <input
+              [(ngModel)]="item.email"
+              id="Nombre"
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
+              [ngClass]="{ 'is-invalid': enviado && f['email'].errors }"
+            />
+            <div *ngIf="enviado && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Campo obligatorio</div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group row">
+          <label for="Nombre" class="col-sm-2 col-form-label"> Contraseña: </label>
+          <div class="col-sm-10">
+            <input
+              [(ngModel)]="item.contrasena"
+              id="Nombre"
+              type="password"
+              class="form-control"
+              placeholder="Contraseña"
+              formControlName="contrasena"
+              [ngClass]="{ 'is-invalid': enviado && f['contrasena'].errors }"
+            />
+            <div *ngIf="enviado && f['contrasena'].errors" class="invalid-feedback">
+              <div *ngIf="f['contrasena'].errors['required']">Campo obligatorio</div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <hr>
+      <div class="row">
+        <button class="btn btn-dark" type="submit">Guardar</button>
+        &nbsp;
+        <button class="btn btn-info" type="button" (click)="back()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
