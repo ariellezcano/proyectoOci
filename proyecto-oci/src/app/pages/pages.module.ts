@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FooterComponent } from './compartido/footer/footer.component';
 import { NavComponent } from './compartido/nav/nav.component';
@@ -23,6 +23,9 @@ import { FilExpedienteComponent } from './filtros/fil-expediente/fil-expediente.
 import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
 import { AbmRegistroCivilComponent } from './component/abm/abm-registro-civil/abm-registro-civil.component';
 import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component';
+import { FilUsuariosComponent } from './filtros/fil-usuarios/fil-usuarios.component';
+import { CommonModule } from '@angular/common';
+import { ComboSexoComponent } from './componentes/combo-sexo/combo-sexo.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -44,6 +47,8 @@ import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component'
     AbmExpedienteComponent,
     LstUsuariosComponent,
     AbmRegistroCivilComponent,
+    FilUsuariosComponent,
+    ComboSexoComponent
     
   ],
 
@@ -51,7 +56,9 @@ import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component'
   imports: [
     BrowserModule,
     AutocompleteLibModule,
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     PagesRoutingModule,
   ],

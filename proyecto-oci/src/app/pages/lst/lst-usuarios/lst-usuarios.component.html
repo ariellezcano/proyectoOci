@@ -1,1 +1,108 @@
-<p>lst-usuarios works!</p>
+<div class="overlay" *ngIf="load">
+  <app-wg-cargando></app-wg-cargando>
+</div>
+
+<div *ngIf="!load">
+  <div class="container-xxl">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <b id="titulo2"
+          ><em><u> Sistema Gestor de Archivos Digitales</u></em></b
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <b id="titulo"
+          ><em><u>Listado de Usuarios</u></em>
+        </b>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <app-fil-usuarios (filter)="doFound($event)"></app-fil-usuarios>
+      </div>
+    </div>
+    <div>
+      <table class="table">
+        <thead class="bg-dark text-center">
+          <tr style="color: white">
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Domicilio</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of items">
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.norDni }}</td>
+            <td>{{ item.domicilio }}</td>
+            <td>
+              <button
+                (click)="linkear(item.id)"
+                type="button"
+                title="Actualizar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              &nbsp;
+              <button
+                (click)="preDelete(item)"
+                type="button"
+                title="Eliminar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+              &nbsp;
+              <button
+                (click)="linkear(item.id)"
+                type="button"
+                title="Habilitar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      *ngIf="items.length === 0"
+      class="alert alert-primary alert-dismissible fade show"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Salir</span>
+      </button>
+      <strong>No hay datos</strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-6" id="derecha">
+      <button (click)="linkear(0)" class="btn btn-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Ingresar nuevo
+      </button>
+    </div>
+  </div>
+</div>

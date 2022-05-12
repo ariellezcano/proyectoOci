@@ -9,10 +9,10 @@ export class UsuarioCivil{
     norDni!:number;
     grupoS!:string;
     factor!:string;
-    fechaNacimiento!: any;
+    fechaNacimiento!: Date;
     domicilio!: any;
     fechaFinContrato!: Date;
-    unidad?: Unidad;
+    unidad!: Unidad;
     activo?: boolean;
     created_at?: any;
     updated_at?: any;
@@ -21,7 +21,6 @@ export class UsuarioCivil{
     constructor() {
         this.sexo = new Sexo();
         this.unidad = new Unidad();
-
 
     }
 }

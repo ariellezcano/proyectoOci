@@ -1,0 +1,21 @@
+<div class="col-lg-12">
+    <div class="control-group">
+      <div class="form-group controls">
+        <label>Seleccione tema</label>
+        <select
+          (ngModelChange)="capturar($event)"
+          name="tematica"
+          required
+          [(ngModel)]="item"
+          [compareWith]="compareFnPer"
+          class="form-control form-sm"
+          required
+        >
+          <option *ngFor="let item of items" [ngValue]="item">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
