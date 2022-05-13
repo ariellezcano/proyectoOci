@@ -16,7 +16,8 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-import { UserxsService, UsuarioService } from 'src/app/servicios/index.service';
+import { RegistroUsuarioService, UserxsService, UsuarioService } from 'src/app/servicios/index.service';
+import { HabilitarUsuarioService } from 'src/app/servicios/componentes/habilitar-usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -82,7 +83,9 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private renderer: Renderer2,
     private wsdl: UserxsService,
-    private wsdlu: UsuarioService
+    private wsdlu: UsuarioService,
+    private wsdlRegistro: RegistroUsuarioService,
+    private wsdlhabilitar: HabilitarUsuarioService,
   ) {
     this.proccess = false;
     this.error = false;
@@ -147,46 +150,32 @@ export class LoginComponent implements OnInit {
     }
   }
   async login() {
+      try {
+          if (this.cuit && this.pass)  {
+            this.proccess = true;
+            let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
+            this.proccess = false;
+            let res = JSON.parse(JSON.stringify(data));
+            console.log('res1', res)
+            if (res.code == 200) {
+              this.route.navigate(['/principal']);
+            } else {
+              this.cuit = undefined;
+              Swal.fire('Oops...', res.msg, 'error');
+            }
+          } else {
+            Swal.fire('Oops...', 'Ingrese datos validos', 'error');
+          }
+      } catch (error) {
+        this.proccess = false;
+        Swal.fire('Oops...', '' + error, 'error');
+      }
 
+    
     //para prueba
    //this.route.navigate(['/principal']);
 
-    try {
-      if (this.permitido.indexOf(this.cuit + '') != -1) {
-        if (this.cuit) {
-          this.proccess = true;
-          let data = await this.wsdl.doLogin111(this.cuit).then();
-
-          this.proccess = false;
-
-          let res = JSON.parse(JSON.stringify(data));
-          if (res.code === 200) {
-            if (res.password) {
-              this.isUser = true;
-              await this.delay(900);
-              this.password.nativeElement.focus();
-            } else {
-              Swal.fire(
-                'Oops...',
-                'Ud no esta registrado en nuestra aplicacion presione registrarse y complete el formulario',
-                'info'
-              );
-              this.dataJSON.dni = this.cuit;
-            }
-          } else {
-            this.cuit = undefined;
-            Swal.fire('Oops...', res.msg, 'error');
-          }
-        } else {
-          Swal.fire('Oops...', 'Ingrese un DNI Valido', 'error');
-        }
-      } else {
-        alert('Usted no esta autorizado a ingresar al Sistema');
-      }
-    } catch (error) {
-      this.proccess = false;
-      Swal.fire('Oops...', '' + error, 'error');
-    }
+    
   }
 
   async login2() {

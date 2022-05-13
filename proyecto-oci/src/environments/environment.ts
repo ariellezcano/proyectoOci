@@ -5,12 +5,15 @@
 export const environment = {
   production: false,
   //ale
-  URLale: 'http://10.125.31.23/api_civil/',
+  URLCivil: 'http://10.125.31.23/api_civil/',
   //prueba
-  URL: 'http://10.125.31.241:8881/',
+  URL: 'http://10.125.31.23/api_oci/',
   //local
   // URL: 'http://10.125.31.150:3001/',
   URLPOLD: 'http://10.125.31.150:3000/',
+
+  URLRegBus: 'http://10.125.31.23/api_registroUsuario/',
+
 };
 
 /*

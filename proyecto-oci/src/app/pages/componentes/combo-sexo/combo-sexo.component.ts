@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UsuarioCivil } from 'src/app/modelos/index.models';
-import { UsuarioCivilService } from 'src/app/servicios/index.service';
+import { Sexo, UsuarioCivil } from 'src/app/modelos/index.models';
+import { SexoService, UsuarioCivilService } from 'src/app/servicios/index.service';
 
 @Component({
   selector: 'app-combo-sexo',
@@ -10,18 +10,18 @@ import { UsuarioCivilService } from 'src/app/servicios/index.service';
 export class ComboSexoComponent implements OnInit {
 
   @Input()
-  set dibujar(item: UsuarioCivil) {
+  set dibujar(item: Sexo) {
     this.item = item;
   }
 
-  item: UsuarioCivil;
-  items: UsuarioCivil[];
+  item: Sexo;
+  items: Sexo[];
   @Output()
-  emity: EventEmitter<UsuarioCivil> = new EventEmitter<UsuarioCivil>();
+  emity: EventEmitter<Sexo> = new EventEmitter<Sexo>();
   @Output()
-  opcionseleccionada!: UsuarioCivil;
+  opcionseleccionada!: Sexo;
 
-  constructor(private wsdl: UsuarioCivilService) {
+  constructor(private wsdl: SexoService) {
     this.item = new UsuarioCivil();
     this.items = [];
     this.listar();
@@ -33,14 +33,14 @@ export class ComboSexoComponent implements OnInit {
   }
   //captura el dato del combo
 
-  capturar(event: UsuarioCivil) {
+  capturar(event: Sexo) {
     this.item = event;
     //Swal.fire(event.nombre)
     //console.log(event.nombre)
     this.emity.emit(this.item);
   }
 
-  compareFnPer(c1: UsuarioCivil, c2: UsuarioCivil): boolean {
+  compareFnPer(c1: Sexo, c2: Sexo): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 

@@ -2,18 +2,18 @@ import { Sexo, Unidad } from "../index.models";
 
 export class UsuarioCivil{
     
-    id?: number;
+    id!: number;
     sexo!: Sexo;
     apellido!:string;
-    nombre!: String;
+    nombre!: string;
     norDni!:number;
     grupoS!:string;
     factor!:string;
-    fechaNacimiento!: Date;
+    fechaNacimiento!: any;
     domicilio!: any;
-    fechaFinContrato!: Date;
+    fechaFinContrato!: any;
     unidad!: Unidad;
-    activo?: boolean;
+    activo!: boolean;
     created_at?: any;
     updated_at?: any;
     deleted_at?:any;
@@ -21,6 +21,7 @@ export class UsuarioCivil{
     constructor() {
         this.sexo = new Sexo();
         this.unidad = new Unidad();
-
+        this.fechaFinContrato = new Date();
+        this.fechaNacimiento = new Date();
     }
 }

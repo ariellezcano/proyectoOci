@@ -6,14 +6,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioCivilService {
-
+export class SexoService {
   other_header: any;
   api;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URLCivil + 'civil/';
-
+    this.api = environment.URLCivil + 'sexo';
+    //this.api = "http://10.125.31.241:3000/unidad/";
   }
   /* particularidad de la entidad */
 
@@ -21,13 +20,14 @@ export class UsuarioCivilService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .get(this.api + '?page=' + page + '&limit=' + limit, {
+    // + '?page=' + page + '&limit=' + limit  
+    .get(this.api, {
         headers: this.other_header,
       })
       .toPromise()
       .catch((err) => {
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };
@@ -38,14 +38,13 @@ export class UsuarioCivilService {
     this.other_header = UturuncoUtils.getHeader();
     return this.http
       .get(
-        //+ '/find/' + criteria + '?page=' + page + '&limit=' + limit
-        this.api,
+        this.api + '/find/' + criteria + '?page=' + page + '&limit=' + limit,
         { headers: this.other_header }
       )
       .toPromise()
       .catch((err) => {
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };
@@ -60,7 +59,7 @@ export class UsuarioCivilService {
       .toPromise()
       .catch((err) => {
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };
@@ -76,14 +75,14 @@ export class UsuarioCivilService {
       .catch((err) => {
         console.log(err);
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };
       });
   }
 
-  doUpdate(evento: object, id: any) {
+  doUpdate(evento: object, id: number) {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
@@ -92,14 +91,14 @@ export class UsuarioCivilService {
       .catch((err) => {
         console.log(err);
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };
       });
   }
 
-  doDelete(id: any) {
+  doDelete(id: number) {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
@@ -107,7 +106,7 @@ export class UsuarioCivilService {
       .toPromise()
       .catch((err) => {
         return {
-          code: "500",
+          code: 500,
           data: err.message,
           msg: 'Error en el servicio',
         };

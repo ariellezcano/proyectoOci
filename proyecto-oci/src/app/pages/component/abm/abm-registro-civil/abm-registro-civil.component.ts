@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { UsuarioCivil } from 'src/app/modelos/componentes/UsuarioCiv';
+import { Sexo } from 'src/app/modelos/index.models';
 import { UsuarioCivilService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
@@ -50,7 +51,6 @@ export class AbmRegistroCivilComponent implements OnInit {
       fechaNacimiento: ['', Validators.required],
       fechaFinContrato: ['', Validators.required],
       domicilio: ['', Validators.required],
-      //fechaFinContrato: ['', Validators.required],
     });
 
     //captura el id que viene en el url
@@ -74,9 +74,18 @@ export class AbmRegistroCivilComponent implements OnInit {
           this.item = res.data;
 
           console.log(this.item);
-          // this.item.fechaAlta = moment(this.item.fechaAlta).format(
-          //   'YYYY-MM-DD'
-          // );
+          
+          if(this.item.fechaNacimiento != undefined) {
+            this.item.fechaNacimiento = moment(this.item.fechaNacimiento).format(
+            'YYYY-MM-DD'
+          );
+          }
+          if(this.item.fechaFinContrato != undefined) {
+            this.item.fechaFinContrato = moment(this.item.fechaFinContrato).format(
+            'YYYY-MM-DD'
+          );
+          }
+          
         }
       } else {
         this.item = new UsuarioCivil();
@@ -90,8 +99,7 @@ export class AbmRegistroCivilComponent implements OnInit {
     this.enviado = true;
     if (this.form.valid) {
       if (this.id > 0) {
-        
-        this.doEdit(this.item);
+        this.doEdit();
       } else {
         this.doCreate();
       }
@@ -100,8 +108,8 @@ export class AbmRegistroCivilComponent implements OnInit {
 
   async doCreate() {
     try {
-      this.item.sexo.id = 1;
       this.item.unidad.id = 1;
+      console.log("datos enviados", this.item)
       this.procesando = true;
       const res = await this.wsdl.doInsert(this.item).then();
       console.log("res", res);
@@ -124,7 +132,7 @@ export class AbmRegistroCivilComponent implements OnInit {
     }
   }
 
-  async doEdit(usuario: UsuarioCivil) {
+  async doEdit() {
     try {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
@@ -143,6 +151,10 @@ export class AbmRegistroCivilComponent implements OnInit {
       UturuncoUtils.showToas('Excepción: ' + error.message, 'error');
     }
     this.procesando = false;
+  }
+
+  seleccion(event: Sexo) {
+    this.item.sexo = event;
   }
 
   back() {
