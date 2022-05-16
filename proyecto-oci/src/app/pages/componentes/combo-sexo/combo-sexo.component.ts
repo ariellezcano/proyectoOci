@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Sexo, UsuarioCivil } from 'src/app/modelos/index.models';
+import { Sexo, Civil } from 'src/app/modelos/index.models';
 import { SexoService, UsuarioCivilService } from 'src/app/servicios/index.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class ComboSexoComponent implements OnInit {
   opcionseleccionada!: Sexo;
 
   constructor(private wsdl: SexoService) {
-    this.item = new UsuarioCivil();
+    this.item = new Civil();
     this.items = [];
     this.listar();
     // this.opcionseleccionada = "";

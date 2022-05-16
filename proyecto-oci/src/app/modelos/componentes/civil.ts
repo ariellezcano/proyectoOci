@@ -1,6 +1,6 @@
 import { Sexo, Unidad } from "../index.models";
 
-export class UsuarioCivil{
+export class Civil{
     
     id!: number;
     sexo!: Sexo;

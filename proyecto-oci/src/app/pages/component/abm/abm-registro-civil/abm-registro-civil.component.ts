@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { UsuarioCivil } from 'src/app/modelos/componentes/UsuarioCiv';
-import { Sexo } from 'src/app/modelos/index.models';
+import { Civil, Sexo } from 'src/app/modelos/index.models';
 import { UsuarioCivilService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
@@ -28,7 +27,7 @@ export class AbmRegistroCivilComponent implements OnInit {
   procesando!: Boolean;
 
 
-  item!: UsuarioCivil;
+  item!: Civil;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +35,7 @@ export class AbmRegistroCivilComponent implements OnInit {
     private wsdl: UsuarioCivilService,
     private formBuilder: FormBuilder
   ) {
-    this.item = new UsuarioCivil();
+    this.item = new Civil();
   }
 
   ngOnInit(): void {
@@ -88,7 +87,7 @@ export class AbmRegistroCivilComponent implements OnInit {
           
         }
       } else {
-        this.item = new UsuarioCivil();
+        this.item = new Civil();
       }
     } catch (error) {
       UturuncoUtils.showToas('Error inesperado', 'error');

@@ -48,12 +48,11 @@
             width="140px;"
           />
         </div>
-        <h3 id="sesion">Inicie Sesión</h3>
+        <h3 id="sesion">INICIAR SESION</h3>
         <form #f="ngForm" class="was-validated" (ngSubmit)="login()">
           <div class="form-group">
             <input
               required
-              
               #usercuit
               type="text"
               min="6000000"
@@ -63,10 +62,10 @@
               [(ngModel)]="cuit"
               id="username"
               name="username"
-              placeholder="Ingrese Nro. DNI"
+              placeholder="Usuario"
             />
             <div class="invalid-feedback">
-              Ingrese un número de DNI válido de 8 carácteres como mínimo
+              Ingrese nombre de usuario
             </div>
           </div>
           <div class="form-group">
@@ -81,7 +80,7 @@
               [(ngModel)]="pass"
               id="password"
               name="password"
-              placeholder="Ingrese clave de Policía Digital"
+              placeholder="Clave de acceso"
             />
             <div class="invalid-feedback">
               Ingrese su clave de acceso al Sistéma

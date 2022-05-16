@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioCivil } from 'src/app/modelos/index.models';
+import { Civil } from 'src/app/modelos/index.models';
 import { UsuarioCivilService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
@@ -18,8 +18,8 @@ export class LstUsuariosComponent implements OnInit {
   cerrar!: ElementRef;
 
   exportar: boolean = false;
-  items: UsuarioCivil[];
-  item: UsuarioCivil;
+  items: Civil[];
+  item: Civil;
 
   procesando!: Boolean;
   public load!: boolean;
@@ -28,7 +28,7 @@ export class LstUsuariosComponent implements OnInit {
 
   constructor(private wsdl: UsuarioCivilService, private router: Router) {
     this.load = false;
-    this.item = new UsuarioCivil();
+    this.item = new Civil();
     this.items = [];
   }
 
@@ -40,8 +40,8 @@ export class LstUsuariosComponent implements OnInit {
     // }
   }
 
-  preDelete(item: UsuarioCivil) {
-    this.item = new UsuarioCivil();
+  preDelete(item: Civil) {
+    this.item = new Civil();
     this.item = item;
 
     Swal.fire({
@@ -80,7 +80,7 @@ export class LstUsuariosComponent implements OnInit {
   }
 
   cancel() {
-    this.item = new UsuarioCivil();
+    this.item = new Civil();
     this.fil.list();
   }
 
@@ -127,19 +127,9 @@ export class LstUsuariosComponent implements OnInit {
     return color;
   }
 
-  // scroll(value: any[]) {
-  //   console.log('valor', value);
-  //   const valor = '';
-  //   if (value.length > 5) {
-  //     const valor = 'table-responsive';
-  //     return valor;
-  //   } else {
-  //     return console.log('no hay mas de 10');
-  //   }
-  // }
-
-  doFound(event: UsuarioCivil[]) {
+  doFound(event: Civil[]) {
     this.items = event;
+    console.log('this.items', this.items);
   }
 
 }

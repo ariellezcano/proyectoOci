@@ -36,9 +36,8 @@ export class RegistroUsuarioService {
 
   doFindDni(dni: any) {
     this.other_header = UturuncoUtils.getHeader();
-
     return this.http
-      .get(this.api + 'find/usuarioSistema/'+ dni, 
+      .post(this.api + 'find/usuarioSistema/'+ dni,
       { headers: this.other_header })
       .toPromise()
       .catch((err) => {
@@ -47,6 +46,7 @@ export class RegistroUsuarioService {
           data: err.message,
           msg: 'Error en el servicio',
         };
-      });}
+      });
+    }
 
   }
