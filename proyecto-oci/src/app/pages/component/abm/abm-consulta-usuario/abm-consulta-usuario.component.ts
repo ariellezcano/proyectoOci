@@ -29,8 +29,18 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   public async insertOci() {
     try {
+      let data = await this.wsdl.doInsert(this.dtOci).then();
+        let res = JSON.parse(JSON.stringify(data));
+        if (res.code == 200) {
+          this.item = res.data;
 
-      console.log("this.items",this.dtOci)
+          console.log(this.item);
+          
+          
+          
+        }else{
+
+        }
 
     } catch (error) {}
   }
@@ -41,6 +51,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.datosPersonal.nombre = event.civil.nombre;
       this.dtOci.datosPersonal.apellido = event.civil.apellido;
       this.dtOci.datosPersonal.norDni = event.civil.norDni;
+      this.dtOci.usuario = event.id;
       this.tipoPersona = "Personal Civil"
     }
     if(event.persona.id > 0 || event.persona != null){
@@ -48,6 +59,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.datosPersonal.nombre = event.persona.nombre;
       this.dtOci.datosPersonal.apellido = event.persona.apellido;
       this.dtOci.datosPersonal.norDni = event.persona.norDni;
+      this.dtOci.usuario = event.id;
       this.tipoPersona = "Personal Policial"
     }
   }

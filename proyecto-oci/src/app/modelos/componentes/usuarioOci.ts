@@ -19,5 +19,6 @@ export class UsuarioOci{
 
     constructor() {
         this.datosPersonal = new Persona();
+        this.activo = true;
     }
 }
