@@ -10,4 +10,6 @@ export { Archivo } from './componentes/archivo';
 export { Tematica } from './componentes/tematica';
 export { Regional } from './componentes/regional';
 export { Sexo } from './componentes/sexo';
-export {Civil} from './componentes/Civil'
+export { Civil } from './componentes/civil'
+export { UsuarioOci } from './componentes/usuarioOci';
+export { UsuariosRegistro } from './componentes/usuarioRegistro'

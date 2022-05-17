@@ -6,21 +6,21 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class HabilitarUsuarioService {
+export class UsuariosOciService {
   other_header: any;
   api;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URL + 'usuario/';
+    this.api = environment.URL + 'usuarioOci';
+    //this.api = "http://10.125.31.241:3000/unidad/";
   }
   /* particularidad de la entidad */
 
-  getList(page: number, limit: number) {
+  getList() {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-    // + '?page=' + page + '&limit=' + limit  
-    .get(this.api, {
+      .get(this.api , {
         headers: this.other_header,
       })
       .toPromise()
@@ -110,4 +110,5 @@ export class HabilitarUsuarioService {
           msg: 'Error en el servicio',
         };
       });
-  }}
+  }
+}

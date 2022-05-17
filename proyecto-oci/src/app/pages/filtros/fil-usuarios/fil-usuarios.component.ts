@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Civil } from 'src/app/modelos/index.models';
+import { UsuariosRegistro } from 'src/app/modelos/index.models';
 import {
   RegistroUsuarioService,
-  UsuarioCivilService,
 } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
@@ -13,7 +12,7 @@ import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 })
 export class FilUsuariosComponent implements OnInit {
   @Output()
-  filter: EventEmitter<any[]> = new EventEmitter<any[]>();
+  filter: EventEmitter<UsuariosRegistro> = new EventEmitter<UsuariosRegistro>();
 
   cargando: Boolean = false;
   procesando: Boolean;
@@ -38,11 +37,11 @@ export class FilUsuariosComponent implements OnInit {
       let data = await this.wsdl.doFindDni(this.crit).then();
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
-        this.filter.emit(result.data);
+        this.filter.emit(result.data.usuario);
         this.cargando = false;
         this.procesando = false;
       } else {
-        this.filter.emit([]);
+        this.filter.emit();
         this.procesando = false;
         this.cargando = false;
         UturuncoUtils.showToas(result.msg, 'error');

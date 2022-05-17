@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Civil } from 'src/app/modelos/index.models';
-import { UsuarioCivilService } from 'src/app/servicios/index.service';
+import { Civil, UsuarioOci } from 'src/app/modelos/index.models';
+import { UsuariosOciService } from 'src/app/servicios/componentes/usuarios-oci.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
+import { FilUsuarioOciComponent } from '../../filtros/fil-usuario-oci/fil-usuario-oci.component';
 import { FilUsuariosComponent } from '../../filtros/fil-usuarios/fil-usuarios.component';
 
 @Component({
@@ -12,23 +13,23 @@ import { FilUsuariosComponent } from '../../filtros/fil-usuarios/fil-usuarios.co
   styleUrls: ['./lst-usuarios.component.scss']
 })
 export class LstUsuariosComponent implements OnInit {
-  @ViewChild(FilUsuariosComponent, { static: false }) fil!: FilUsuariosComponent;
+  @ViewChild(FilUsuarioOciComponent, { static: false }) fil!: FilUsuarioOciComponent;
 
   @ViewChild('close')
   cerrar!: ElementRef;
 
   exportar: boolean = false;
-  items: Civil[];
-  item: Civil;
+  items: UsuarioOci[];
+  item: UsuarioOci;
 
   procesando!: Boolean;
   public load!: boolean;
 
   entidad = 'lst-usuarios';
 
-  constructor(private wsdl: UsuarioCivilService, private router: Router) {
+  constructor(private wsdl: UsuariosOciService, private router: Router) {
     this.load = false;
-    this.item = new Civil();
+    this.item = new UsuarioOci();
     this.items = [];
   }
 
@@ -40,13 +41,13 @@ export class LstUsuariosComponent implements OnInit {
     // }
   }
 
-  preDelete(item: Civil) {
-    this.item = new Civil();
+  preDelete(item: UsuarioOci) {
+    this.item = new UsuarioOci();
     this.item = item;
 
     Swal.fire({
       title: 'Esta Seguro?',
-      text: '¡No podrás recuperar este archivo ' + item.nombre + '!',
+      text: '¡No podrás recuperar este archivo ' + item.persona + '!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: '¡Eliminar!',
@@ -80,7 +81,7 @@ export class LstUsuariosComponent implements OnInit {
   }
 
   cancel() {
-    this.item = new Civil();
+    this.item = new UsuarioOci();
     this.fil.list();
   }
 
@@ -100,6 +101,10 @@ export class LstUsuariosComponent implements OnInit {
 
   linkear(id?: Number) {
     this.router.navigateByUrl(this.entidad + '/abm/' + id);
+  }
+
+  habilitar() {
+    this.router.navigateByUrl('/busqueda-usuario/abm');
   }
 
   colores(valor: any) {
@@ -127,7 +132,7 @@ export class LstUsuariosComponent implements OnInit {
     return color;
   }
 
-  doFound(event: Civil[]) {
+  doFound(event: UsuarioOci[]) {
     this.items = event;
     console.log('this.items', this.items);
   }

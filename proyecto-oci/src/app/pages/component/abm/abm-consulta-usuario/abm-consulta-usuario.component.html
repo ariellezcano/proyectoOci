@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <h3><b>Habilitar Usuarios para uso del Sistema</b></h3>
+    <br />
+    <hr />
+    <div class="col-md-12">
+      <app-fil-usuarios (filter)="doFound($event)"></app-fil-usuarios>
+    </div>
+  </div>
+  <form (ngSubmit)="insertOci()">
+    <div class="row">
+      <div class="col-md-12 alert alert-info text-center">
+        <h3>
+          <u
+            ><em>{{ tipoPersona }}</em></u
+          >
+        </h3>
+        <h4>
+          <b
+            >{{ dtOci.datosPersonal.apellido }},
+            {{ dtOci.datosPersonal.nombre }}</b
+          >
+          Dni n°: <b>{{ dtOci.datosPersonal.norDni }}</b>
+        </h4>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+  </form>
+</div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
+import { AbmConsultaUsuarioComponent } from './component/abm/abm-consulta-usuario/abm-consulta-usuario.component';
 import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
 import { AbmRegistroCivilComponent } from './component/abm/abm-registro-civil/abm-registro-civil.component';
 import { AbmTematicaComponent } from './component/abm/abm-tematica/abm-tematica.component';
@@ -72,6 +73,16 @@ const routes: Routes = [
             path: '',
             component: LstUsuariosComponent,
           },
+        ],
+      },
+      {
+        path: 'busqueda-usuario',
+        children: [
+          {
+            path: 'abm',
+            component: AbmConsultaUsuarioComponent,
+          },
+          
         ],
       },
     ],

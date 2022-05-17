@@ -1,8 +1,8 @@
 export class Persona{
-    id!: Number;
+    id!: number;
     nombre!: string;
     apellido!: string;
-    norDni!: string;
+    norDni!: number;
     activo!: Boolean;
 
     constructor(){

@@ -26,6 +26,8 @@ import { LstUsuariosComponent } from './lst/lst-usuarios/lst-usuarios.component'
 import { FilUsuariosComponent } from './filtros/fil-usuarios/fil-usuarios.component';
 import { CommonModule } from '@angular/common';
 import { ComboSexoComponent } from './componentes/combo-sexo/combo-sexo.component';
+import { FilUsuarioOciComponent } from './filtros/fil-usuario-oci/fil-usuario-oci.component';
+import { AbmConsultaUsuarioComponent } from './component/abm/abm-consulta-usuario/abm-consulta-usuario.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -48,8 +50,9 @@ import { ComboSexoComponent } from './componentes/combo-sexo/combo-sexo.componen
     LstUsuariosComponent,
     AbmRegistroCivilComponent,
     FilUsuariosComponent,
-    ComboSexoComponent
-    
+    ComboSexoComponent,
+    FilUsuarioOciComponent,
+    AbmConsultaUsuarioComponent
   ],
 
   exports: [],

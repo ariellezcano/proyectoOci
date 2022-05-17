@@ -4,13 +4,20 @@ export class UsuarioOci{
 
     id!: number;
     usuarioCrea!: number;
+    usuario!: number;
     fechaAlta!: Date;
     persona!: number;
     civil!: number;
-    datosPersonal!: string;
+    datosPersonal!: Persona;
     fechaBaja!: Date;
+    usuarioBaja!: number;
+    baja!:boolean;
+    activo!: boolean;
+    created_at?: Date;
+    updated_at?: Date;
+    delete_at?: Date;
 
     constructor() {
-
+        this.datosPersonal = new Persona();
     }
 }

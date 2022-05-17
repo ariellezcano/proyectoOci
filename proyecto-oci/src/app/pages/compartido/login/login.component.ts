@@ -17,7 +17,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import { RegistroUsuarioService, UserxsService, UsuarioService } from 'src/app/servicios/index.service';
-import { HabilitarUsuarioService } from 'src/app/servicios/componentes/habilitar-usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -85,8 +84,8 @@ export class LoginComponent implements OnInit {
     private wsdl: UserxsService,
     private wsdlu: UsuarioService,
     private wsdlRegistro: RegistroUsuarioService,
-    private wsdlhabilitar: HabilitarUsuarioService,
-  ) {
+  
+    ) {
     this.proccess = false;
     this.error = false;
     this.dataJSON = { contacto: { Nro: '' } };
