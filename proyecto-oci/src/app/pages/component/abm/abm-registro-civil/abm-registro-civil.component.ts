@@ -74,16 +74,16 @@ export class AbmRegistroCivilComponent implements OnInit {
 
           console.log(this.item);
           
-          if(this.item.fechaNacimiento != undefined) {
-            this.item.fechaNacimiento = moment(this.item.fechaNacimiento).format(
-            'YYYY-MM-DD'
-          );
-          }
-          if(this.item.fechaFinContrato != undefined) {
-            this.item.fechaFinContrato = moment(this.item.fechaFinContrato).format(
-            'YYYY-MM-DD'
-          );
-          }
+          // if(this.item.fechaNacimiento != undefined) {
+          //   this.item.fechaNacimiento = moment(this.item.fechaNacimiento).format(
+          //   'YYYY-MM-DD'
+          // );
+          // }
+          // if(this.item.fechaFinContrato != undefined) {
+          //   this.item.fechaFinContrato = moment(this.item.fechaFinContrato).format(
+          //   'YYYY-MM-DD'
+          // );
+          // }
           
         }
       } else {
@@ -117,7 +117,7 @@ export class AbmRegistroCivilComponent implements OnInit {
       if (result.code == 200) {
         // this.item = result.status;
         UturuncoUtils.showToas('Se creo correctamente', 'success');
-        this.back();
+        //this.back();
         this.finalizado.emit(true);
       } else if (result.status == 666) {
         // logout app o refresh token

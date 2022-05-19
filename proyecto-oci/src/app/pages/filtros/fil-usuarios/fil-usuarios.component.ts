@@ -1,9 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UsuariosRegistro } from 'src/app/modelos/index.models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioOci, UsuariosRegistro } from 'src/app/modelos/index.models';
 import {
   RegistroUsuarioService,
+  UsuariosOciService,
 } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fil-usuarios',
@@ -18,10 +21,18 @@ export class FilUsuariosComponent implements OnInit {
   procesando: Boolean;
   public search!: string;
   public crit = '';
+  public id: any;
+  public result: any;
+  item: UsuarioOci;
 
-  constructor(private wsdl: RegistroUsuarioService) {
+  constructor(
+    private route: Router,
+    private wsdl: RegistroUsuarioService,
+    private wsdlUsuarioOci: UsuariosOciService
+  ) {
     this.procesando = false;
     this.cargando = false;
+    this.item = new UsuarioOci();
   }
 
   ngOnInit() {}
@@ -33,18 +44,16 @@ export class FilUsuariosComponent implements OnInit {
       if (this.search != undefined || this.search != '') {
         this.crit = this.search;
       }
-
       let data = await this.wsdl.doFindDni(this.crit).then();
-      const result = JSON.parse(JSON.stringify(data));
-      if (result.code == 200) {
-        this.filter.emit(result.data.usuario);
-        this.cargando = false;
-        this.procesando = false;
+      this.result = JSON.parse(JSON.stringify(data));
+      if (this.result.code == 200) {
+        this.id = this.result.data.usuario.id;
+        this.verificarUsuario();
       } else {
         this.filter.emit();
         this.procesando = false;
         this.cargando = false;
-        UturuncoUtils.showToas(result.msg, 'error');
+        UturuncoUtils.showToas(this.result.msg, 'error');
       }
     } catch (error) {
       this.procesando = false;
@@ -54,5 +63,59 @@ export class FilUsuariosComponent implements OnInit {
       this.procesando = false;
       this.cargando = false;
     }
+  }
+
+  async verificarUsuario() {
+    let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
+    const result1 = JSON.parse(JSON.stringify(data1));
+    console.log("result1",result1);
+    if (result1.code == 200) {
+      this.item = result1.data;
+      if (result1.data.baja) {
+        Swal.fire({
+          title: 'El usuario se encuentra dado de baja',
+          text: 'DESEA HABILITARLO!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si!',
+          cancelButtonText: 'Cancelar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.editBaja();
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'El usuario ya se encuentra habilitado!',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+      }
+    } else {
+      this.filter.emit(this.result.data.usuario);
+      this.cargando = false;
+      this.procesando = false;
+    }
+  }
+
+  async editBaja() {
+    //fecha y id de quien da de baja
+    this.item.baja = false;
+    let data2 = await this.wsdlUsuarioOci.doUpdate(this.item.id, this.item).then();
+    const result2 = JSON.parse(JSON.stringify(data2));
+    if (result2.code == 200) {
+      Swal.fire('El usuario ha sido habilitado correctamente!.', 'success');
+      this.back();
+    }
+  }
+
+  back() {
+    this.route.navigate(['/lst-usuarios']);
   }
 }

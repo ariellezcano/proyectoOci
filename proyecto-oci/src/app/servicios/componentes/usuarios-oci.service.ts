@@ -11,7 +11,7 @@ export class UsuariosOciService {
   api;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URL + 'usuarioOci';
+    this.api = environment.URL + 'usuariosOci';
     //this.api = "http://10.125.31.241:3000/unidad/";
   }
   /* particularidad de la entidad */
@@ -20,7 +20,7 @@ export class UsuariosOciService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .get(this.api , {
+      .get(this.api, {
         headers: this.other_header,
       })
       .toPromise()
@@ -54,7 +54,7 @@ export class UsuariosOciService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .get(this.api + '/' + id, { headers: this.other_header })
+      .get(this.api + '/find/idUserOci/' + id, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         return {
@@ -81,7 +81,7 @@ export class UsuariosOciService {
       });
   }
 
-  doUpdate(evento: object, id: number) {
+  doUpdate(id: any, evento: any) {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http

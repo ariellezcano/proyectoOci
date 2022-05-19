@@ -1,14 +1,13 @@
 import {  Persona, Usuario } from "../index.models";
 
 export class UsuarioOci{
-
     id!: number;
     usuarioCrea!: number;
     usuario!: number;
-    fechaAlta!: Date;
+    fechaAlta!: any;
     persona!: number;
     civil!: number;
-    datosPersonal!: Persona;
+    datosPersonal: any;
     fechaBaja!: Date;
     usuarioBaja!: number;
     baja!:boolean;
@@ -18,7 +17,7 @@ export class UsuarioOci{
     delete_at?: Date;
 
     constructor() {
-        this.datosPersonal = new Persona();
+        this.datosPersonal = {norDni: "", nombre:"", apellido:""};
         this.activo = true;
     }
 }

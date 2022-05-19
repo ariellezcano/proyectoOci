@@ -9,9 +9,9 @@ export class Civil{
     norDni!:number;
     grupoS!:string;
     factor!:string;
-    fechaNacimiento!: any;
+    fechaNacimiento!: Date;
     domicilio!: any;
-    fechaFinContrato!: any;
+    fechaFinContrato!: Date;
     unidad!: Unidad;
     activo!: boolean;
     created_at?: any;
@@ -21,7 +21,6 @@ export class Civil{
     constructor() {
         this.sexo = new Sexo();
         this.unidad = new Unidad();
-        this.fechaFinContrato = new Date();
-        this.fechaNacimiento = new Date();
+        
     }
 }

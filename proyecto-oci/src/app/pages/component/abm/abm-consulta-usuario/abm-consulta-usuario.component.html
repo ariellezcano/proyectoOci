@@ -7,23 +7,25 @@
       <app-fil-usuarios (filter)="doFound($event)"></app-fil-usuarios>
     </div>
   </div>
-  <form (ngSubmit)="insertOci()">
-    <div class="row">
-      <div class="col-md-12 alert alert-info text-center">
-        <h3>
-          <u
-            ><em>{{ tipoPersona }}</em></u
-          >
-        </h3>
-        <h4>
-          <b
-            >{{ dtOci.datosPersonal.apellido }},
-            {{ dtOci.datosPersonal.nombre }}</b
-          >
-          Dni n°: <b>{{ dtOci.datosPersonal.norDni }}</b>
-        </h4>
+    <form *ngIf="proceso" (ngSubmit)="pregunta()">
+      <div class="row">
+        <div class="col-md-12 alert alert-info text-center">
+          <h3>
+            <u
+              ><em>{{ tipoPersona }}</em></u
+            >
+          </h3>
+          <h4>
+            <b
+              >{{ dtOci.datosPersonal.apellido }},
+              {{ dtOci.datosPersonal.nombre }}</b
+            >
+            Dni n°: <b>{{ dtOci.datosPersonal.norDni }}</b>
+          </h4>
+        </div>
       </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Guardar Usuario</button>
-  </form>
+      <button type="submit" class="btn btn-outline-info btn-block">Guardar Usuario</button>
+      &nbsp;
+    </form>
+    <button (click)="back()" type="submit" class="btn btn-outline-warning btn-block">Volver</button>
 </div>

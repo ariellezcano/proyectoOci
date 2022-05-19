@@ -62,9 +62,8 @@ export class FilUsuarioOciComponent implements OnInit {
       const crit = this.search + '';
 
       let data = await this.wsdl
-        .getCriteria(crit, this.page, this.limit)
+        .getList()
         .then();
-
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
         this.filter.emit(result.data.docs);

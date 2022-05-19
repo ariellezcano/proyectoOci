@@ -8,3 +8,4 @@ export { TematicaService } from './componentes/tematica.service';
 export { UsuarioCivilService } from './componentes/usuario-civil.service';
 export { SexoService } from './componentes/sexo.service';
 export { RegistroUsuarioService} from './componentes/registro-usuario.service';
+export {UsuariosOciService} from './componentes/usuarios-oci.service';
