@@ -32,6 +32,7 @@
             <th>Apellido</th>
             <th>Nombre</th>
             <th>DNI</th>
+            <th>Tipo Usuario</th>
           </tr>
         </thead>
         <tbody class="text-center">
@@ -74,6 +75,7 @@
             <td>{{ item?.datosPersonal?.apellido }}</td>
             <td>{{ item?.datosPersonal?.nombre }}</td>
             <td>{{ item?.datosPersonal?.norDni }}</td>
+            <td class="text-success"><b>{{tipoUsuario(item.persona)}}</b></td>
           </tr>
         </tbody>
       </table>

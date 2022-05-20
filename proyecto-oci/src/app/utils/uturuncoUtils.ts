@@ -9,7 +9,7 @@ export class UturuncoUtils {
     localStorage.setItem(key, data);
   }
 
-  public static getSession(key: string | any) {
+  public static getSession(key: any) {
     return localStorage.getItem(key);
   }
 

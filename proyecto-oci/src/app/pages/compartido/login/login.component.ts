@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-import { RegistroUsuarioService, UserxsService, UsuarioService } from 'src/app/servicios/index.service';
+import { RegistroUsuarioService, UserxsService, UsuarioService, UsuariosOciService } from 'src/app/servicios/index.service';
 
 @Component({
   selector: 'app-login',
@@ -49,16 +49,6 @@ export class LoginComponent implements OnInit {
   @ViewChild('datosss')
   registrobtn!: ElementRef;
 
-  permitido: string[] = [
-    '38870624',
-    '31325601',
-    '31909503',
-    '31909760',
-    '38122139',
-    '31698876',
-    '28510864',
-  ];
-
   public proccess: Boolean;
   public isUser!: boolean;
   public download!: string;
@@ -66,7 +56,13 @@ export class LoginComponent implements OnInit {
   public pass: any;
   public anim: any;
 
+  public id!: number;
+
   public error: Boolean;
+
+  datosPersonal!: any;
+  nombre!: string;
+  apellido!: string;
 
   public dniRestore: any;
   public fechaRestore: any;
@@ -81,8 +77,8 @@ export class LoginComponent implements OnInit {
     private route_: ActivatedRoute,
     private route: Router,
     private renderer: Renderer2,
-    private wsdl: UserxsService,
-    private wsdlu: UsuarioService,
+    
+    private wsdlUsuarioOci: UsuariosOciService,
     private wsdlRegistro: RegistroUsuarioService,
   
     ) {
@@ -113,41 +109,7 @@ export class LoginComponent implements OnInit {
     // });
   }
 
-  async login22() {
-    try {
-      if (this.cuit) {
-        this.proccess = true;
-        let data = await this.wsdl.doLogin(this.cuit).then();
-        console.log(this.cuit, data);
-
-        this.proccess = false;
-
-        let res = JSON.parse(JSON.stringify(data));
-        if (res.code === 200) {
-          if (res.password) {
-            this.isUser = true;
-            await this.delay(900);
-            this.password.nativeElement.focus();
-          } else {
-            Swal.fire(
-              'Oops...',
-              'Ud no esta registrado en nuestra aplicacion presione registrarse y complete el formulario',
-              'info'
-            );
-            this.dataJSON.dni = this.cuit;
-          }
-        } else {
-          this.cuit = undefined;
-          Swal.fire('Oops...', res.msg, 'error');
-        }
-      } else {
-        Swal.fire('Oops...', 'Ingrese un DNI Valido', 'error');
-      }
-    } catch (error) {
-      this.proccess = false;
-      Swal.fire('Oops...', '' + error, 'error');
-    }
-  }
+  
   async login() {
       try {
           if (this.cuit && this.pass)  {
@@ -155,9 +117,9 @@ export class LoginComponent implements OnInit {
             let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
-            console.log('res1', res)
             if (res.code == 200) {
-              this.route.navigate(['/principal']);
+              this.id = res.data.id;
+              this.login2();
             } else {
               this.cuit = undefined;
               Swal.fire('Oops...', res.msg, 'error');
@@ -180,10 +142,18 @@ export class LoginComponent implements OnInit {
   async login2() {
     try {
       this.proccess = true;
-      let data = await this.wsdlu.doLogin(this.cuit, this.pass).then();
+      let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
+      if (res.code == 200) {
+        
+        this.apellido = res.data.datosPersonal.apellido;
+        this.nombre = res.data.datosPersonal.nombre
 
-      if (res.code === 200) {
+        this.datosPersonal = {
+          apellido: this.apellido,
+          nombre: this.nombre
+        }
+        
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -193,10 +163,12 @@ export class LoginComponent implements OnInit {
 
         Toast.fire({
           icon: 'success',
-          title: 'Bienvenido Sr/a:' + res.data.apellido,
+          title: 'Bienvenido Sr/a: ' + res.data.datosPersonal.apellido,
         });
-        UturuncoUtils.setSession('user', JSON.stringify(res.data));
-        UturuncoUtils.setSession('personal', JSON.stringify(res.policial));
+        
+        UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
+        UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
+        //UturuncoUtils.setSession('personal', JSON.stringify(this.nombre));
 
         this.route.navigate(['/principal']);
       } else {

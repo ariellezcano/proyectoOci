@@ -16,10 +16,11 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.usuario =
-      JSON.parse(''+UturuncoUtils.getSession("user")).apellido +
+      JSON.parse(''+UturuncoUtils.getSession('personal')).apellido +
       " " +
-      JSON.parse(''+UturuncoUtils.getSession("user")).nombre;
-  }
+      JSON.parse(''+UturuncoUtils.getSession("personal")).nombre;
+    }
+  
   cerrar() {
     UturuncoUtils.clearSession();
     this.route.navigate([""]);

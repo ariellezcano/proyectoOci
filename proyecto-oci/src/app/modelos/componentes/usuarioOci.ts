@@ -2,10 +2,10 @@ import {  Persona, Usuario } from "../index.models";
 
 export class UsuarioOci{
     id!: number;
-    usuarioCrea!: number;
+    usuarioCrea!: any;
     usuario!: number;
     fechaAlta!: any;
-    persona!: number;
+    persona!: any;
     civil!: number;
     datosPersonal: any;
     fechaBaja!: Date;

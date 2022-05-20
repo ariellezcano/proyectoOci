@@ -4,6 +4,7 @@ export class Civil{
     
     id!: number;
     sexo!: Sexo;
+    usuarioCrea!:any;
     apellido!:string;
     nombre!: string;
     norDni!:number;

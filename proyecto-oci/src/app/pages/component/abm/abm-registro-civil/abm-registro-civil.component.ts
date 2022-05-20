@@ -108,16 +108,16 @@ export class AbmRegistroCivilComponent implements OnInit {
   async doCreate() {
     try {
       this.item.unidad.id = 1;
+      this.item.usuarioCrea = UturuncoUtils.getSession('user');
       console.log("datos enviados", this.item)
       this.procesando = true;
       const res = await this.wsdl.doInsert(this.item).then();
-      console.log("res", res);
       const result = JSON.parse(JSON.stringify(res));
 
       if (result.code == 200) {
         // this.item = result.status;
         UturuncoUtils.showToas('Se creo correctamente', 'success');
-        //this.back();
+        this.back();
         this.finalizado.emit(true);
       } else if (result.status == 666) {
         // logout app o refresh token

@@ -50,7 +50,7 @@ export class UsuariosOciService {
       });
   }
 
-  doFind(id: number) {
+  doFind(id: any) {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http

@@ -10,10 +10,11 @@ import { FilUsuariosComponent } from '../../filtros/fil-usuarios/fil-usuarios.co
 @Component({
   selector: 'app-lst-usuarios',
   templateUrl: './lst-usuarios.component.html',
-  styleUrls: ['./lst-usuarios.component.scss']
+  styleUrls: ['./lst-usuarios.component.scss'],
 })
 export class LstUsuariosComponent implements OnInit {
-  @ViewChild(FilUsuarioOciComponent, { static: false }) fil!: FilUsuarioOciComponent;
+  @ViewChild(FilUsuarioOciComponent, { static: false })
+  fil!: FilUsuarioOciComponent;
 
   @ViewChild('close')
   cerrar!: ElementRef;
@@ -24,6 +25,8 @@ export class LstUsuariosComponent implements OnInit {
 
   procesando!: Boolean;
   public load!: boolean;
+
+  TipoUsuario!: string;
 
   entidad = 'lst-usuarios';
 
@@ -137,4 +140,13 @@ export class LstUsuariosComponent implements OnInit {
     console.log('this.items', this.items);
   }
 
+  tipoUsuario(item: UsuarioOci) {
+    if (this.item.persona != undefined) {
+      console.log('item ', item.persona);
+      this.TipoUsuario = 'Personal Policial';
+    } else {
+      this.TipoUsuario = 'Personal Civil';
+    }
+    return this.TipoUsuario;
+  }
 }

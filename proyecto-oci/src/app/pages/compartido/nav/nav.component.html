@@ -23,7 +23,7 @@
     <div class="btn-group"></div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <form class="form-inline my-2 my-lg-0">
-      <label id="label" for="Name">{{ usuario }}</label> &nbsp; &nbsp;
+      <label id="label" for="Name">{{ usuario | uppercase }}</label> &nbsp; &nbsp;
       <button
         (click)="cerrar()"
         class="btn btn-outline-success my-2 my-sm-0"

@@ -7,6 +7,7 @@ import { UsuariosOciService } from 'src/app/servicios/componentes/usuarios-oci.s
 import {
   UsuarioService,
 } from 'src/app/servicios/index.service';
+import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -32,7 +33,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   ngOnInit(): void {}
 
   public async insertOci() {
-    this.dtOci.usuarioCrea = 1;
+    this.dtOci.usuarioCrea = UturuncoUtils.getSession('user');
     this.dtOci.fechaAlta = moment(this.dtOci.fechaAlta).format('YYYY-MM-DD');
     console.log(this.dtOci.fechaAlta) 
     try {
