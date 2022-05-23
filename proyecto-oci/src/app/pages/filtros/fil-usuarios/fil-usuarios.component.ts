@@ -49,7 +49,23 @@ export class FilUsuariosComponent implements OnInit {
       if (this.result.code == 200) {
         this.id = this.result.data.usuario.id;
         this.verificarUsuario();
-      } else {
+      } else if (this.result.code == 204) {
+        Swal.fire({
+          title: 'El usuario no existe!',
+          text: 'Si el usuario que está por habilitrar es Personal Policial, por favor comuniquece con el área de Sistemas!, pero si el usuario es Personal Civil, puede crearlo. Al presionar el botón crear, le redirigira al formulario para su creación.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Crear!',
+          cancelButtonText: 'Cancelar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.route.navigate(['/lst-usuarios/abm/0']);
+          }
+        });
+      }
+      else {
         this.filter.emit();
         this.procesando = false;
         this.cargando = false;
@@ -68,7 +84,6 @@ export class FilUsuariosComponent implements OnInit {
   async verificarUsuario() {
     let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
-    console.log("result1",result1);
     if (result1.code == 200) {
       this.item = result1.data;
       if (result1.data.baja) {

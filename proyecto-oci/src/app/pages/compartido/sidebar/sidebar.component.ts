@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  rol: any;
+  constructor() {
+    this.rol = '';
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.rol = JSON.parse('' + UturuncoUtils.getSession('personal')).rol;
+  }
 }

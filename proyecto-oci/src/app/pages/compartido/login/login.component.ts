@@ -57,6 +57,8 @@ export class LoginComponent implements OnInit {
   public anim: any;
 
   public id!: number;
+  public rol: any;
+
 
   public error: Boolean;
 
@@ -90,23 +92,7 @@ export class LoginComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   ngOnInit() {
-    // this.isUser = false;
-    // this.route_.queryParams.subscribe(params => {
-    //   try {
-    //     if (params.code !== undefined && params.code.length === 'ZTNkYTk3ZmFhMDhmZDI0NjgxZTA0Yjk0OGE1Y2Y2NzE2OGFiYzg0YWM5YjEyNDBlZTQ0OTk3NzEwNThhNTE4Mw'.length) {
-    //     }
-    //   } catch (error) {
-    //     this.proccess = false;
-    //     Swal.fire('Oops...', error, 'error')
-    //   }
-    // });
-    // this.route_.paramMap.subscribe((params: Params) => {
-    //   let dataquery = JSON.parse(params.params.state);
-    //   this.query = dataquery.apellidos;
-    //   this.dataJSON = dataquery;
-    //   console.log("DATA", dataquery)
-    //   this.cuit = dataquery.tiposDocumentoPersona[0].numeroDocumento;
-    // });
+
   }
 
   
@@ -119,6 +105,7 @@ export class LoginComponent implements OnInit {
             let res = JSON.parse(JSON.stringify(data));
             if (res.code == 200) {
               this.id = res.data.id;
+              this.rol = res.data.rol.nombre
               this.login2();
             } else {
               this.cuit = undefined;
@@ -131,11 +118,6 @@ export class LoginComponent implements OnInit {
         this.proccess = false;
         Swal.fire('Oops...', '' + error, 'error');
       }
-
-    
-    //para prueba
-   //this.route.navigate(['/principal']);
-
     
   }
 
@@ -151,9 +133,10 @@ export class LoginComponent implements OnInit {
 
         this.datosPersonal = {
           apellido: this.apellido,
-          nombre: this.nombre
+          nombre: this.nombre,
+          rol: this.rol,
         }
-        
+       
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -168,7 +151,6 @@ export class LoginComponent implements OnInit {
         
         UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
         UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
-        //UturuncoUtils.setSession('personal', JSON.stringify(this.nombre));
 
         this.route.navigate(['/principal']);
       } else {
