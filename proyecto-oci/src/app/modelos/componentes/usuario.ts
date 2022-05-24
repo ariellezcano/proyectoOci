@@ -1,5 +1,5 @@
 import { Persona } from './persona';
-import { Roles } from './roles';
+import { Rol } from './roles';
 
 export class Usuario {
     id: number;
@@ -7,7 +7,7 @@ export class Usuario {
     clave: string;
     activo: boolean;
     persona: Persona;
-    rol: Roles;
+    rol: Rol;
 
     constructor() { 
         this.id = 0;
@@ -15,6 +15,6 @@ export class Usuario {
         this.clave = "";
         this.activo = true;
         this.persona = new Persona();
-        this.rol = new Roles();
+        this.rol = new Rol();
     }
 }

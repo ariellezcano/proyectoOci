@@ -20,6 +20,14 @@
             >
             Dni n°: <b>{{ dtOci.datosPersonal.norDni }}</b>
           </h4>
+          <br>
+          <ng-container *ngIf="dtOci.datosPersonal.rol != 'MANAGER'; then thenTemplate; else elseTemplate"></ng-container>
+          <ng-template #thenTemplate>
+            <h5> Rol Vista: <input [(ngModel)]="rol" type="checkbox" name="rol" id=""> </h5>
+          </ng-template>
+          <ng-template #elseTemplate>
+           <h4> Rol Personal: <b>{{ dtOci.datosPersonal.rol }}</b></h4>
+          </ng-template>
         </div>
       </div>
       <button type="submit" class="btn btn-outline-info btn-block">Guardar Usuario</button>
