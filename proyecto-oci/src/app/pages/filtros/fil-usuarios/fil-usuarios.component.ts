@@ -47,14 +47,15 @@ export class FilUsuariosComponent implements OnInit {
       }
       let data = await this.wsdl.doFindDni(this.crit).then();
       this.result = JSON.parse(JSON.stringify(data));
+      console.log("result", this.result.code)
       if (this.result.code == 200) {
-        this.id = this.result.data.usuario.id;
-        console.log("registro de usuario", this.result)
+        this.id = this.result.data.id;
+        console.log('registro de usuario', this.result);
         this.verificarUsuario();
       } else if (this.result.code == 204) {
         Swal.fire({
           title: 'El usuario no existe!',
-          text: 'Si el usuario que está por habilitrar es Personal Policial, por favor comuniquece con el área de Sistemas!, pero si el usuario es Personal Civil, puede crearlo. Al presionar el botón crear, le redirigira al formulario para su creación.',
+          text: 'Si el usuario que está por habilitrar es Personal Policial, por favor comuniquece con el área de Sistemas!, pero si el usuario es Personal Civil, puede crearlo. Al presionar el botón crear, le redirigira al formulario para su creación, pero si ya fue creado debera registrarse en el sistema REPO',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -66,8 +67,7 @@ export class FilUsuariosComponent implements OnInit {
             this.route.navigate(['/lst-usuarios/abm/0']);
           }
         });
-      }
-      else {
+      } else {
         this.filter.emit();
         this.procesando = false;
         this.cargando = false;
@@ -84,9 +84,10 @@ export class FilUsuariosComponent implements OnInit {
   }
 
   async verificarUsuario() {
+    console.log('id', this.id);
     let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
-    console.log("oci",result1);
+    console.log('oci', result1.code);
     if (result1.code == 200) {
       this.item = result1.data;
       if (result1.data.baja) {
@@ -115,7 +116,7 @@ export class FilUsuariosComponent implements OnInit {
           },
         });
       }
-    }else if(result1.code == 204){
+    } else if (result1.code == 401) {
       this.filter.emit(this.result.data);
       this.cargando = false;
       this.procesando = false;
@@ -125,10 +126,16 @@ export class FilUsuariosComponent implements OnInit {
   async editBaja() {
     //fecha y id de quien da de baja
     this.item.baja = false;
-    let data2 = await this.wsdlUsuarioOci.doUpdate(this.item.id, this.item).then();
+    let data2 = await this.wsdlUsuarioOci
+      .doUpdate(this.item.id, this.item)
+      .then();
     const result2 = JSON.parse(JSON.stringify(data2));
     if (result2.code == 200) {
-      Swal.fire('El usuario ha sido habilitado correctamente!.', 'success');
+      Swal.fire(
+        'Operación Exitosa!',
+        'El usuario ha sido habilitado correctamente!',
+        'success'
+      );
       this.back();
     }
   }

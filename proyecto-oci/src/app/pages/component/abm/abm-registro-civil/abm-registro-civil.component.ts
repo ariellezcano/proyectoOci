@@ -66,25 +66,23 @@ export class AbmRegistroCivilComponent implements OnInit {
   async findID() {
     try {
       if (this.id > 0) {
-        console.log(this.id);
         let data = await this.wsdl.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
+        console.log("this id ",res.code);
         if (res.code == 200) {
-          alert('LLegue')
-          this.item = res.data;
-
-          console.log(this.item);
           
-          // if(this.item.fechaNacimiento != undefined) {
-          //   this.item.fechaNacimiento = moment(this.item.fechaNacimiento).format(
-          //   'YYYY-MM-DD'
-          // );
-          // }
-          // if(this.item.fechaFinContrato != undefined) {
-          //   this.item.fechaFinContrato = moment(this.item.fechaFinContrato).format(
-          //   'YYYY-MM-DD'
-          // );
-          // }
+          this.item = res.data;
+          console.log("findid", this.item)
+          if(this.item.fechaNacimiento != undefined) { 
+            this.item.fechaNacimiento = moment(this.item.fechaNacimiento).format(
+            'YYYY-MM-DD'
+          );
+          }
+          if(this.item.fechaFinContrato != undefined) {
+            this.item.fechaFinContrato = moment(this.item.fechaFinContrato).format(
+            'YYYY-MM-DD'
+          );
+          }
           
         }
       } else {

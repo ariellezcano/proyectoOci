@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
   datosPersonal!: any;
   nombre!: string;
   apellido!: string;
+  item!: any;
 
   public dniRestore: any;
   public fechaRestore: any;
@@ -101,9 +102,10 @@ export class LoginComponent implements OnInit {
           if (this.cuit && this.pass)  {
             this.proccess = true;
             let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
+            console.log('res', data);
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
-            console.log('res', res);
+            console.log('registro usuario login', res.code);
             if (res.code == 200) {
               //this.route.navigate(['/principal']);
               this.id = res.data;
@@ -134,33 +136,43 @@ export class LoginComponent implements OnInit {
       let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
       console.log("respuesta", res)
-
       if (res.code == 200) {
-        this.apellido = res.data.datosPersonal.apellido;
-        this.nombre = res.data.datosPersonal.nombre;
-        this.rol = res.data.datosPersonal.rol;
-        this.datosPersonal = {
-          apellido: this.apellido,
-          nombre: this.nombre,
-          rol: this.rol,
+        this.item = res.data
+        console.log('item', this.item)
+        if(!this.item.baja && this.item.activo){
+          this.apellido = res.data.datosPersonal.apellido;
+          this.nombre = res.data.datosPersonal.nombre;
+          this.rol = res.data.datosPersonal.rol;
+          this.datosPersonal = {
+            apellido: this.apellido,
+            nombre: this.nombre,
+            rol: this.rol,
+          }
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Bienvenido Sr/a: ' + res.data.datosPersonal.apellido,
+         });
+          UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
+          UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
+          this.route.navigate(['/principal']);  
         }
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        Toast.fire({
-          icon: 'success',
-          title: 'Bienvenido Sr/a: ' + res.data.datosPersonal.apellido,
-        });
-        UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
-        UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
-        this.route.navigate(['/principal']);
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El usuario se encuentra dado de baja!',
+          })
+        }
       }else if(res.code == 401){
         Swal.fire(
           'Usuario no habilitado',
-          'Por favor contáctese con el administrador del sistema para que habilite su usuario',
+          'Por favor contáctese con el administrador del sistema para habilitar su usuario',
           'info'
         )
       }

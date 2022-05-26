@@ -32,43 +32,67 @@
             <th>Apellido</th>
             <th>Nombre</th>
             <th>DNI</th>
+            <th>Permiso</th>
             <th>Tipo Usuario</th>
           </tr>
         </thead>
         <tbody class="text-center">
           <tr *ngFor="let item of items">
             <td>
-              <div *ngIf="item.datosPersonal.tipoPersona == 'Personal Civil'" class="row">
-                <div class="col">
-                  <button
-                (click)="linkear(item.id)"
-                type="button"
-                title="Modificar"
-                placement="top"
-                show-delay="10"
-                class="btn btn-outline-info btn-sm"
-              >
-                <i class="fas fa-edit"></i>
-              </button>
-              &nbsp;
-              <button
-                (click)="preDelete(item)"
-                type="button"
-                title="Eliminar"
-                placement="top"
-                show-delay="10"
-                class="btn btn-outline-danger btn-sm"
-              >
-                <i class="fas fa-trash"></i>
-              </button>
+              <ng-container
+                *ngIf="
+                  item.datosPersonal.tipoPersona == 'Personal Civil';
+                  then thenTemplate;
+                  else elseTemplate
+                "
+              ></ng-container>
+              <ng-template #thenTemplate>
+                <div class="row">
+                  <div class="col">
+                    <button
+                      (click)="linkear(item.civil)"
+                      type="button"
+                      title="Modificar"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-outline-info btn-sm"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="preDelete(item)"
+                      type="button"
+                      title="Inhabilitar Usuario"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-outline-danger btn-sm"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </ng-template>
+              <ng-template #elseTemplate>
+                <button
+                  (click)="preDelete(item)"
+                  type="button"
+                  title="Inhabilitar Usuario"
+                  placement="top"
+                  show-delay="10"
+                  class="btn btn-outline-danger btn-sm"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </ng-template>
             </td>
-          
             <td>{{ item?.datosPersonal?.apellido }}</td>
             <td>{{ item?.datosPersonal?.nombre }}</td>
             <td>{{ item?.datosPersonal?.norDni }}</td>
-            <td class="text-success"><b>{{ item?.datosPersonal?.tipoPersona }}</b></td>
+            <td>{{ item?.datosPersonal?.rol }}</td>
+            <td class="text-success">
+              <b>{{ item?.datosPersonal?.tipoPersona }}</b>
+            </td>
           </tr>
         </tbody>
       </table>

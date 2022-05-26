@@ -65,9 +65,9 @@ export class FilUsuarioOciComponent implements OnInit {
         .getList()
         .then();
       const result = JSON.parse(JSON.stringify(data));
+      console.log(result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
-
         this.page = parseInt(result.data.paginate.page);
         this.lastPage = parseInt(result.data.paginate.lastPage);
         this.nextPage = parseInt(result.data.paginate.nextPage);

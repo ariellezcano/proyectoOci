@@ -26,7 +26,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
     this.dtOci = new UsuarioOci();
     this.tipoPersona = '';
     this.proceso = false;
-    this.rol = false
+    this.rol = false;
   }
 
   ngOnInit(): void {}
@@ -34,10 +34,10 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   public async insertOci() {
     this.dtOci.usuarioCrea = UturuncoUtils.getSession('user');
     this.dtOci.fechaAlta = moment(this.dtOci.fechaAlta).format('YYYY-MM-DD');
-      if(this.rol == true){
-        this.dtOci.datosPersonal.rol = 'VISTA'
-      }
-    console.log("usuario", this.dtOci)
+    if (this.rol == true) {
+      this.dtOci.datosPersonal.rol = 'VISTA';
+    }
+    console.log('usuario', this.dtOci);
     try {
       let data = await this.wsdl.doInsert(this.dtOci).then();
       let res = JSON.parse(JSON.stringify(data));
@@ -73,9 +73,9 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   doFound(event: UsuariosRegistro) {
     this.proceso = true;
-    console.log("event", event)
+    console.log('event', event);
     if (event.civil != null) {
-      console.log("Personal civil", event)
+      console.log('Personal civil', event);
       this.dtOci.datosPersonal.tipoPersona = 'Personal Civil';
       this.dtOci.civil = event.civil.id;
       this.dtOci.datosPersonal.nombre = event.civil.nombre;
@@ -85,8 +85,8 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.datosPersonal.rol = event.rol.nombre;
       this.dtOci.usuario = event.id;
     }
-     if (event.persona != null) {
-      console.log("Personal Policial", event)
+    if (event.persona != null) {
+      console.log('Personal Policial', event);
       this.dtOci.datosPersonal.tipoPersona = 'Personal Policial';
       this.dtOci.persona = event.persona.id;
       this.dtOci.datosPersonal.nombre = event.persona.nombre;

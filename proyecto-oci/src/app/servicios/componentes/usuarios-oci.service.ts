@@ -12,10 +12,8 @@ export class UsuariosOciService {
 
   constructor(private http: HttpClient) {
     this.api = environment.URL + 'usuariosOci';
-    //this.api = "http://10.125.31.241:3000/unidad/";
   }
-  /* particularidad de la entidad */
-
+  
   getList() {
     this.other_header = UturuncoUtils.getHeader();
 

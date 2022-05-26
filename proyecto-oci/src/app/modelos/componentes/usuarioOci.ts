@@ -8,8 +8,8 @@ export class UsuarioOci{
     persona!: any;
     civil!: number;
     datosPersonal: any;
-    fechaBaja!: Date;
-    usuarioBaja!: number;
+    fechaBaja!: any;
+    usuarioBaja!: any;
     baja!:boolean;
     activo!: boolean;
     created_at?: Date;

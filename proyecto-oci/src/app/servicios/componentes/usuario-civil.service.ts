@@ -87,7 +87,7 @@ export class UsuarioCivilService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .put(this.api + '/' + id, evento, { headers: this.other_header })
+      .put(this.api + id, evento, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         console.log(err);

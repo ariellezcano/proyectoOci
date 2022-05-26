@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { Civil, UsuarioOci } from 'src/app/modelos/index.models';
 import { UsuariosOciService } from 'src/app/servicios/componentes/usuarios-oci.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
@@ -37,11 +38,7 @@ export class LstUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.items.push(JSON.parse(localStorage.getItem('b64')!));
-    // console.log(this.items)
-    // if (this.items == undefined) {
-    //   this.items = [];
-    // }
+
   }
 
   preDelete(item: UsuarioOci) {
@@ -49,11 +46,11 @@ export class LstUsuariosComponent implements OnInit {
     this.item = item;
 
     Swal.fire({
-      title: 'Esta Seguro?',
-      text: '¡No podrás recuperar este archivo ' + item.persona + '!',
+      title: 'Está Seguro?',
+      text: '¡Deberá volver a habilitar el usuario si lo necesita!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: '¡Eliminar!',
+      confirmButtonText: '¡Inhabilitar!',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -61,16 +58,22 @@ export class LstUsuariosComponent implements OnInit {
       if (result.value) {
         this.delete();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        UturuncoUtils.showToas('Tu archivo esta seguro :)', 'warning');
+        UturuncoUtils.showToas('Operacion cancelada', 'warning');
       }
     });
   }
 
   async delete() {
     try {
+      let date = new Date()
       this.procesando = true;
-      const res = await this.wsdl.doDelete(this.item.id).then();
+      this.item.baja = true;
+      this.item.fechaBaja = moment(date).format('YYYY-MM-DD');
+      this.item.usuarioBaja = UturuncoUtils.getSession('user');
+      console.log('usuario', this.item);
+      const res = await this.wsdl.doUpdate(this.item.id, this.item).then();
       const result = JSON.parse(JSON.stringify(res));
+      console.log("res", result)
       if (result.code == 200) {
         UturuncoUtils.showToas(result.msg, 'success');
         this.cancel();
@@ -135,9 +138,13 @@ export class LstUsuariosComponent implements OnInit {
     return color;
   }
 
-  doFound(event: UsuarioOci[]) {
-    this.items = event;
-    console.log('this.items', this.items);
+  doFound(event: UsuarioOci[]) { 
+    this.items = [];  
+    event.forEach(element => {
+      if(!element.baja){
+        this.items.push(element);
+      }
+    });
   }
 
   tipoUsuario(item: UsuarioOci) {
