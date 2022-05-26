@@ -38,10 +38,12 @@
         <tbody class="text-center">
           <tr *ngFor="let item of items">
             <td>
-              <button
+              <div *ngIf="item.datosPersonal.tipoPersona == 'Personal Civil'" class="row">
+                <div class="col">
+                  <button
                 (click)="linkear(item.id)"
                 type="button"
-                title="Actualizar"
+                title="Modificar"
                 placement="top"
                 show-delay="10"
                 class="btn btn-outline-info btn-sm"
@@ -59,19 +61,10 @@
               >
                 <i class="fas fa-trash"></i>
               </button>
-              &nbsp;
-              <button
-                type="button"
-                title="Habilitar"
-                placement="top"
-                show-delay="10"
-                class="btn btn-outline-warning btn-sm"
-                data-toggle="modal"
-                data-target="#exampleModal"
-              >
-                <i class="fas fa-edit"></i>
-              </button>
+                </div>
+              </div>
             </td>
+          
             <td>{{ item?.datosPersonal?.apellido }}</td>
             <td>{{ item?.datosPersonal?.nombre }}</td>
             <td>{{ item?.datosPersonal?.norDni }}</td>

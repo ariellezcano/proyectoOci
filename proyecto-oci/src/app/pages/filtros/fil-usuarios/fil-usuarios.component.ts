@@ -49,7 +49,7 @@ export class FilUsuariosComponent implements OnInit {
       this.result = JSON.parse(JSON.stringify(data));
       if (this.result.code == 200) {
         this.id = this.result.data.usuario.id;
-        console.log("datos", this.result.data)
+        console.log("registro de usuario", this.result)
         this.verificarUsuario();
       } else if (this.result.code == 204) {
         Swal.fire({
@@ -86,7 +86,7 @@ export class FilUsuariosComponent implements OnInit {
   async verificarUsuario() {
     let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
-    console.log(result1.code);
+    console.log("oci",result1);
     if (result1.code == 200) {
       this.item = result1.data;
       if (result1.data.baja) {
@@ -115,8 +115,8 @@ export class FilUsuariosComponent implements OnInit {
           },
         });
       }
-    } else {
-      this.filter.emit(this.result.data.usuario);
+    }else if(result1.code == 204){
+      this.filter.emit(this.result.data);
       this.cargando = false;
       this.procesando = false;
     }

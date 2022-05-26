@@ -149,4 +149,6 @@ export class LstUsuariosComponent implements OnInit {
     }
     return this.TipoUsuario;
   }
+
+   
 }

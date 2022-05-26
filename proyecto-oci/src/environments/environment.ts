@@ -4,15 +4,17 @@
 
 export const environment = {
   production: false,
-  //ale
+  //local
+  //URLREAL:'http://10.125.31.10/
   URLCivil: 'http://10.125.31.23/api_civil/',
-  //prueba
+  //local
   URL: 'http://10.125.31.23/api_oci/',
   //local
+  URLRegBus: 'http://10.125.31.23/api_registroUsuario/',
   // URL: 'http://10.125.31.150:3001/',
   URLPOLD: 'http://10.125.31.150:3000/',
 
-  URLRegBus: 'http://10.125.31.23/api_registroUsuario/',
+  
 
 };
 

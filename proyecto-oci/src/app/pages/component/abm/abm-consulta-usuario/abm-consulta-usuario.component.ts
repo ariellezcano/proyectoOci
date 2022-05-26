@@ -34,11 +34,9 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   public async insertOci() {
     this.dtOci.usuarioCrea = UturuncoUtils.getSession('user');
     this.dtOci.fechaAlta = moment(this.dtOci.fechaAlta).format('YYYY-MM-DD');
-    if(this.dtOci.datosPersonal.rol != 'MANAGER'){
       if(this.rol == true){
         this.dtOci.datosPersonal.rol = 'VISTA'
       }
-    }
     console.log("usuario", this.dtOci)
     try {
       let data = await this.wsdl.doInsert(this.dtOci).then();
@@ -83,6 +81,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.datosPersonal.nombre = event.civil.nombre;
       this.dtOci.datosPersonal.apellido = event.civil.apellido;
       this.dtOci.datosPersonal.norDni = event.civil.norDni;
+      this.dtOci.datosPersonal.usuario = event.usuario;
       this.dtOci.datosPersonal.rol = event.rol.nombre;
       this.dtOci.usuario = event.id;
     }
@@ -93,6 +92,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.datosPersonal.nombre = event.persona.nombre;
       this.dtOci.datosPersonal.apellido = event.persona.apellido;
       this.dtOci.datosPersonal.norDni = event.persona.norDni;
+      this.dtOci.datosPersonal.usuario = event.usuario;
       this.dtOci.datosPersonal.rol = event.rol.nombre;
       this.dtOci.usuario = event.id;
     }

@@ -103,10 +103,17 @@ export class LoginComponent implements OnInit {
             let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
+            console.log('res', res);
             if (res.code == 200) {
-              this.id = res.data.id;
-              this.rol = res.data.rol.nombre
+              //this.route.navigate(['/principal']);
+              this.id = res.data;
               this.login2();
+            } else if(res.code == 204){
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, verifique los datos ingresados!',
+              })
             } else {
               this.cuit = undefined;
               Swal.fire('Oops...', res.msg, 'error');
@@ -126,34 +133,38 @@ export class LoginComponent implements OnInit {
       this.proccess = true;
       let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
-      if (res.code == 200) {
-        
-        this.apellido = res.data.datosPersonal.apellido;
-        this.nombre = res.data.datosPersonal.nombre
+      console.log("respuesta", res)
 
+      if (res.code == 200) {
+        this.apellido = res.data.datosPersonal.apellido;
+        this.nombre = res.data.datosPersonal.nombre;
+        this.rol = res.data.datosPersonal.rol;
         this.datosPersonal = {
           apellido: this.apellido,
           nombre: this.nombre,
           rol: this.rol,
         }
-       
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
         });
-
         Toast.fire({
           icon: 'success',
           title: 'Bienvenido Sr/a: ' + res.data.datosPersonal.apellido,
         });
-        
         UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
         UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
-
         this.route.navigate(['/principal']);
-      } else {
+      }else if(res.code == 401){
+        Swal.fire(
+          'Usuario no habilitado',
+          'Por favor contáctese con el administrador del sistema para que habilite su usuario',
+          'info'
+        )
+      }
+       else {
         Swal.fire('Oops...', res.msg, 'error');
       }
       this.proccess = false;

@@ -2,21 +2,33 @@
   <div class="sidenav">
     <h1 class="text-center">Menú</h1>
     <hr />
-    <a [routerLink]="['/lst-usuarios/']" routerLinkActive="active">
-      <i class="fas fa-user"></i>
-      &nbsp;Usuarios
-    </a>
-    <hr />
-    <a [routerLink]="['/lst-tematica/']" routerLinkActive="active">
-      <i class="fas fa-user-friends"></i>
-      &nbsp;Temática
-    </a>
-    <hr />
-
-    <a [routerLink]="['/lst-expediente/']" routerLinkActive="active">
-      <i class="fas fa-book"></i>
-      &nbsp;Expediente
-    </a>
-    <hr />
+    <!-- *ngIf="rol == 'ADMINISTRADOR'" -->
+    <div class="row">
+      <div class="col">
+        <a [routerLink]="['/lst-usuarios/']" routerLinkActive="active">
+          <i class="fas fa-user"></i>
+          &nbsp;Usuarios
+        </a>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a [routerLink]="['/lst-tematica/']" routerLinkActive="active">
+          <i class="fas fa-user-friends"></i>
+          &nbsp;Temática
+        </a>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a [routerLink]="['/lst-expediente/']" routerLinkActive="active">
+          <i class="fas fa-book"></i>
+          &nbsp;Expediente
+        </a>
+        <hr />
+      </div>
+    </div>
   </div>
 </div>

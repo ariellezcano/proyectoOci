@@ -17,7 +17,7 @@ export class UsuarioOci{
     delete_at?: Date;
 
     constructor() {
-        this.datosPersonal = {norDni: "", nombre:"", apellido:"", rol:"", tipoPersona:""};
+        this.datosPersonal = {usuario: "",norDni: "", nombre:"", apellido:"", rol:"", tipoPersona:""};
         this.activo = true;
     }
 }

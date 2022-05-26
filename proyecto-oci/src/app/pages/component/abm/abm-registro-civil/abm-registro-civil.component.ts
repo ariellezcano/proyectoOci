@@ -70,6 +70,7 @@ export class AbmRegistroCivilComponent implements OnInit {
         let data = await this.wsdl.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
         if (res.code == 200) {
+          alert('LLegue')
           this.item = res.data;
 
           console.log(this.item);
@@ -107,7 +108,7 @@ export class AbmRegistroCivilComponent implements OnInit {
 
   async doCreate() {
     try {
-      this.item.unidad.id = 1;
+      this.item.unidad.id = 622;
       this.item.usuarioCrea = UturuncoUtils.getSession('user');
       console.log("datos enviados", this.item)
       this.procesando = true;

@@ -21,7 +21,7 @@ export class RegistroUsuarioService {
     let body = {usuario:usuario, clave:password};
     return this.http
       .post(
-        this.api + 'find/login', body,
+        this.api + 'find/loginSistemas', body,
         { headers: this.other_header }
       )
       .toPromise()
