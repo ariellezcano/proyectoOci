@@ -116,20 +116,14 @@ export class LstUsuariosComponent implements OnInit {
   colores(valor: any) {
     let color = '';
     switch (valor) {
-      case 1:
-        color = 't-success';
+      case "MANAGER":
+        color = 'text-success';
         break;
-      case 11:
-        color = 't-light';
+      case "ADMINISTRADOR":
+        color = 'text-light';
         break;
-      case 10:
+      case "VISTA":
         color = 't-violeta';
-        break;
-      case 8:
-        color = 't-danger';
-        break;
-      case 9:
-        color = 't-warning';
         break;
       default:
         color = 't-default';

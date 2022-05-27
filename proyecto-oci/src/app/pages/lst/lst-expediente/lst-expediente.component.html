@@ -40,67 +40,86 @@
         <tbody class="text-center">
           <tr *ngFor="let item of items">
             <td>{{ item?.fecha | date: "dd/MM/yyyy" }}</td>
-            <td>{{ item?.nro_nota }}</td>
+            <td class="text-dark"><b>{{ item?.nro_nota }}</b></td>
             <td>{{ item?.entrada ? "Interno" : "Externo" }}</td>
             <td>{{ item?.unidad_origen?.nombre }}</td>
-            <td>{{ item?.tematica?.nombre }}</td>
-            <td>{{ item?.palabra_clave }}</td>
+            <td class="text-danger"><b>{{ item?.tematica?.nombre }}</b></td>
+            <td class="text-success"><b>{{ item?.palabra_clave }}</b></td>
             <td>
-              <div class="row">
-                <div class="col-md-6">
-                  <button
-                    (click)="linkear(item.id)"
-                    type="button"
-                    title="Actualizar"
-                    placement="top"
-                    show-delay="10"
-                    class="btn btn-info btn-sm"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
+              <ng-container
+                *ngIf="rol != 'VISTA'; then mostrar; else noMostrar"
+              ></ng-container>
+              <ng-template #mostrar>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button
+                      (click)="linkear(item.id)"
+                      type="button"
+                      title="Actualizar"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-info btn-sm"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button
+                      (click)="preDelete(item)"
+                      type="button"
+                      title="Eliminar"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-danger btn-sm"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <button
-                    (click)="preDelete(item)"
-                    type="button"
-                    title="Eliminar"
-                    placement="top"
-                    show-delay="10"
-                    class="btn btn-danger btn-sm"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
+                <br />
+                <div class="row">
+                  <div class="col-md-6">
+                    <button
+                      (click)="linkeaArchivo(item.id)"
+                      type="button"
+                      title="Agregar archivo"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-primary btn-sm"
+                    >
+                      Pdf
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button
+                      type="button"
+                      title="Ver archivo"
+                      placement="top"
+                      show-delay="10"
+                      class="btn btn-warning btn-sm"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      (click)="verArchivo(item)"
+                    >
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <br />
-              <div class="row">
-                <div class="col-md-6">
-                  <button
-                    (click)="linkeaArchivo(item.id)"
-                    type="button"
-                    title="Agregar archivo"
-                    placement="top"
-                    show-delay="10"
-                    class="btn btn-primary btn-sm"
-                  >
-                    Pdf
-                  </button>
-                </div>
-                <div class="col-md-6">
-                  <button
-                    type="button"
-                    title="Ver archivo"
-                    placement="top"
-                    show-delay="10"
-                    class="btn btn-warning btn-sm"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    (click)="verArchivo(item)"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
+              </ng-template>
+              <ng-template #noMostrar>
+                <button
+                  type="button"
+                  title="Ver archivo"
+                  placement="top"
+                  show-delay="10"
+                  class="btn btn-warning btn-sm"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  (click)="verArchivo(item)"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </ng-template>
             </td>
           </tr>
         </tbody>
@@ -124,7 +143,7 @@
     </div>
   </div>
   <hr />
-  <div class="row">
+  <div *ngIf="rol != 'VISTA'" class="row">
     <div class="col-md-6" id="derecha">
       <button (click)="linkear(0)" class="btn btn-primary">
         <i class="fa fa-plus" aria-hidden="true"></i>

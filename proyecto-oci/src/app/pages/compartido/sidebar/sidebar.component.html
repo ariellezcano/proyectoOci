@@ -2,8 +2,7 @@
   <div class="sidenav">
     <h1 class="text-center">Menú</h1>
     <hr />
-    <!-- *ngIf="rol == 'ADMINISTRADOR'" -->
-    <div class="row">
+    <div *ngIf="rol == 'MANAGER'" class="row">
       <div class="col">
         <a [routerLink]="['/lst-usuarios/']" routerLinkActive="active">
           <i class="fas fa-user"></i>
@@ -12,7 +11,7 @@
         <hr />
       </div>
     </div>
-    <div class="row">
+    <div *ngIf="rol != 'VISTA'" class="row">
       <div class="col">
         <a [routerLink]="['/lst-tematica/']" routerLinkActive="active">
           <i class="fas fa-user-friends"></i>
@@ -21,7 +20,7 @@
         <hr />
       </div>
     </div>
-    <div class="row">
+    <div *ngIf="rol == 'VISTA' || rol == 'MANAGER' || rol == 'ADMINISTRADOR'" class="row">
       <div class="col">
         <a [routerLink]="['/lst-expediente/']" routerLinkActive="active">
           <i class="fas fa-book"></i>

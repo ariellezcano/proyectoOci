@@ -66,11 +66,11 @@ export class AbmRegistroCivilComponent implements OnInit {
   async findID() {
     try {
       if (this.id > 0) {
+        
         let data = await this.wsdl.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
         console.log("this id ",res.code);
         if (res.code == 200) {
-          
           this.item = res.data;
           console.log("findid", this.item)
           if(this.item.fechaNacimiento != undefined) { 
@@ -130,18 +130,17 @@ export class AbmRegistroCivilComponent implements OnInit {
     }
   }
 
-  async doEdit() {
+  async doEdit() {    
     try {
       this.procesando = true;
-      const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
+      const res = await this.wsdl.doUpdate(this.item.id, this.item).then();
       const result = JSON.parse(JSON.stringify(res));
-      console.log('resul', result);
+      console.log("code ", result.code)
+      console.log("code ", result)
       if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();
         this.finalizado.emit(true);
-      } else if (result.code == 666) {
-        // logout app o refresh token
       } else {
         UturuncoUtils.showToas(result.msg, 'error');
       }

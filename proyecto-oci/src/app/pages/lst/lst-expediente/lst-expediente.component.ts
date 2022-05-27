@@ -23,7 +23,7 @@ export class LstExpedienteComponent implements OnInit {
   items: Expediente[];
   item: Expediente;
   archivo: Archivo[];
-
+  rol: any;
   procesando!: Boolean;
   public load!: boolean;
 
@@ -39,9 +39,11 @@ export class LstExpedienteComponent implements OnInit {
     this.item = new Expediente();
     this.items = [];
     this.archivo = [];
+    this.rol = '';
   }
 
   ngOnInit(): void {
+    this.rol = JSON.parse('' + UturuncoUtils.getSession('personal')).rol;
     // this.items.push(JSON.parse(localStorage.getItem('b64')!));
     // console.log(this.items)
     // if (this.items == undefined) {
@@ -177,8 +179,6 @@ export class LstExpedienteComponent implements OnInit {
       a.extencion +
       '" />';
     let s = this.sanitizer.bypassSecurityTrustHtml(html);
-    //  console.log(s)
-
     return s;
   }
 }

@@ -89,7 +89,7 @@
             <td>{{ item?.datosPersonal?.apellido }}</td>
             <td>{{ item?.datosPersonal?.nombre }}</td>
             <td>{{ item?.datosPersonal?.norDni }}</td>
-            <td>{{ item?.datosPersonal?.rol }}</td>
+            <td class="text-primary"><b>{{item?.datosPersonal?.rol}}</b></td>
             <td class="text-success">
               <b>{{ item?.datosPersonal?.tipoPersona }}</b>
             </td>
@@ -117,7 +117,7 @@
   <hr />
   <div class="row">
     <div class="col-md-6" id="derecha">
-      <button (click)="habilitar()" class="btn btn-primary">
+      <button (click)="habilitar()" class="btn btn-outline-info">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Habilitar nuevo usuario
       </button>

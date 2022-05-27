@@ -83,7 +83,7 @@ export class UsuarioCivilService {
       });
   }
 
-  doUpdate(evento: object, id: any) {
+  doUpdate(id: any, evento: object) {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
