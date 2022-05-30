@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { UsuarioOci, UsuariosRegistro } from 'src/app/modelos/index.models';
-import { UsuariosOciService } from 'src/app/servicios/index.service';
+import { RegistroUsuarioService, UsuariosOciService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
 
@@ -21,7 +21,12 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   tipoPersona: string;
   rol: boolean;
 
-  constructor(private route: Router, private wsdl: UsuariosOciService) {
+  public nombre: string = "OCI";
+  public url: string = "https://policiadigital.chaco.gob.ar/oci/"
+  public activoSistema: boolean = true;
+
+
+  constructor(private route: Router, private wsdl: UsuariosOciService, private wsdlRegistro: RegistroUsuarioService) {
     this.item = new UsuariosRegistro();
     this.dtOci = new UsuarioOci();
     this.tipoPersona = '';
@@ -32,6 +37,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   ngOnInit(): void {}
 
   public async insertOci() {
+
     this.dtOci.usuarioCrea = UturuncoUtils.getSession('user');
     this.dtOci.fechaAlta = moment(this.dtOci.fechaAlta).format('YYYY-MM-DD');
     if (this.rol == true) {
@@ -42,6 +48,14 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       let data = await this.wsdl.doInsert(this.dtOci).then();
       let res = JSON.parse(JSON.stringify(data));
       if (res.code == 200) {
+        try {
+          let data = await this.wsdlRegistro.patchSistemaHabilitados(this.dtOci.usuario, this.nombre, this.url, this.activoSistema).then();
+          console.log("res",res)
+        } catch (error) {
+          console.log("respuestaerror", error);
+        }
+        console.log("respuesta", res);
+
         Swal.fire({
           position: 'top-end',
           icon: 'success',

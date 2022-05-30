@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Civil, UsuarioOci } from 'src/app/modelos/index.models';
 import { UsuariosOciService } from 'src/app/servicios/componentes/usuarios-oci.service';
+import { RegistroUsuarioService } from 'src/app/servicios/index.service';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import Swal from 'sweetalert2';
 import { FilUsuarioOciComponent } from '../../filtros/fil-usuario-oci/fil-usuario-oci.component';
@@ -27,11 +28,16 @@ export class LstUsuariosComponent implements OnInit {
   procesando!: Boolean;
   public load!: boolean;
 
+  public nombre: string = "OCI";
+  public url: string = "https://policiadigital.chaco.gob.ar/oci/"
+  public activoSistema: boolean = false;
+
+
   TipoUsuario!: string;
 
   entidad = 'lst-usuarios';
 
-  constructor(private wsdl: UsuariosOciService, private router: Router) {
+  constructor(private wsdl: UsuariosOciService, private wsdlRegistro: RegistroUsuarioService, private router: Router) {
     this.load = false;
     this.item = new UsuarioOci();
     this.items = [];
@@ -73,8 +79,17 @@ export class LstUsuariosComponent implements OnInit {
       console.log('usuario', this.item);
       const res = await this.wsdl.doUpdate(this.item.id, this.item).then();
       const result = JSON.parse(JSON.stringify(res));
-      console.log("res", result)
       if (result.code == 200) {
+        try {
+          let data = await this.wsdlRegistro.patchSistemaHabilitados(this.item.usuario, this.nombre, this.url, this.activoSistema).then();
+          let res = JSON.parse(JSON.stringify(data));
+          console.log("resultadoasa", result)
+          if(res.code == 200){
+            console.log("Personal inhabilitado");    
+          }
+        } catch (error) {
+          console.log("respuestaerror", error);
+        }
         UturuncoUtils.showToas(result.msg, 'success');
         this.cancel();
       } else {

@@ -24,12 +24,18 @@ export class FilUsuariosComponent implements OnInit {
   public id: any;
   public result: any;
   public rol: any;
+
+  public nombre: string = "OCI";
+  public url: string = "https://policiadigital.chaco.gob.ar/oci/"
+  public activoSistema: boolean = true;
+
+
   item: UsuarioOci;
 
   constructor(
     private route: Router,
     private wsdl: RegistroUsuarioService,
-    private wsdlUsuarioOci: UsuariosOciService
+    private wsdlUsuarioOci: UsuariosOciService,
   ) {
     this.procesando = false;
     this.cargando = false;
@@ -131,6 +137,16 @@ export class FilUsuariosComponent implements OnInit {
       .then();
     const result2 = JSON.parse(JSON.stringify(data2));
     if (result2.code == 200) {
+      try {
+        let data = await this.wsdl.patchSistemaHabilitados(this.item.usuario, this.nombre, this.url, this.activoSistema).then();
+        let res = JSON.parse(JSON.stringify(data));
+        if(res.code == 200){
+          console.log("Personal Habilitado");
+        }
+      } catch (error) {
+        console.log("respuestaerror", error);
+      }
+
       Swal.fire(
         'Operación Exitosa!',
         'El usuario ha sido habilitado correctamente!',

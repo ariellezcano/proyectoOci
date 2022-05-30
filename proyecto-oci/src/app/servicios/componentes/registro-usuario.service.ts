@@ -48,5 +48,29 @@ export class RegistroUsuarioService {
         };
       });
     }
+  
+    patchSistemaHabilitados(id: any, nombre: any, url: any, activo: any){
+    this.other_header = UturuncoUtils.getHeader();
+    let body = {id: id,
+        sistemaHabilitados : {
+        nombre: nombre, url: url, activo: activo
+      }
+     };
+     console.log("body e", body)
+    return this.http
+      .patch(
+        this.api + 'find/sistemaHabilitados/', body,
+        { headers: this.other_header }
+      )
+      .toPromise()
+      .catch((err) => {
+        console.log("body", this.api)
+        return {
+          code: 500,
+          data: err.message,
+          msg: 'Error en el servicio',
+        };
+      });
+  }
 
   }
