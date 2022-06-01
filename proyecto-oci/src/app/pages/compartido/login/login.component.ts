@@ -166,13 +166,13 @@ export class LoginComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'El usuario se encuentra dado de baja!',
+            text: 'Usuario dado de baja, contáctese con el administrador del sistema!',
           })
         }
       }else if(res.code == 401){
         Swal.fire(
           'Usuario no habilitado',
-          'Por favor contáctese con el administrador del sistema para habilitar su usuario',
+          'Por favor contáctese con el administrador del sistema para generar su usuario',
           'info'
         )
       }
