@@ -10,10 +10,8 @@ export const environment = {
   //local
   URL: 'http://10.125.31.74/api_oci/',
   //local
-  URLRegBus: 'http://10.125.31.10:8888/api_registroUsuario/',
+  URLRegBus: 'http://10.125.31.74/api_registroUsuario/',
   // URL: 'http://10.125.31.150:3001/',
-  URLPOLD: 'http://10.125.31.150:3000/',
-
   
 
 };

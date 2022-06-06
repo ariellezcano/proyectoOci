@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Rol } from 'src/app/modelos/index.models';
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import { environment } from 'src/environments/environment';
 

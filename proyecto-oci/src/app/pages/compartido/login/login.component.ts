@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-import { RegistroUsuarioService, UserxsService, UsuarioService, UsuariosOciService } from 'src/app/servicios/index.service';
+import { RegistroUsuarioService, UsuariosOciService } from 'src/app/servicios/index.service';
 
 @Component({
   selector: 'app-login',
@@ -105,10 +105,11 @@ export class LoginComponent implements OnInit {
             console.log('res', data);
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
-            console.log('registro usuario login', res.code);
+            console.log('registro usuario login', res);
             if (res.code == 200) {
-              //this.route.navigate(['/principal']);
+             // this.route.navigate(['/principal']);
               this.id = res.data;
+              console.log("data:", this.id)
               this.login2();
             } else if(res.code == 204){
               Swal.fire({
@@ -135,11 +136,13 @@ export class LoginComponent implements OnInit {
       this.proccess = true;
       let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
-      console.log("respuesta", res)
+      console.log("respuesta login 2", res)
       if (res.code == 200) {
+        console.log('registro usuario login 2', res.code);
         this.item = res.data
         console.log('item', this.item)
         if(!this.item.baja && this.item.activo){
+          console.log("baja verificar", this.item.baja)
           this.apellido = res.data.datosPersonal.apellido;
           this.nombre = res.data.datosPersonal.nombre;
           this.rol = res.data.datosPersonal.rol;
