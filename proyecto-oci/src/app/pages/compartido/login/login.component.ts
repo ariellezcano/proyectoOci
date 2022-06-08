@@ -102,27 +102,27 @@ export class LoginComponent implements OnInit {
           if (this.cuit && this.pass)  {
             this.proccess = true;
             let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
-            console.log('res', data);
+            //console.log('res', data);
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
-            console.log('registro usuario login', res);
+            //console.log('registro usuario login', res);
             if (res.code == 200) {
              // this.route.navigate(['/principal']);
               this.id = res.data;
-              console.log("data:", this.id)
+              //console.log("data:", this.id)
               this.login2();
             } else if(res.code == 204){
               Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Alerta...',
                 text: 'Por favor, verifique los datos ingresados!',
               })
             } else {
               this.cuit = undefined;
-              Swal.fire('Oops...', res.msg, 'error');
+              Swal.fire('Alerta...', res.msg, 'error');
             }
           } else {
-            Swal.fire('Oops...', 'Ingrese datos validos', 'error');
+            Swal.fire('Alerta...', 'Ingrese datos validos', 'warning');
           }
       } catch (error) {
         this.proccess = false;
@@ -136,13 +136,13 @@ export class LoginComponent implements OnInit {
       this.proccess = true;
       let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
-      console.log("respuesta login 2", res)
+      //console.log("respuesta login 2", res)
       if (res.code == 200) {
-        console.log('registro usuario login 2', res.code);
+        //console.log('registro usuario login 2', res.code);
         this.item = res.data
-        console.log('item', this.item)
+        //console.log('item', this.item)
         if(!this.item.baja && this.item.activo){
-          console.log("baja verificar", this.item.baja)
+          //console.log("baja verificar", this.item.baja)
           this.apellido = res.data.datosPersonal.apellido;
           this.nombre = res.data.datosPersonal.nombre;
           this.rol = res.data.datosPersonal.rol;
@@ -167,8 +167,8 @@ export class LoginComponent implements OnInit {
         }
         else{
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
+            icon: 'warning',
+            title: 'Alerta...',
             text: 'Usuario dado de baja, contáctese con el administrador del sistema!',
           })
         }

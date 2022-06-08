@@ -6,13 +6,17 @@ export const environment = {
   production: false,
   //local
   //URLREAL:'http://10.125.31.10/
-  URLCivil: 'http://10.125.31.74/api_civil/',
+  //URLCivil: 'http://10.125.31.74/api_civil/',
   //local
-  URL: 'http://10.125.31.74/api_oci/',
+  //URL: 'http://10.125.31.74/api_oci/',
   //local
-  URLRegBus: 'http://10.125.31.74/api_registroUsuario/',
-  // URL: 'http://10.125.31.150:3001/',
+  //URLRegBus: 'http://10.125.31.74/api_registroUsuario/',
   
+
+  URL: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
+  URLCivil: 'https://policiadigital.chaco.gob.ar:9090/api_civil/',
+  URLRegBus: 'https://policiadigital.chaco.gob.ar:9090/api_registroUsuario/',
+
 
 };
 

@@ -158,7 +158,7 @@ export class LstExpedienteComponent implements OnInit {
 
   async verArchivo(id: Expediente) {
     let data = await this.wsdlA.getCriteria(id.id, 1, 100).then();
-    console.log(data);
+    //console.log(data);
     const result = JSON.parse(JSON.stringify(data));
     if (result.code == 200) {
       this.archivo = result.data.docs;

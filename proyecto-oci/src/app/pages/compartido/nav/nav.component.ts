@@ -9,12 +9,16 @@ import { UturuncoUtils } from "src/app/utils/uturuncoUtils";
 })
 export class NavComponent implements OnInit {
   usuario: string;
+  rol: string;
 
   constructor(private route: Router) {
     this.usuario = "";
+    this.rol = "";
   }
 
   ngOnInit() {
+    this.rol = JSON.parse(''+UturuncoUtils.getSession('personal')).rol;
+
     this.usuario =
       JSON.parse(''+UturuncoUtils.getSession('personal')).apellido +
       " " +

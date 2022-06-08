@@ -65,7 +65,7 @@ export class FilExpedienteComponent implements OnInit {
         .then();
 
       const result = JSON.parse(JSON.stringify(data));
-      console.log('resultado de la busqueda', result);
+      //console.log('resultado de la busqueda', result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
         console.log('filter', result.data.docs);
@@ -80,7 +80,7 @@ export class FilExpedienteComponent implements OnInit {
         // logout app o refresh token
       } else {
         this.filter.emit([]);
-        console.log(result.msg);
+        //console.log(result.msg);
         UturuncoUtils.showToas(result.msg, 'error');
       }
       this.procesando = false;

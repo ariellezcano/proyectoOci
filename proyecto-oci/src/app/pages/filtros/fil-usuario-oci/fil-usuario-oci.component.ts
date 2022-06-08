@@ -65,7 +65,7 @@ export class FilUsuarioOciComponent implements OnInit {
         .getList()
         .then();
       const result = JSON.parse(JSON.stringify(data));
-      console.log(result);
+      //console.log(result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
         this.page = parseInt(result.data.paginate.page);
@@ -79,7 +79,7 @@ export class FilUsuarioOciComponent implements OnInit {
         // logout app o refresh token
       } else {
         this.filter.emit([]);
-        console.log(result.msg);
+        //console.log(result.msg);
         UturuncoUtils.showToas(result.msg, 'error');
       }
       this.procesando = false;

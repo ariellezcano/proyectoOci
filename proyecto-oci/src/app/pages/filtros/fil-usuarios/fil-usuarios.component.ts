@@ -53,10 +53,10 @@ export class FilUsuariosComponent implements OnInit {
       }
       let data = await this.wsdl.doFindDni(this.crit).then();
       this.result = JSON.parse(JSON.stringify(data));
-      console.log("result", this.result.code)
+     // console.log("result", this.result.code)
       if (this.result.code == 200) {
         this.id = this.result.data.id;
-        console.log('registro de usuario', this.result);
+       // console.log('registro de usuario', this.result);
         this.verificarUsuario();
       } else if (this.result.code == 204) {
         Swal.fire({
@@ -93,7 +93,7 @@ export class FilUsuariosComponent implements OnInit {
     console.log('id', this.id);
     let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
-    console.log('oci', result1.code);
+    //console.log('oci', result1.code);
     if (result1.code == 200) {
       this.item = result1.data;
       if (result1.data.baja) {
@@ -141,10 +141,10 @@ export class FilUsuariosComponent implements OnInit {
         let data = await this.wsdl.patchSistemaHabilitados(this.item.usuario, this.nombre, this.url, this.activoSistema).then();
         let res = JSON.parse(JSON.stringify(data));
         if(res.code == 200){
-          console.log("Personal Habilitado");
+          //console.log("Personal Habilitado");
         }
       } catch (error) {
-        console.log("respuestaerror", error);
+        //console.log("respuestaerror", error);
       }
 
       Swal.fire(

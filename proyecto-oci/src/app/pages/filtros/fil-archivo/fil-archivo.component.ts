@@ -65,10 +65,10 @@ export class FilArchivoComponent implements OnInit {
         .then();
 
       const result = JSON.parse(JSON.stringify(data));
-      console.log('resultado de la busqueda', result);
+      //console.log('resultado de la busqueda', result);
       if (result.code == 200) {
         this.filter.emit(result.data.docs);
-        console.log('filter', result.data.docs);
+        //console.log('filter', result.data.docs);
         this.page = parseInt(result.data.paginate.page);
         this.lastPage = parseInt(result.data.paginate.lastPage);
         this.nextPage = parseInt(result.data.paginate.nextPage);
@@ -80,7 +80,7 @@ export class FilArchivoComponent implements OnInit {
         // logout app o refresh token
       } else {
         this.filter.emit([]);
-        console.log(result.msg);
+        //console.log(result.msg);
         UturuncoUtils.showToas(result.msg, 'error');
       }
       this.procesando = false;

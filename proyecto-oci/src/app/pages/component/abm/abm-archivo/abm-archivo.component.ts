@@ -72,7 +72,7 @@ export class AbmArchivoComponent implements OnInit {
         //localStorage.setItem('b64', JSON.stringify(this.item));
       }
     } else {
-      alert('Validar');
+      //alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
   }
@@ -80,11 +80,11 @@ export class AbmArchivoComponent implements OnInit {
   async findID() {
     try {
       if (this.id > 0) {
-        console.log(this.id);
+        //console.log(this.id);
         let data = await this.wsdlE.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
         if (res.code == 200) {
-          console.log(res.code);
+          //console.log(res.code);
           this.expediente = res.data;
         }
       } else {
@@ -114,7 +114,7 @@ export class AbmArchivoComponent implements OnInit {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
       const result = JSON.parse(JSON.stringify(res));
-      console.log('resul', result);
+      //console.log('resul', result);
       if (result.status == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();

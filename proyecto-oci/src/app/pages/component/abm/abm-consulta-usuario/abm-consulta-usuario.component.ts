@@ -23,7 +23,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   public nombre: string = "OCI";
   public url: string = "https://policiadigital.chaco.gob.ar/oci/"
-  public activoSistema: boolean = true;
+  public activo: boolean = true;
 
 
   constructor(private route: Router, private wsdl: UsuariosOciService, private wsdlRegistro: RegistroUsuarioService) {
@@ -43,18 +43,18 @@ export class AbmConsultaUsuarioComponent implements OnInit {
     if (this.rol == true) {
       this.dtOci.datosPersonal.rol = 'VISTA';
     }
-    console.log('usuario', this.dtOci);
+    //console.log('usuario', this.dtOci);
     try {
       let data = await this.wsdl.doInsert(this.dtOci).then();
       let res = JSON.parse(JSON.stringify(data));
       if (res.code == 200) {
         try {
-          let data = await this.wsdlRegistro.patchSistemaHabilitados(this.dtOci.usuario, this.nombre, this.url, this.activoSistema).then();
-          console.log("res",res)
+          let data = await this.wsdlRegistro.patchSistemaHabilitados(this.dtOci.usuario, this.nombre, this.url, this.activo).then();
+          //console.log("res adata",data)
         } catch (error) {
-          console.log("respuestaerror", error);
+          //console.log("respuestaerror", error);
         }
-        console.log("respuesta", res);
+        //console.log("respuesta", res);
 
         Swal.fire({
           position: 'top-end',
@@ -87,9 +87,9 @@ export class AbmConsultaUsuarioComponent implements OnInit {
 
   doFound(event: UsuariosRegistro) {
     this.proceso = true;
-    console.log('event', event);
+    //console.log('event', event);
     if (event.civil != null) {
-      console.log('Personal civil', event);
+      //console.log('Personal civil', event);
       this.dtOci.datosPersonal.tipoPersona = 'Personal Civil';
       this.dtOci.civil = event.civil.id;
       this.dtOci.datosPersonal.nombre = event.civil.nombre;
@@ -100,7 +100,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.usuario = event.id;
     }
     if (event.persona != null) {
-      console.log('Personal Policial', event);
+      //console.log('Personal Policial', event);
       this.dtOci.datosPersonal.tipoPersona = 'Personal Policial';
       this.dtOci.persona = event.persona.id;
       this.dtOci.datosPersonal.nombre = event.persona.nombre;

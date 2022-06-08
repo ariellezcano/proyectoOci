@@ -47,13 +47,13 @@ export class AbmTematicaComponent implements OnInit {
   async findID() {
     try {
       if (this.id > 0) {
-        console.log(this.id);
+        //console.log(this.id);
         let data = await this.wsdl.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
         if (res.code == 200) {
           this.item = res.data;
 
-          console.log(this.item);
+          //console.log(this.item);
           // this.item.fechaAlta = moment(this.item.fechaAlta).format(
           //   'YYYY-MM-DD'
           // );
@@ -67,19 +67,16 @@ export class AbmTematicaComponent implements OnInit {
   }
 
   doAction(f: NgForm) {
-    /* validar */
-
     if (f.valid) {
       if (this.item.id > 0) {
         //editar
         this.doEdit();
       } else {
         this.doCreate();
-
         //localStorage.setItem('b64', JSON.stringify(this.item));
       }
     } else {
-      alert('Validar');
+      //alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
   }
@@ -112,7 +109,7 @@ export class AbmTematicaComponent implements OnInit {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
       const result = JSON.parse(JSON.stringify(res));
-      console.log('resul', result);
+      //console.log('resul', result);
       if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();

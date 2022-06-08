@@ -65,7 +65,7 @@ export class AbmExpedienteComponent implements OnInit {
         //localStorage.setItem('b64', JSON.stringify(this.item));
       }
     } else {
-      alert('Validar');
+      //alert('Validar');
     }
     // console.log("base64 "+this.item.fileb64)
   }
@@ -73,13 +73,13 @@ export class AbmExpedienteComponent implements OnInit {
   async findID() {
     try {
       if (this.id > 0) {
-        console.log(this.id);
+        //console.log(this.id);
         let data = await this.wsdl.doFind(this.id).then();
         let res = JSON.parse(JSON.stringify(data));
         if (res.code == 200) {
           this.item = res.data;
 
-          console.log(this.item);
+          //console.log(this.item);
           this.item.fecha = moment(this.item.fecha).format('YYYY-MM-DD');
         }
       } else {
@@ -116,7 +116,7 @@ export class AbmExpedienteComponent implements OnInit {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
       const result = JSON.parse(JSON.stringify(res));
-      console.log('resul', result);
+     // console.log('resul', result);
       if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();
