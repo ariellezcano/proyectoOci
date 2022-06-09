@@ -53,12 +53,13 @@ export class FilUsuariosComponent implements OnInit {
       }
       let data = await this.wsdl.doFindDni(this.crit).then();
       this.result = JSON.parse(JSON.stringify(data));
-     // console.log("result", this.result.code)
+      console.log("result dni", this.result)
       if (this.result.code == 200) {
+        //console.log("res", this.result);
         this.id = this.result.data.id;
        // console.log('registro de usuario', this.result);
         this.verificarUsuario();
-      } else if (this.result.code == 204) {
+      }  else if (this.result.code == 204) {
         Swal.fire({
           title: 'El usuario no existe!',
           text: 'Si el usuario que está por habilitrar es Personal Policial, por favor comuniquece con el área de Sistemas!, pero si el usuario es Personal Civil, puede crearlo. Al presionar el botón crear, le redirigira al formulario para su creación, pero si ya fue creado debera registrarse en el sistema REPO',
@@ -73,6 +74,13 @@ export class FilUsuariosComponent implements OnInit {
             this.route.navigate(['/lst-usuarios/abm/0']);
           }
         });
+      } else if (this.result.code == 205) {
+        console.log("res", this.result);
+        this.search = '';
+        Swal.fire({title: 'El usuario no existe!',
+        text: 'Deberá registrarse en el sistema REPO',
+        icon: 'warning',
+      })
       } else {
         this.filter.emit();
         this.procesando = false;

@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit {
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
             //console.log('registro usuario login', res);
+            console.log('registro usuario login', res.code);
             if (res.code == 200) {
              // this.route.navigate(['/principal']);
               this.id = res.data;
@@ -115,7 +116,7 @@ export class LoginComponent implements OnInit {
               Swal.fire({
                 icon: 'error',
                 title: 'Alerta...',
-                text: 'Por favor, verifique los datos ingresados!',
+                text: 'Usted no se encuentra registrado en el Sistema RePO',
               })
             } else {
               this.cuit = undefined;
