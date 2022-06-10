@@ -113,6 +113,8 @@ export class LoginComponent implements OnInit {
               //console.log("data:", this.id)
               this.login2();
             } else if(res.code == 204){
+              this.cuit = "";
+              this.pass = "";
               Swal.fire({
                 icon: 'error',
                 title: 'Alerta...',

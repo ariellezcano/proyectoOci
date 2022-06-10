@@ -67,7 +67,8 @@ export class UsuariosOciService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .post(this.api + '/', evento, { headers: this.other_header })
+      .post(this.api + '/', evento, 
+      { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         console.log(err);
