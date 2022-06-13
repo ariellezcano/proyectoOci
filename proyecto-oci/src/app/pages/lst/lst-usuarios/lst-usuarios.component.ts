@@ -36,6 +36,7 @@ export class LstUsuariosComponent implements OnInit {
   TipoUsuario!: string;
 
   entidad = 'lst-usuarios';
+  nombreUsu= ""
 
   constructor(private wsdl: UsuariosOciService, private wsdlRegistro: RegistroUsuarioService, private router: Router) {
     this.load = false;
@@ -44,7 +45,7 @@ export class LstUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+   this.nombreUsu = JSON.parse(''+ UturuncoUtils.getSession("personal")).nombre;
   }
 
   preDelete(item: UsuarioOci) {

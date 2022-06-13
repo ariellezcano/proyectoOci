@@ -41,7 +41,7 @@
             <td>
               <ng-container
                 *ngIf="
-                  item.datosPersonal.tipoPersona == 'Personal Civil';
+                  item.datosPersonal.tipoPersona == 'Personal Civil' && item.datosPersonal.nombre != nombreUsu;
                   then thenTemplate;
                   else elseTemplate
                 "
@@ -75,6 +75,7 @@
               </ng-template>
               <ng-template #elseTemplate>
                 <button
+                *ngIf="item.datosPersonal.nombre != nombreUsu"
                   (click)="preDelete(item)"
                   type="button"
                   title="Inhabilitar Usuario"
