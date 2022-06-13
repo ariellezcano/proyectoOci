@@ -53,9 +53,8 @@ export class FilUsuariosComponent implements OnInit {
       }
       let data = await this.wsdl.doFindDni(this.crit).then();
       this.result = JSON.parse(JSON.stringify(data));
-      console.log("result dni", this.result)
       if (this.result.code == 200) {
-        //console.log("res", this.result);
+        //console.log("result dni", this.result.data.id)
         this.id = this.result.data.id;
        // console.log('registro de usuario', this.result);
         this.verificarUsuario();
@@ -98,10 +97,8 @@ export class FilUsuariosComponent implements OnInit {
   }
 
   async verificarUsuario() {
-    console.log('id', this.id);
     let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
-    //console.log('oci', result1.code);
     if (result1.code == 200) {
       this.item = result1.data;
       if (result1.data.baja) {
@@ -130,7 +127,7 @@ export class FilUsuariosComponent implements OnInit {
           },
         });
       }
-    } else if (result1.code == 401) {
+    } else if (result1.code == 204) {
       this.filter.emit(this.result.data);
       this.cargando = false;
       this.procesando = false;

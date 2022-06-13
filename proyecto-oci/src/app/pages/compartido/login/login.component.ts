@@ -106,20 +106,20 @@ export class LoginComponent implements OnInit {
             this.proccess = false;
             let res = JSON.parse(JSON.stringify(data));
             //console.log('registro usuario login', res);
-            console.log('registro usuario login', res.code);
+            //console.log('registro usuario login', res.code);
             if (res.code == 200) {
              // this.route.navigate(['/principal']);
               this.id = res.data;
               //console.log("data:", this.id)
               this.login2();
             } else if(res.code == 204){
-              this.cuit = "";
-              this.pass = "";
-              Swal.fire({
-                icon: 'error',
-                title: 'Alerta...',
-                text: 'Usted no se encuentra registrado en el Sistema RePO',
-              })
+                this.cuit = "";
+                this.pass = "";
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Alerta...',
+                  text: 'Usted no se encuentra registrado en el Sistema RePO',
+                })
             } else {
               this.cuit = undefined;
               Swal.fire('Alerta...', res.msg, 'error');

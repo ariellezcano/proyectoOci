@@ -135,8 +135,6 @@ export class AbmRegistroCivilComponent implements OnInit {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item.id, this.item).then();
       const result = JSON.parse(JSON.stringify(res));
-      //console.log("code ", result.code)
-      //console.log("code ", result)
       if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();

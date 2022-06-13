@@ -86,6 +86,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
   }
 
   doFound(event: UsuariosRegistro) {
+    //console.log('Personal Policial', event);
     this.proceso = true;
     //console.log('event', event);
     if (event.civil != null) {
@@ -100,7 +101,7 @@ export class AbmConsultaUsuarioComponent implements OnInit {
       this.dtOci.usuario = event.id;
     }
     if (event.persona != null) {
-      //console.log('Personal Policial', event);
+      
       this.dtOci.datosPersonal.tipoPersona = 'Personal Policial';
       this.dtOci.persona = event.persona.id;
       this.dtOci.datosPersonal.nombre = event.persona.nombre;
