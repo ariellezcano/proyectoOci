@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common';
 import { ComboSexoComponent } from './componentes/combo-sexo/combo-sexo.component';
 import { FilUsuarioOciComponent } from './filtros/fil-usuario-oci/fil-usuario-oci.component';
 import { AbmConsultaUsuarioComponent } from './component/abm/abm-consulta-usuario/abm-consulta-usuario.component';
+import { VerificacionComponent } from './compartido/verificacion/verificacion.component';
 @NgModule({
   declarations: [
     PagesComponent,

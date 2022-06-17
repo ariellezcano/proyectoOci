@@ -13,7 +13,6 @@ export const environment = {
   //URLCivil: 'https://policiadigital.chaco.gob.ar:9090/api_civil/',
   //URLRegBus: 'https://policiadigital.chaco.gob.ar:9090/api_registroUsuario/',
 
-
 };
 
 /*

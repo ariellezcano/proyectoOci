@@ -49,7 +49,23 @@ export class RegistroUsuarioService {
         };
       });
     }
-  
+    
+    doLoginId(id: any) {
+      this.other_header = UturuncoUtils.getHeader();
+      return this.http
+        .get(this.api + 'find/idLogin/'+ id,
+        { headers: this.other_header })
+        .toPromise()
+        .catch((err) => {
+          return {
+            code: 500,
+            data: err.message,
+            msg: 'Error en el servicio',
+          };
+        });
+      }
+
+
     patchSistemaHabilitados(id: any, nombre: any, url: any, activo: any){
     this.other_header = UturuncoUtils.getHeader();
     let body = {id: id,

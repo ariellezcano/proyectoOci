@@ -16,7 +16,10 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
-import { RegistroUsuarioService, UsuariosOciService } from 'src/app/servicios/index.service';
+import {
+  RegistroUsuarioService,
+  UsuariosOciService,
+} from 'src/app/servicios/index.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +62,6 @@ export class LoginComponent implements OnInit {
   public id!: number;
   public rol: any;
 
-
   public error: Boolean;
 
   datosPersonal!: any;
@@ -75,63 +77,61 @@ export class LoginComponent implements OnInit {
 
   public query!: string;
   public dataJSON: any;
+  public idparametro: any;
+  public loginrepo: boolean;
 
   constructor(
     private route_: ActivatedRoute,
     private route: Router,
     private renderer: Renderer2,
-    
     private wsdlUsuarioOci: UsuariosOciService,
-    private wsdlRegistro: RegistroUsuarioService,
-  
-    ) {
+    private wsdlRegistro: RegistroUsuarioService
+  ) {
     this.proccess = false;
     this.error = false;
     this.dataJSON = { contacto: { Nro: '' } };
+    this.loginrepo = true;
   }
-
-  ngAfterViewInit(): void {}
 
   ngOnInit() {
-
   }
 
-  
   async login() {
-      try {
-          if (this.cuit && this.pass)  {
-            this.proccess = true;
-            let data = await this.wsdlRegistro.getLogin(this.cuit, this.pass).then();
-            //console.log('res', data);
-            this.proccess = false;
-            let res = JSON.parse(JSON.stringify(data));
-            //console.log('registro usuario login', res);
-            //console.log('registro usuario login', res.code);
-            if (res.code == 200) {
-             // this.route.navigate(['/principal']);
-              this.id = res.data;
-              //console.log("data:", this.id)
-              this.login2();
-            } else if(res.code == 204){
-                this.cuit = "";
-                this.pass = "";
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Alerta...',
-                  text: 'Usted no se encuentra registrado en el Sistema RePO',
-                })
-            } else {
-              this.cuit = undefined;
-              Swal.fire('Alerta...', res.msg, 'error');
-            }
-          } else {
-            Swal.fire('Alerta...', 'Ingrese datos validos', 'warning');
-          }
-      } catch (error) {
+    try {
+      if (this.cuit && this.pass) {
+        this.proccess = true;
+        let data = await this.wsdlRegistro
+          .getLogin(this.cuit, this.pass)
+          .then();
+        //console.log('res', data);
         this.proccess = false;
-        Swal.fire('Oops...', '' + error, 'error');
+        let res = JSON.parse(JSON.stringify(data));
+        //console.log('registro usuario login', res);
+        //console.log('registro usuario login', res.code);
+        if (res.code == 200) {
+          // this.route.navigate(['/principal']);
+          this.id = res.data;
+          //console.log("data:", this.id)
+          this.login2();
+        } else if (res.code == 204) {
+          this.cuit = '';
+          this.pass = '';
+          Swal.fire({
+            icon: 'error',
+            title: 'Alerta...',
+            text: 'Usted no se encuentra registrado en el Sistema RePO',
+          });
+        } else {
+          this.cuit = undefined;
+          Swal.fire('Alerta...', res.msg, 'error');
+        }
+      } else {
+        Swal.fire('Alerta...', 'Ingrese datos validos', 'warning');
       }
-    
+    } catch (error) {
+      this.proccess = false;
+      Swal.fire('Oops...', '' + error, 'error');
+    }
   }
 
   async login2() {
@@ -142,9 +142,9 @@ export class LoginComponent implements OnInit {
       //console.log("respuesta login 2", res)
       if (res.code == 200) {
         //console.log('registro usuario login 2', res.code);
-        this.item = res.data
+        this.item = res.data;
         //console.log('item', this.item)
-        if(!this.item.baja && this.item.activo){
+        if (!this.item.baja && this.item.activo) {
           //console.log("baja verificar", this.item.baja)
           this.apellido = res.data.datosPersonal.apellido;
           this.nombre = res.data.datosPersonal.nombre;
@@ -153,7 +153,7 @@ export class LoginComponent implements OnInit {
             apellido: this.apellido,
             nombre: this.nombre,
             rol: this.rol,
-          }
+          };
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -163,26 +163,27 @@ export class LoginComponent implements OnInit {
           Toast.fire({
             icon: 'success',
             title: 'Bienvenido Sr/a: ' + res.data.datosPersonal.apellido,
-         });
+          });
           UturuncoUtils.setSession('user', JSON.stringify(res.data.id));
-          UturuncoUtils.setSession('personal', JSON.stringify(this.datosPersonal));
-          this.route.navigate(['/principal']);  
-        }
-        else{
+          UturuncoUtils.setSession(
+            'personal',
+            JSON.stringify(this.datosPersonal)
+          );
+          this.route.navigate(['/principal']);
+        } else {
           Swal.fire({
             icon: 'warning',
             title: 'Alerta...',
             text: 'Usuario dado de baja, contáctese con el administrador del sistema!',
-          })
+          });
         }
-      }else if(res.code == 401){
+      } else if (res.code == 401) {
         Swal.fire(
           'Usuario no habilitado',
           'Por favor contáctese con el administrador del sistema para generar su usuario',
           'info'
-        )
-      }
-       else {
+        );
+      } else {
         Swal.fire('Oops...', res.msg, 'error');
       }
       this.proccess = false;
