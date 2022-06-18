@@ -44,7 +44,7 @@ export class VerificacionComponent implements OnInit {
         this.id = res.data;
         this.login2();
       } else if (res.code == 204) {
-        //this.route.navigate(['']);
+        this.route.navigate(['']);
       } else {
       }
     } catch (error) {}
@@ -85,7 +85,7 @@ export class VerificacionComponent implements OnInit {
             'personal',
             JSON.stringify(this.datosPersonal)
           );
-          //this.route.navigate(['/dashboard']);
+          this.route.navigate(['/dashboard']);
         } else {
           Swal.fire({
             icon: 'warning',
