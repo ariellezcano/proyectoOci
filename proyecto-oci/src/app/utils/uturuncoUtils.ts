@@ -6,11 +6,12 @@ export class UturuncoUtils {
   public static TK = '';
 
   public static setSession(key: string, data: string) {
-    localStorage.setItem(key, data);
+    sessionStorage.setItem('estaLogueado', '1');
+    sessionStorage.setItem(key, data);
   }
 
   public static getSession(key: any) {
-    return localStorage.getItem(key);
+    return sessionStorage.getItem(key);
   }
 
   public static getToken() {
@@ -120,5 +121,13 @@ export class UturuncoUtils {
   }
   static delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  public static autenticacion() {
+    try {
+      return parseInt(sessionStorage.getItem('estaLogueado')!) == 1;
+    } catch (error) {
+      return false;
+    }
   }
 }

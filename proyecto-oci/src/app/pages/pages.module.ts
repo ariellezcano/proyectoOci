@@ -53,7 +53,7 @@ import { VerificacionComponent } from './compartido/verificacion/verificacion.co
     FilUsuariosComponent,
     ComboSexoComponent,
     FilUsuarioOciComponent,
-    AbmConsultaUsuarioComponent
+    AbmConsultaUsuarioComponent,
   ],
 
   exports: [],

@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../guads/auth.guard';
 import { AbmArchivoComponent } from './component/abm/abm-archivo/abm-archivo.component';
 import { AbmConsultaUsuarioComponent } from './component/abm/abm-consulta-usuario/abm-consulta-usuario.component';
 import { AbmExpedienteComponent } from './component/abm/abm-expediente/abm-expediente.component';
@@ -17,18 +19,19 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      { path: 'principal', component: PrincipalComponent },
-      //   { path: 'areas', component: TableroAreaComponent },
+      { path: '', component: PrincipalComponent, canActivate: [AuthGuard] },
       {
         path: 'lst-archivos',
         children: [
           {
             path: 'abm/:id',
             component: AbmArchivoComponent,
+            canActivate: [AuthGuard],
           },
           {
             path: '',
             component: LstArchivoComponent,
+            canActivate: [AuthGuard],
           },
         ],
       },
@@ -38,10 +41,12 @@ const routes: Routes = [
           {
             path: 'abm/:id',
             component: AbmTematicaComponent,
+            canActivate: [AuthGuard],
           },
           {
             path: '',
             component: LstTematicaComponent,
+            canActivate: [AuthGuard],
           },
         ],
       },
@@ -51,14 +56,17 @@ const routes: Routes = [
           {
             path: 'abm/:id',
             component: AbmExpedienteComponent,
+            canActivate: [AuthGuard],
           },
           {
             path: '',
             component: LstExpedienteComponent,
+            canActivate: [AuthGuard],
           },
           {
             path: 'abmArchivo/:id',
             component: AbmArchivoComponent,
+            canActivate: [AuthGuard],
           },
         ],
       },
@@ -68,10 +76,12 @@ const routes: Routes = [
           {
             path: 'abm/:id',
             component: AbmRegistroCivilComponent,
+            canActivate: [AuthGuard],
           },
           {
             path: '',
             component: LstUsuariosComponent,
+            canActivate: [AuthGuard],
           },
         ],
       },
@@ -81,8 +91,8 @@ const routes: Routes = [
           {
             path: 'abm',
             component: AbmConsultaUsuarioComponent,
+            canActivate: [AuthGuard],
           },
-          
         ],
       },
     ],
@@ -90,7 +100,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class PagesRoutingModule {}

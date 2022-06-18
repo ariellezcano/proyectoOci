@@ -27,7 +27,7 @@ export class VerificacionComponent implements OnInit {
     private _router: ActivatedRoute,
     private wsdlUsuarioOci: UsuariosOciService
   ) {
-    this.proccess = false;
+    this.proccess = true;
   }
 
   ngOnInit(): void {
@@ -36,18 +36,15 @@ export class VerificacionComponent implements OnInit {
   }
 
   async consultaRepo() {
-    alert(this.id);
     try {
-      this.proccess = true;
+      // this.proccess = true;
       let data = await this.wsdl.doLoginId(this.id).then();
-      console.log('consultarepo', data);
-      this.proccess = false;
       let res = JSON.parse(JSON.stringify(data));
       if (res.code == 200) {
         this.id = res.data;
         this.login2();
       } else if (res.code == 204) {
-        this.route.navigate(['']);
+        //this.route.navigate(['']);
       } else {
       }
     } catch (error) {}
@@ -55,11 +52,11 @@ export class VerificacionComponent implements OnInit {
 
   async login2() {
     try {
-      this.proccess = true;
       let data = await this.wsdlUsuarioOci.doFind(this.id).then();
       let res = JSON.parse(JSON.stringify(data));
       //console.log("respuesta login 2", res)
       if (res.code == 200) {
+        this.proccess = false;
         //console.log('registro usuario login 2', res.code);
         this.item = res.data;
         //console.log('item', this.item)
@@ -88,7 +85,7 @@ export class VerificacionComponent implements OnInit {
             'personal',
             JSON.stringify(this.datosPersonal)
           );
-          this.route.navigate(['/principal']);
+          //this.route.navigate(['/dashboard']);
         } else {
           Swal.fire({
             icon: 'warning',
