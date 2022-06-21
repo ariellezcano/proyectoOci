@@ -9,6 +9,8 @@ import { LoginComponent } from './pages/compartido/login/login.component';
 import { PagesModule } from './pages/pages.module';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { VerificacionComponent } from './pages/compartido/verificacion/verificacion.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, VerificacionComponent],
   imports: [
@@ -21,6 +23,7 @@ import { VerificacionComponent } from './pages/compartido/verificacion/verificac
     AutocompleteLibModule,
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import { UturuncoUtils } from 'src/app/utils/uturuncoUtils';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegistroUsuarioService {
   other_header: any;
@@ -19,12 +19,11 @@ export class RegistroUsuarioService {
 
   getLogin(usuario: string, password: string) {
     this.other_header = UturuncoUtils.getHeader();
-    let body = {usuario:usuario, clave:password};
+    let body = { usuario: usuario, clave: password };
     return this.http
-      .post(
-        this.api + 'find/loginSistemas', body,
-        { headers: this.other_header }
-      )
+      .post(this.api + 'find/loginSistemas', body, {
+        headers: this.other_header,
+      })
       .toPromise()
       .catch((err) => {
         return {
@@ -38,8 +37,9 @@ export class RegistroUsuarioService {
   doFindDni(dni: any) {
     this.other_header = UturuncoUtils.getHeader();
     return this.http
-      .post(this.api + 'find/usuarioSistema/'+ dni,
-      { headers: this.other_header })
+      .post(this.api + 'find/usuarioSistema/' + dni, {
+        headers: this.other_header,
+      })
       .toPromise()
       .catch((err) => {
         return {
@@ -48,40 +48,14 @@ export class RegistroUsuarioService {
           msg: 'Error en el servicio',
         };
       });
-    }
-    
-    doLoginId(id: any) {
-      this.other_header = UturuncoUtils.getHeader();
-      return this.http
-        .get(this.api + 'find/idLogin/'+ id,
-        { headers: this.other_header })
-        .toPromise()
-        .catch((err) => {
-          return {
-            code: 500,
-            data: err.message,
-            msg: 'Error en el servicio',
-          };
-        });
-      }
+  }
 
-
-    patchSistemaHabilitados(id: any, nombre: any, url: any, activo: any){
+  doLoginId(id: any) {
     this.other_header = UturuncoUtils.getHeader();
-    let body = {id: id,
-        sistemaHabilitados : {
-        nombre: nombre, url: url, activo: activo
-      }
-     };
-     console.log("body e", body)
     return this.http
-      .patch(
-        this.api + 'find/sistemaHabilitados/', body,
-        { headers: this.other_header }
-      )
+      .get(this.api + 'find/idLogin/' + id, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
-        console.log("body", this.api)
         return {
           code: 500,
           data: err.message,
@@ -90,4 +64,29 @@ export class RegistroUsuarioService {
       });
   }
 
+  patchSistemaHabilitados(id: any, nombre: any, url: any, activo: any) {
+    this.other_header = UturuncoUtils.getHeader();
+    let body = {
+      id: id,
+      sistemaHabilitados: {
+        nombre: nombre,
+        url: url,
+        activo: activo,
+      },
+    };
+    console.log('body e', body);
+    return this.http
+      .patch(this.api + 'find/sistemaHabilitados/', body, {
+        headers: this.other_header,
+      })
+      .toPromise()
+      .catch((err) => {
+        console.log('body', this.api);
+        return {
+          code: 500,
+          data: err.message,
+          msg: 'Error en el servicio',
+        };
+      });
   }
+}

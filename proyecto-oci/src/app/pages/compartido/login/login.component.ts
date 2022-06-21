@@ -93,8 +93,7 @@ export class LoginComponent implements OnInit {
     this.loginrepo = true;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async login() {
     try {
@@ -169,7 +168,7 @@ export class LoginComponent implements OnInit {
             'personal',
             JSON.stringify(this.datosPersonal)
           );
-          this.route.navigate(['/principal']);
+          this.route.navigate(['/dashboard']);
         } else {
           Swal.fire({
             icon: 'warning',
