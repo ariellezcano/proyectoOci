@@ -116,7 +116,7 @@ export class AbmExpedienteComponent implements OnInit {
       this.procesando = true;
       const res = await this.wsdl.doUpdate(this.item, this.item.id).then();
       const result = JSON.parse(JSON.stringify(res));
-     // console.log('resul', result);
+      // console.log('resul', result);
       if (result.code == 200) {
         UturuncoUtils.showToas('Se actualizó correctamente', 'success');
         this.back();
@@ -135,10 +135,12 @@ export class AbmExpedienteComponent implements OnInit {
   async doCreate() {
     try {
       this.procesando = true;
-      this.item.persona.id = JSON.parse(
-        '' + UturuncoUtils.getSession('user'));
+      this.item.persona.id = JSON.parse('' + UturuncoUtils.getSession('user'));
+      console.log('items enviados', this.item);
       const res = await this.wsdl.doInsert(this.item).then();
+      console.log('items insertados', res);
       const result = JSON.parse(JSON.stringify(res));
+      console.log('items parseados', result);
 
       if (result.code == 200) {
         UturuncoUtils.showToas('Se creó correctamente', 'success');
