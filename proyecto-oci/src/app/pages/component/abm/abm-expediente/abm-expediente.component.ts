@@ -136,11 +136,8 @@ export class AbmExpedienteComponent implements OnInit {
     try {
       this.procesando = true;
       this.item.persona.id = JSON.parse('' + UturuncoUtils.getSession('user'));
-      console.log('items enviados', this.item);
       const res = await this.wsdl.doInsert(this.item).then();
-      console.log('items insertados', res);
       const result = JSON.parse(JSON.stringify(res));
-      console.log('items parseados', result);
       if (result.code == 200) {
         UturuncoUtils.showToas('Se creó correctamente', 'success');
         this.procesando = false;
