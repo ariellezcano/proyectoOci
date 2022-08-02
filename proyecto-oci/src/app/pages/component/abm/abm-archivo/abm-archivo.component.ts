@@ -3,10 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, Subscriber } from 'rxjs';
 import {
   Archivo,
-  Expediente,
-  Persona,
-  Tematica,
-  Unidad,
+  Expediente
 } from 'src/app/modelos/index.models';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,7 +27,7 @@ export class AbmArchivoComponent implements OnInit {
   id!: number;
   item: Archivo;
   expediente!: Expediente;
-
+  btnInhabilitado: boolean;
   entity = 'lst-expediente';
 
   procesando!: Boolean;
@@ -44,6 +41,7 @@ export class AbmArchivoComponent implements OnInit {
   ) {
     this.item = new Archivo();
     this.expediente = new Expediente();
+    this.btnInhabilitado = false;
   }
 
   ngOnInit(): void {
@@ -67,6 +65,7 @@ export class AbmArchivoComponent implements OnInit {
         //editar
         this.doEdit();
       } else {
+        
         this.doCreate();
 
         //localStorage.setItem('b64', JSON.stringify(this.item));
@@ -133,12 +132,13 @@ export class AbmArchivoComponent implements OnInit {
 
   async doCreate() {
     try {
+      this.btnInhabilitado = true;
       this.procesando = true;
       this.item.expediente.id = this.id;
       const res = await this.wsdl.doInsert(this.item).then();
       const result = JSON.parse(JSON.stringify(res));
       if (result.code == 200) {
-        //this.item = result.status;
+        this.btnInhabilitado = false;
         UturuncoUtils.showToas('Se creó correctamente', 'success');
         this.back();
         this.finalizado.emit(true);

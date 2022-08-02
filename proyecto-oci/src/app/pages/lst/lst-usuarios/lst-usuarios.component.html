@@ -20,8 +20,33 @@
     </div>
     <br />
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-9">
         <app-fil-usuario-oci (filter)="doFound($event)"></app-fil-usuario-oci>
+      </div>
+      <div class="col-md-3">
+        <br>
+        <form ngNativeValidate #f="ngForm">
+          <div id="custom-search-input">
+            <div class="input-group col-md-12 mb-2">
+              <input
+                name="filtro"
+                [(ngModel)]="crit"
+                type="text"
+                class="search-query form-control"
+                placeholder="Buscar"
+              />
+              <span class="input-group-btn">
+                <button
+                  class="btn btn-danger"
+                  (click)="datoVista()"
+                  type="submit"
+                >
+                  <span class="fas fa-search"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <div>
@@ -41,7 +66,8 @@
             <td>
               <ng-container
                 *ngIf="
-                  item.datosPersonal.tipoPersona == 'Personal Civil' && item.datosPersonal.nombre != nombreUsu;
+                  item.datosPersonal.tipoPersona == 'Personal Civil' &&
+                    item.datosPersonal.nombre != nombreUsu;
                   then thenTemplate;
                   else elseTemplate
                 "
@@ -75,7 +101,7 @@
               </ng-template>
               <ng-template #elseTemplate>
                 <button
-                *ngIf="item.datosPersonal.nombre != nombreUsu"
+                  *ngIf="item.datosPersonal.nombre != nombreUsu"
                   (click)="preDelete(item)"
                   type="button"
                   title="Inhabilitar Usuario"
@@ -90,7 +116,9 @@
             <td>{{ item?.datosPersonal?.apellido }}</td>
             <td>{{ item?.datosPersonal?.nombre }}</td>
             <td>{{ item?.datosPersonal?.norDni }}</td>
-            <td class="text-primary"><b>{{item?.datosPersonal?.rol}}</b></td>
+            <td class="text-primary">
+              <b>{{ item?.datosPersonal?.rol }}</b>
+            </td>
             <td class="text-success">
               <b>{{ item?.datosPersonal?.tipoPersona }}</b>
             </td>

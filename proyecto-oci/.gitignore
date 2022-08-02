@@ -1,45 +1,14 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Ignora archivos del sistema Mac 
+.DS_store
 
-# compiled output
-/dist
-/tmp
-/out-tsc
-# Only exists if Bazel was run
-/bazel-out
+# Ignora la carpeta node_modules
+node_modules
 
-# dependencies
-/node_modules
+# Ignora todos los archivos de texto *.txt
 
-# profiling files
-chrome-profiler-events*.json
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# Ignora los archivos relacionados a API keys
+.env
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
-# System Files
-.DS_Store
-Thumbs.db
+# Ignora archivos de configuración SASS
+.sass-cache

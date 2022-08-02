@@ -32,29 +32,36 @@ export class VerificacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this._router.snapshot.params.id;
-    this.consultaRepo();
+    this.login2();
   }
 
-  async consultaRepo() {
-    try {
-      // this.proccess = true;
-      let data = await this.wsdl.doLoginId(this.id).then();
-      let res = JSON.parse(JSON.stringify(data));
-      if (res.code == 200) {
-        this.id = res.data;
-        this.login2();
-      } else if (res.code == 204) {
-        this.route.navigate(['']);
-      } else {
-      }
-    } catch (error) {}
-  }
+  // async consultaRepo() {
+  //   try {
+
+
+  //     let data = await this.wsdlUsuarioOci.doLoginId(this.id).then();
+
+  //     let res = JSON.parse(JSON.stringify(data));
+
+  //     if (res.code == 200) {
+  //       this.id = res.data;
+
+  //       //this.login2();
+  //     } else if (res.code == 204) {
+  //       this.route.navigate(['']);
+  //     } else {
+  //     }
+  //   } catch (error) { }
+  // }
 
   async login2() {
+    let nuevocifrado = this.id.replace("Pol_Repo", "");
+
     try {
-      let data = await this.wsdlUsuarioOci.doFind(this.id).then();
+      let data = await this.wsdlUsuarioOci.doLoginId(nuevocifrado).then();
+
       let res = JSON.parse(JSON.stringify(data));
-      //console.log("respuesta login 2", res)
+
       if (res.code == 200) {
         this.proccess = false;
         //console.log('registro usuario login 2', res.code);
@@ -99,8 +106,9 @@ export class VerificacionComponent implements OnInit {
           'Por favor contáctese con el administrador del sistema para generar su usuario',
           'info'
         );
-      } else {
-        Swal.fire('Oops...', res.msg, 'error');
+      } else if (res.code == 204) {
+        Swal.fire('fallo de vinculacion', ' se redirecciono al login', 'error');
+        this.route.navigate(['']);
       }
       this.proccess = false;
     } catch (error) {

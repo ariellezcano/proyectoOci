@@ -1,42 +1,27 @@
-
 export class LocalstorageService {
+  constructor() {}
 
+  public static setItem(key: string, data: string) {
+    try {
+      sessionStorage.setItem(key, data);
+    } catch (error) {}
+  }
 
-    constructor() { }
+  public static getItem(Key: string) {
+    try {
+      let data = sessionStorage.getItem(Key);
 
-
-    public static setItem(key: string, data: string) {
-        try {
-
-            sessionStorage.setItem(key, data);
-
-
-
-        } catch (error) {
-
-        }
+      return data;
+    } catch (error) {
+      return;
     }
+  }
 
-    public static getItem(Key: string) {
-        try {
-            let data = sessionStorage.getItem(Key);
-
-
-            return data;
-        } catch (error) {
-            return;
-        }
+  public static clearItem(key: string) {
+    try {
+      sessionStorage.removeItem(key);
+    } catch (error) {
+      console.log(error);
     }
-
-
-
-    public static clearItem(key: string) {
-        try {
-            sessionStorage.removeItem(key);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
+  }
 }

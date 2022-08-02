@@ -4,17 +4,18 @@
 
 export const environment = {
   production: false,
-  
+
   URLCivil: 'http://10.125.31.74/api_civil/',
+  //URL: 'http://10.125.31.10:8888/api_oci/',
   URL: 'http://10.125.31.74/api_oci/',
   URLRegBus: 'http://10.125.31.74/api_registroUsuario/',
-  
+
+
   //URL: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
   //URLCivil: 'https://policiadigital.chaco.gob.ar:9090/api_civil/',
   //URLRegBus: 'https://policiadigital.chaco.gob.ar:9090/api_registroUsuario/',
 
-};
-
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

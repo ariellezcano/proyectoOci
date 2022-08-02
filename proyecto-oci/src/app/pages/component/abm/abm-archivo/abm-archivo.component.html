@@ -53,12 +53,22 @@
     </div>
     <hr />
     <div class="form-group">
-      <input
+      <ng-container *ngIf="!btnInhabilitado; then thenTemplate; else elseTemplate"></ng-container>
+      <ng-template #thenTemplate>
+        <input
         type="submit"
         name="btn"
         value="Aceptar"
         class="btn btn-primary btn-lg btn-block float-left"
       />
+      </ng-template>
+      <ng-template #elseTemplate>
+        <button name="btn" class="btn btn-success btn-lg btn-block float-left" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Guardando... Por favor, Espere.
+        </button>
+      </ng-template>
+      
       &nbsp;
       <a (click)="back()" #cerrar class="btn btn-info btn-lg btn-block">
         <i class="fas fa-arrow-left"></i> Volver

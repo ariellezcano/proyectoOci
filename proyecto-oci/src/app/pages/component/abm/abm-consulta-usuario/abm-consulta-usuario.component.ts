@@ -43,19 +43,14 @@ export class AbmConsultaUsuarioComponent implements OnInit {
     if (this.rol == true) {
       this.dtOci.datosPersonal.rol = 'VISTA';
     }
-    //console.log('usuario', this.dtOci);
     try {
       let data = await this.wsdl.doInsert(this.dtOci).then();
       let res = JSON.parse(JSON.stringify(data));
       if (res.code == 200) {
         try {
           let data = await this.wsdlRegistro.patchSistemaHabilitados(this.dtOci.usuario, this.nombre, this.url, this.activo).then();
-          //console.log("res adata",data)
         } catch (error) {
-          //console.log("respuestaerror", error);
         }
-        //console.log("respuesta", res);
-
         Swal.fire({
           position: 'top-end',
           icon: 'success',

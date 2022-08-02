@@ -50,10 +50,10 @@ export class RegistroUsuarioService {
       });
   }
 
-  doLoginId(id: any) {
+  doLoginId(cifrado: any) {
     this.other_header = UturuncoUtils.getHeader();
     return this.http
-      .get(this.api + 'find/idLogin/' + id, { headers: this.other_header })
+      .post(this.api + 'find/idLogin/' + cifrado, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         return {

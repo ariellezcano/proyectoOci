@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Civil, UsuarioOci } from 'src/app/modelos/index.models';
@@ -25,27 +25,33 @@ export class LstUsuariosComponent implements OnInit {
   items: UsuarioOci[];
   item: UsuarioOci;
 
+  crit: any;
   procesando!: Boolean;
   public load!: boolean;
 
-  public nombre: string = "OCI";
-  public url: string = "https://policiadigital.chaco.gob.ar/oci/"
+  public nombre: string = 'OCI';
+  public url: string = 'https://policiadigital.chaco.gob.ar/oci/';
   public activoSistema: boolean = false;
-
 
   TipoUsuario!: string;
 
   entidad = 'lst-usuarios';
-  nombreUsu= ""
+  nombreUsu = '';
 
-  constructor(private wsdl: UsuariosOciService, private wsdlRegistro: RegistroUsuarioService, private router: Router) {
+  constructor(
+    private wsdl: UsuariosOciService,
+    private wsdlRegistro: RegistroUsuarioService,
+    private router: Router
+  ) {
     this.load = false;
     this.item = new UsuarioOci();
     this.items = [];
   }
 
   ngOnInit(): void {
-   this.nombreUsu = JSON.parse(''+ UturuncoUtils.getSession("personal")).nombre;
+    this.nombreUsu = JSON.parse(
+      '' + UturuncoUtils.getSession('personal')
+    ).nombre;
   }
 
   preDelete(item: UsuarioOci) {
@@ -72,7 +78,7 @@ export class LstUsuariosComponent implements OnInit {
 
   async delete() {
     try {
-      let date = new Date()
+      let date = new Date();
       this.procesando = true;
       this.item.baja = true;
       this.item.fechaBaja = moment(date).format('YYYY-MM-DD');
@@ -82,14 +88,21 @@ export class LstUsuariosComponent implements OnInit {
       const result = JSON.parse(JSON.stringify(res));
       if (result.code == 200) {
         try {
-          let data = await this.wsdlRegistro.patchSistemaHabilitados(this.item.usuario, this.nombre, this.url, this.activoSistema).then();
+          let data = await this.wsdlRegistro
+            .patchSistemaHabilitados(
+              this.item.usuario,
+              this.nombre,
+              this.url,
+              this.activoSistema
+            )
+            .then();
           let res = JSON.parse(JSON.stringify(data));
-          console.log("resultadoasa", result)
-          if(res.code == 200){
-            console.log("Personal inhabilitado");    
+          console.log('resultadoasa', result);
+          if (res.code == 200) {
+            console.log('Personal inhabilitado');
           }
         } catch (error) {
-          console.log("respuestaerror", error);
+          console.log('respuestaerror', error);
         }
         UturuncoUtils.showToas(result.msg, 'success');
         this.cancel();
@@ -129,32 +142,28 @@ export class LstUsuariosComponent implements OnInit {
     this.router.navigateByUrl('/busqueda-usuario/abm');
   }
 
-  colores(valor: any) {
-    let color = '';
-    switch (valor) {
-      case "MANAGER":
-        color = 'text-success';
-        break;
-      case "ADMINISTRADOR":
-        color = 'text-light';
-        break;
-      case "VISTA":
-        color = 't-violeta';
-        break;
-      default:
-        color = 't-default';
-        break;
-    }
-    return color;
+
+ public doFound(event: UsuarioOci[]) {
+  this.items = event;
   }
 
-  doFound(event: UsuarioOci[]) { 
-    this.items = [];  
-    event.forEach(element => {
-      if(!element.baja){
-        this.items.push(element);
+  datoVista() {
+    let bandera = false;
+    if (this.crit != "" && this.crit != undefined) {
+      this.items.forEach((element) => {
+        if (element.datosPersonal.norDni == this.crit) {
+          this.crit="";
+          bandera = true;
+          this.items = [];
+          this.items.push(element);
+        }
+      });
+      if(!bandera){
+        alert("No existe dato")
       }
-    });
+    }else {
+      this.fil.list();
+    }
   }
 
   tipoUsuario(item: UsuarioOci) {
@@ -166,6 +175,4 @@ export class LstUsuariosComponent implements OnInit {
     }
     return this.TipoUsuario;
   }
-
-   
 }

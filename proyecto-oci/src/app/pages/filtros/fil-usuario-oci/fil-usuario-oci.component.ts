@@ -13,17 +13,17 @@ export class FilUsuarioOciComponent implements OnInit {
   @Output()
   filter: EventEmitter<UsuarioOci[]> = new EventEmitter<UsuarioOci[]>();
 
+  items: UsuarioOci[];
+  itemss: UsuarioOci[];
   cargando: Boolean = false;
   procesando: Boolean;
-  public search!: String;
-  public oldSearch!: String;
-
+  public search!: string;
   /* Searcheable table Filter */
   public limit: any;
   public page: any;
   public nextPage!: Number;
   public prevPage: any;
-
+  public data: any
   public lastPage!: Number;
   public count!: Number;
   public limits: Number[] = [5, 10, 25, 50, 100, 150, 200, 500, 1000];
@@ -37,6 +37,7 @@ export class FilUsuarioOciComponent implements OnInit {
     this.procesando = false;
     this.limit = 5;
     this.page = 1;
+    this.items = [];
   }
 
   ngOnInit() {
@@ -45,29 +46,29 @@ export class FilUsuarioOciComponent implements OnInit {
 
   public async list() {
     try {
-      this.cargando = true;
-      this.procesando = true;
-      if (this.search === undefined) {
-        this.search = '';
+      this.items = [];
+      this.itemss = [];
+      if (this.search === undefined || this.search == "") {
+        this.cargando = true;
+        this.procesando = true;
+        let d = this.search;
+        if (d) {
+          this.limit = 5;
+          this.page = 1;
+          this.search = '';        }
+          this.data = await this.wsdl.getList().then();
+          console.log("data enviada", this.data)
       }
-      let d = this.oldSearch !== this.search;
-      if (d) {
-        this.limit = 5;
-        this.page = 1;
-        this.oldSearch = this.search;
-      }
-
-      let c = this.search;
-      // criteria, one, populate, sort, page, limit
-      const crit = this.search + '';
-
-      let data = await this.wsdl
-        .getList()
-        .then();
-      const result = JSON.parse(JSON.stringify(data));
-      //console.log(result);
+      const result = JSON.parse(JSON.stringify(this.data));
+      console.log(result);
       if (result.code == 200) {
-        this.filter.emit(result.data.docs);
+        this.itemss=result.data.docs
+        this.itemss.forEach((element) => {
+          if (!element.baja) {
+            this.items.push(element);
+          }
+        });
+        this.filter.emit(this.items);
         this.page = parseInt(result.data.paginate.page);
         this.lastPage = parseInt(result.data.paginate.lastPage);
         this.nextPage = parseInt(result.data.paginate.nextPage);
@@ -75,8 +76,6 @@ export class FilUsuarioOciComponent implements OnInit {
         this.count = parseInt(result.data.paginate.count);
         this.cargando = false;
         this.procesando = false;
-      } else if (result.status == 666) {
-        // logout app o refresh token
       } else {
         this.filter.emit([]);
         //console.log(result.msg);
@@ -92,5 +91,4 @@ export class FilUsuarioOciComponent implements OnInit {
       this.cargando = false;
     }
   }
-
 }

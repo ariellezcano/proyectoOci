@@ -54,9 +54,7 @@ export class FilUsuariosComponent implements OnInit {
       let data = await this.wsdl.doFindDni(this.crit).then();
       this.result = JSON.parse(JSON.stringify(data));
       if (this.result.code == 200) {
-        //console.log("result dni", this.result.data.id)
         this.id = this.result.data.id;
-       // console.log('registro de usuario', this.result);
         this.verificarUsuario();
       }  else if (this.result.code == 204) {
         Swal.fire({
@@ -74,7 +72,6 @@ export class FilUsuariosComponent implements OnInit {
           }
         });
       } else if (this.result.code == 205) {
-        console.log("res", this.result);
         this.search = '';
         Swal.fire({title: 'El usuario no existe!',
         text: 'Deberá registrarse en el sistema REPO',
@@ -97,7 +94,7 @@ export class FilUsuariosComponent implements OnInit {
   }
 
   async verificarUsuario() {
-    let data1 = await this.wsdlUsuarioOci.doFind(this.id).then();
+    let data1 = await this.wsdlUsuarioOci.doFindUsuarioOci(this.id).then();
     const result1 = JSON.parse(JSON.stringify(data1));
     if (result1.code == 200) {
       this.item = result1.data;
@@ -127,7 +124,7 @@ export class FilUsuariosComponent implements OnInit {
           },
         });
       }
-    } else if (result1.code == 204) {
+    } else if (result1.code == 401) {
       this.filter.emit(this.result.data);
       this.cargando = false;
       this.procesando = false;

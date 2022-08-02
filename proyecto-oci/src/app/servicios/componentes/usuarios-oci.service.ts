@@ -13,7 +13,7 @@ export class UsuariosOciService {
   constructor(private http: HttpClient) {
     this.api = environment.URL + 'usuariosOci';
   }
-  
+
   getList() {
     this.other_header = UturuncoUtils.getHeader();
 
@@ -30,7 +30,19 @@ export class UsuariosOciService {
         };
       });
   }
-
+  doLoginId(cifrado: any) {
+    this.other_header = UturuncoUtils.getHeader();
+    return this.http
+      .get(this.api + '/find/idUserOci/' + cifrado, { headers: this.other_header })
+      .toPromise()
+      .catch((err) => {
+        return {
+          code: 500,
+          data: err.message,
+          msg: 'Error en el servicio',
+        };
+      });
+  }
   getCriteria(criteria: string, page: number, limit: number) {
     this.other_header = UturuncoUtils.getHeader();
     return this.http
@@ -52,7 +64,23 @@ export class UsuariosOciService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .get(this.api + '/find/idUserOci/' + id, { headers: this.other_header })
+      .get(this.api + '/' + id, { headers: this.other_header })
+      .toPromise()
+      .catch((err) => {
+        return {
+          code: 500,
+          data: err.message,
+          msg: 'Error en el servicio',
+        };
+      });
+  }
+
+
+  doFindUsuarioOci(id: any) {
+    this.other_header = UturuncoUtils.getHeader();
+
+    return this.http
+      .get(this.api + '/find/idLogin/' + id, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         return {
@@ -67,8 +95,8 @@ export class UsuariosOciService {
     this.other_header = UturuncoUtils.getHeader();
 
     return this.http
-      .post(this.api + '/', evento, 
-      { headers: this.other_header })
+      .post(this.api + '/', evento,
+        { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         console.log(err);
